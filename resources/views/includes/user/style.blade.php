@@ -1,0 +1,1 @@
+<link rel="stylesheet" href="{{ url('user_assets/css/bootstrap.css') }}">
