@@ -23,8 +23,15 @@ Route::get('/blogs', 'HomeController@blogs')
 Route::get('/blogs_2', 'HomeController@blogs_2')
         ->name('blogs_2');
 
-Route::namespace('Admin')->group(function() {
-                Route::get('/admin', 'DashboardController@index')
+Route::prefix('admin')
+        ->namespace('Admin')
+        ->middleware(['auth', 'admin'])
+        ->group(function() {
+                Route::get('/', 'DashboardController@index')
                         ->name('dashboard');
         });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
