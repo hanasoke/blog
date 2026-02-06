@@ -29,6 +29,7 @@
             <div id="content">
 
                 @include('includes.admin.navbar')
+                @yield('content')
 
             </div>
             <!-- End of Main Content -->
@@ -65,6 +66,8 @@
             </div>
         </div>
     </div>
+
+    @include('includes.admin.script')
 
 </body>
 
