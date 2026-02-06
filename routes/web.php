@@ -17,6 +17,12 @@ Route::get('/', 'HomeController@index')
 Route::get('/test', 'HomeController@test')
         ->name('test');
 
+Route::get('/blogs', 'HomeController@blogs')
+        ->name('blogs');
+
+Route::get('/blogs_2', 'HomeController@blogs_2')
+        ->name('blogs_2');
+
 Route::namespace('Admin')->group(function() {
                 Route::get('/admin', 'DashboardController@index')
                         ->name('dashboard');
