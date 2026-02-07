@@ -42,7 +42,15 @@
                     {{ __('Login')}}
                   </button>
                 </form>
-                <p class="text-center mt-3 mb-0">
+                <p class="text-center mt-2 mb-0">
+                    @if(Route::has('password.request'))
+                        {{ __('Forgot Your Password?') }}
+                      <a href="{{ route('password.request') }}" class="text-decoration-none fw-semibold">
+                        Click Here
+                      </a>
+                    @endif 
+                </p>
+                <p class="text-center mt-1 mb-0">
                     Don’t have an account?
                     <a href="{{ url('register') }}" class="text-decoration-none fw-semibold">Sign up for free</a>
                 </p>
