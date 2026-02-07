@@ -22,6 +22,15 @@
             </div>
 
             <div class="col-md-6">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control" placeholder="enter...">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" placeholder="enter...">
+            </div>
+
+            <div class="col-md-6">
               <label class="form-label">Date of Birth</label>
               <input type="date" class="form-control">
             </div>
@@ -31,29 +40,8 @@
             </div>
 
             <div class="col-md-6">
-              <label class="form-label">Nationality</label>
-              <select class="form-select">
-                <option>Indonesia</option>
-                <option>Brazil</option>
-                <option>USA</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">ID Type</label>
-              <select class="form-select">
-                <option selected disabled>Select</option>
-                <option>KTP</option>
-                <option>Passport</option>
-              </select>
-            </div>
-
-            <div class="col-md-6">
-              <label class="form-label">Password</label>
-              <input type="password" class="form-control" placeholder="enter...">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Confirm Password</label>
-              <input type="password" class="form-control" placeholder="enter...">
+              <label class="form-label">Photo</label>
+              <input type="file" class="form-control" placeholder="Input Your Photo">
             </div>
           </div>
 

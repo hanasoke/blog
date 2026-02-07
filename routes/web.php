@@ -14,6 +14,9 @@
 Route::get('/', 'HomeController@index')
         ->name('home');
 
+Route::get('/user_page', 'HomeController@blogs')
+        ->name('blogs');
+
 Route::get('/test', 'HomeController@test')
         ->name('test');
 
