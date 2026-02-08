@@ -13,21 +13,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.user.home');
-    }
-
-    public function test()
-    {
-        return view('pages.test');
-    }
-
-    public function blogs()
-    {
         return view('pages.blogs');
-    }
-
-    public function blogs_2()
-    {
-        return view('pages.blogs_2');
     }
 }

@@ -17,15 +17,6 @@ Route::get('/', 'HomeController@index')
 Route::get('/user_page', 'HomeController@blogs')
         ->name('blogs');
 
-Route::get('/test', 'HomeController@test')
-        ->name('test');
-
-Route::get('/blogs', 'HomeController@blogs')
-        ->name('blogs');
-
-Route::get('/blogs_2', 'HomeController@blogs_2')
-        ->name('blogs_2');
-
 Route::prefix('admin')
         ->namespace('Admin')
         ->middleware(['auth', 'admin'])

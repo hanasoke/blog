@@ -6,7 +6,8 @@
     <title>@yield('title')</title>
 
     @stack('prepend-style')
-    @include('includes.user.style')
+      @include('includes.user.style')
+      @include('includes.user.style-blogs')
     @stack('addon-style')
   </head>
   <body>
