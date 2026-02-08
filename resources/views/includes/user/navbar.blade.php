@@ -12,7 +12,7 @@
         <li class="nav-item"><a class="nav-link" href="#">Products</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Solutions</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
-        <li class="nav-item"><a class="btn btn-outline-light rounded-pill px-4" href="#">Login</a></li>
+        <li class="nav-item"><a class="btn btn-outline-light rounded-pill px-4" href="{{ url('login') }}">Login</a></li>
       </ul>
     </div>
   </div>
