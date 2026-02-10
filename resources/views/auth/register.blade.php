@@ -35,15 +35,15 @@
               <input type="date" name="birthdate" class="form-control">
             </div>
 
-            <!-- <div class="col-md-6">
+            <div class="col-md-6">
               <label class="form-label">Phone Number</label>
               <input type="text" class="form-control" placeholder="+62 812 xxxx">
-            </div> -->
+            </div>
 
-            <!-- <div class="col-md-6">
+            <div class="col-md-6">
               <label class="form-label">Photo</label>
               <input type="file" name="photo" class="form-control" placeholder="Input Your Photo">
-            </div> -->
+            </div>
           </div>
 
           <div class="d-flex gap-2 mt-4">
