@@ -12,8 +12,9 @@
 */
 
 Route::get('/', 'HomeController@index')
-        ->middleware(['auth', 'verified'])
-        ->name('home');
+    ->middleware(['auth', 'verified'])
+    ->name('home');
+
 
 Route::get('/user_page', 'HomeController@blogs')
         ->name('blogs');
@@ -26,7 +27,13 @@ Route::prefix('admin')
                         ->name('dashboard');
         });
 
+// Routes authentication dengan verifikasi email
+Auth::routes(['verify' => true]);
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+// Route untuk resend verification email
+Route::get('/email/verify', 'Auth\VerificationController@show')
+    ->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')
+    ->name('verification.verify');
+Route::post('/email/resend', 'Auth\VerificationController@resend')
+    ->name('verification.resend');

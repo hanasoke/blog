@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.sign.template')
 
 @section('content')
 <div class="container">

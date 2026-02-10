@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -51,10 +51,27 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'birthdate' => ['nullable', 'date'],
+            'birthdate' => ['required', 'date'],
+            'phone' => ['required', 'string', 'max:20'],
+            'photo' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+        ], [
+            'name.required' => 'Full Name Cannot be Null',
+            'name.unique' => 'Full Name Already Exists',
+            'username.required' => 'Username Cannot be Null',
+            'username.unique' => 'Username Already Exists',
+            'email.required' => 'Email Cannot be Null',
+            'email.unique' => 'Email Already Exists',
+            'password.required' => 'Password Cannot be Null',
+            'birthdate.required' => 'Date of Birth Cannot be Null',
+            'phone.required' => 'Phone Cannot be Null',
+            'photo.required' => 'Photo Cannot be Null',
+            'photo.image' => 'File must be an image',
+            'photo.mimes' => 'Image must be jpeg, png, jpg, or gif',
+            'photo.max' => 'Image size cannot exceed 2MB',
         ]);
     }
 
@@ -66,19 +83,34 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // Upload foto
+        if (request()->hasFile('photo')) {
+            $photoPath = request()->file('photo')->store('profile-photos', 'public');
+        } else {
+            $photoPath = 'profile-photos/default.png';
+        }
+
+
         return User::create([
             'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'birthdate' => $data['birthdate'] ?? null,
+            'birthdate' => $data['birthdate'],
+            'phone' => $data['phone'],
+            'photo' => $photoPath,
+            'email_verified_at' => null, // Pastikan belum terverifikasi 
         ]);
     }
 
-    protected function registered(Request $request, $user)
+    protected function register(Request $request) 
     {
-        event(new Registered($user));
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
 
-        return redirect()->route('login')
-            ->with('status', 'Silakan cek email untuk verifikasi akun.');
+        // Kirim email verifikasi
+        $user->sendEmailVerificationNotification();
+        return redirect($this->redirectPath())
+            ->with('status', 'Registration successful! Please check your email for verification link.');
     }
 }
