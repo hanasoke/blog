@@ -37,7 +37,7 @@
 
             <div class="col-md-6">
               <label class="form-label">Phone Number</label>
-              <input type="text" class="form-control" placeholder="+62 812 xxxx">
+              <input type="text" name="phone" class="form-control" id="phoneNumber">
             </div>
 
             <div class="col-md-6">
@@ -61,4 +61,29 @@
 
   </div>
 </div>
+@push('addon-script')
+  <script>
+    $(document).ready(function() {
+      $('#phoneNumber').on('keypress', function(e) {
+        // Hanya izinkan karakter angka (0-9)
+        var charCode = (e.which) ? e.which : e.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+          return false;
+        }
+        return true;
+      });
+      
+      $('#phoneNumber').on('paste', function(e) {
+        e.preventDefault();
+        var pastedData = e.originalEvent.clipboardData.getData('text');
+        var numbersOnly = pastedData.replace(/\D/g, '');
+        $(this).val(numbersOnly);
+      });
+      
+      $('#phoneNumber').on('input', function() {
+        $(this).val($(this).val().replace(/\D/g, ''));
+      });
+    });
+  </script>
+@endpush
 @endsection

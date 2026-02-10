@@ -11,8 +11,8 @@
   </head>
   <body>
     @yield('content')
-    @stack('prepend-style')
+    @stack('prepend-script')
         @include('includes.sign.script')
-    @stack('addon-style')
+    @stack('addon-script')
   </body>
 </html>
