@@ -99,6 +99,8 @@ class RegisterController extends Controller
             'birthdate' => $data['birthdate'],
             'phone' => $data['phone'],
             'photo' => $photoPath,
+            'roles' => 'USER',
+            'access' => 'FREE',
             'email_verified_at' => null, // Pastikan belum terverifikasi 
         ]);
     }
