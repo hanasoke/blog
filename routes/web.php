@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index')
+        ->middleware(['auth', 'verified'])
         ->name('home');
 
 Route::get('/user_page', 'HomeController@blogs')
