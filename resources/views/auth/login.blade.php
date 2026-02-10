@@ -9,6 +9,11 @@
                 <h3 class="fw-bold mb-1 text-center">Welcome back</h3>
                 <p class="text-muted mb-4 text-center">Login to your account</p>
 
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>Success</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
                 <form method="POST" action="{{ route('login') }}">
                   <div class="mb-3">
                       <label for="email" class="form-label">{{ __('E-mail Address') }}</label>
