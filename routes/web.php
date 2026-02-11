@@ -11,12 +11,20 @@
 |
 */
 
+Auth::routes(['verify' => true]);
+
 Route::get('/', 'HomeController@index')
-    ->name('home');
+        // ->middleware(['auth', 'verified'])
+        ->name('home');
 
 
-Route::get('/user_page', 'HomeController@blogs')
-        ->name('blogs');
+Route::prefix('user')
+        ->namespace('User')
+        ->middleware(['auth', 'verified'])
+        ->group(function() {
+                Route::get('/home', 'DashboardController@index')
+                        ->name('dashboard');
+        });
 
 Route::prefix('admin')
         ->namespace('Admin')
