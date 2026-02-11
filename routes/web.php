@@ -37,4 +37,7 @@ Route::prefix('register')
         ->group(function() {
                 Route::get('/', 'RegisterController@index')
                         ->name('register');
+
+                Route::get('/verification', 'RegisterController@verification')
+                        ->name('verification');
         });

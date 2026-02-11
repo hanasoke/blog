@@ -38,7 +38,7 @@
             
             <div class="col-md-6">
               <label class="form-label" for="password">Password</label>
-              <input type="password" name="password" id="password" class="form-control is-invalid" value="#">
+              <input type="password" name="password" id="password" class="form-control is-invalid"  value="#">
               <div class="invalid-feedback">
                   Error 
                 </div>
@@ -84,7 +84,7 @@
           
           <p class="text-center mt-3 mb-0">
             Already have an account?
-            <a href="{{ route('login') }}" class="text-decoration-none fw-semibold">Login</a>
+            <a href="{{ route('verification') }}" class="text-decoration-none fw-semibold">Verification</a>
           </p>
         </form>
       </div>
