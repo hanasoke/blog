@@ -46,10 +46,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'birthdate' => 'date',
     ];
-
-    // Customize email verification notification(optional)
-    public function sendEmailVerificationNotification()
-    {
-        $this->notify(new \App\Notifications\CustomerVerifyEmail);
-    }
 }
