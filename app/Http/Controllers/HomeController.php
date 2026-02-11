@@ -15,4 +15,9 @@ class HomeController extends Controller
     {
         return view('pages.blogs');
     }
+
+    public function blogs()
+    {
+        return view('pages.blogs_2');
+    }
 }
