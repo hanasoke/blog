@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <div class="row g-4 justify-content-center">
         <!-- LOGIN -->
-        <div class="col-md-5">
+        <div class="col-md-8">
             <div class="card auth-card p-4 h-100">
                 <h3 class="fw-bold mb-1 text-center">Welcome back</h3>
                 <p class="text-muted mb-4 text-center">Login to your account</p>
@@ -50,7 +50,7 @@
                 <p class="text-center mt-2 mb-0">
                     @if(Route::has('password.request'))
                         {{ __('Forgot Your Password?') }}
-                      <a href="{{ route('password.request') }}" class="text-decoration-none fw-semibold">
+                      <a href="#" class="text-decoration-none fw-semibold">
                         Click Here
                       </a>
                     @endif 
