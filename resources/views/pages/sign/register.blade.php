@@ -14,7 +14,7 @@
           <div class="row g-3">
             <div class="col-md-6">
               <label class="form-label" for="name">Full Name</label>
-              <input type="text" name="name" id="name" class="form-control is-invalid" value="#">
+              <input type="text" name="name" id="name" class="form-control is-invalid" value="">
                 <div class="invalid-feedback">
                   Error 
                 </div>
@@ -22,7 +22,7 @@
             
             <div class="col-md-6">
               <label class="form-label" for="username">Username</label>
-              <input type="text" name="username" id="username" class="form-control is-invalid" value="#">
+              <input type="text" name="username" id="username" class="form-control is-invalid" value="">
               <div class="invalid-feedback">
                 Error 
               </div>
@@ -30,7 +30,7 @@
             
             <div class="col-md-6">
               <label class="form-label" for="email">Email</label>
-              <input type="email" name="email" id="email" class="form-control is-invalid" value="#">
+              <input type="email" name="email" id="email" class="form-control is-invalid" value="">
               <div class="invalid-feedback">
                 Error 
               </div>
@@ -38,7 +38,7 @@
             
             <div class="col-md-6">
               <label class="form-label" for="password">Password</label>
-              <input type="password" name="password" id="password" class="form-control is-invalid"  value="#">
+              <input type="password" name="password" id="password" class="form-control is-invalid"  value="">
               <div class="invalid-feedback">
                   Error 
                 </div>
@@ -46,7 +46,7 @@
             
             <div class="col-md-6">
               <label class="form-label" for="birthdate">Date of Birth</label>
-              <input type="date" name="birthdate" id="birthdate" class="form-control is-invalid" value="#">
+              <input type="date" name="birthdate" id="birthdate" class="form-control is-invalid" value="">
               <div class="invalid-feedback">
                   Error 
                 </div>
@@ -54,7 +54,7 @@
             
             <div class="col-md-6">
               <label class="form-label" for="phone">Phone Number</label>
-              <input type="text" name="phone" id="phone" class="form-control is-invalid" value="#">
+              <input type="text" name="phone" id="phone" class="form-control is-invalid" value="">
             </div>
             
             <div class="col-md-6">
@@ -69,12 +69,12 @@
           
           <div class="d-flex gap-2 mt-4">
             <a href="{{ route('login') }}" class="btn btn-light w-50">Cancel</a>
-            <button type="submit" class="btn btn-primary w-50">Register</button>
+            <a href="{{ route('verification') }}" class="btn btn-primary w-50">Register</a>
           </div>
           
           <p class="text-center mt-3 mb-0">
             Already have an account?
-            <a href="{{ route('verification') }}" class="text-decoration-none fw-semibold">Verification</a>
+            <a href="{{ route('login') }}" class="text-decoration-none fw-semibold">Verification</a>
           </p>
         </form>
       </div>
