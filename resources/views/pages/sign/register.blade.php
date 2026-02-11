@@ -67,16 +67,6 @@
             </div>
           </div>
           
-          <div class="form-check mt-3">
-            <input class="form-check-input is-invalid" type="checkbox" name="terms" id="terms">
-            <label class="form-check-label" for="terms">
-              I agree to the <a href="#">Terms and Conditions</a>
-            </label>
-            <div class="invalid-feedback">
-              Error 
-            </div>
-          </div>
-          
           <div class="d-flex gap-2 mt-4">
             <a href="{{ route('login') }}" class="btn btn-light w-50">Cancel</a>
             <button type="submit" class="btn btn-primary w-50">Register</button>
@@ -124,11 +114,6 @@ $(document).ready(function() {
     var m = today.getMonth() - birthdate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
       age--;
-    }
-    
-    if (age < 13) {
-      alert('You must be at least 13 years old to register.');
-      $(this).val('');
     }
   });
 });
