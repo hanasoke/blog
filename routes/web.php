@@ -25,3 +25,16 @@ Route::prefix('admin')
                         ->name('dashboard');
         });
 
+Route::prefix('login')
+        ->namespace('Sign')
+        ->group(function() {
+                Route::get('/', 'LoginController@index')
+                        ->name('login');
+        });
+
+Route::prefix('register')
+        ->namespace('Sign')
+        ->group(function() {
+                Route::get('/', 'RegisterController@index')
+                        ->name('register');
+        });

@@ -8,103 +8,73 @@
         <h3 class="fw-bold mb-1">Sign up</h3>
         <p class="text-muted mb-4">Enter your details below to create your account</p>
 
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
-
         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" id="registerForm">
           @csrf
           
           <div class="row g-3">
             <div class="col-md-6">
               <label class="form-label" for="name">Full Name</label>
-              <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
-              @error('name')
+              <input type="text" name="name" id="name" class="form-control is-invalid" value="#">
                 <div class="invalid-feedback">
-                  {{ $message }}
+                  Error 
                 </div>
-              @enderror
             </div>
             
             <div class="col-md-6">
               <label class="form-label" for="username">Username</label>
-              <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}">
-              @error('username')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
+              <input type="text" name="username" id="username" class="form-control is-invalid" value="#">
+              <div class="invalid-feedback">
+                Error 
+              </div>
             </div>
             
             <div class="col-md-6">
               <label class="form-label" for="email">Email</label>
-              <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
-              @error('email')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
+              <input type="email" name="email" id="email" class="form-control is-invalid" value="#">
+              <div class="invalid-feedback">
+                Error 
+              </div>
             </div>
             
             <div class="col-md-6">
               <label class="form-label" for="password">Password</label>
-              <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
-              @error('password')
-                <div class="invalid-feedback">
-                  {{ $message }}
+              <input type="password" name="password" id="password" class="form-control is-invalid" value="#">
+              <div class="invalid-feedback">
+                  Error 
                 </div>
-              @enderror
-            </div>
-            
-            <div class="col-md-6">
-              <label class="form-label" for="password_confirmation">Confirm Password</label>
-              <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
             </div>
             
             <div class="col-md-6">
               <label class="form-label" for="birthdate">Date of Birth</label>
-              <input type="date" name="birthdate" id="birthdate" class="form-control @error('birthdate') is-invalid @enderror" value="{{ old('birthdate') }}">
-              @error('birthdate')
-                <div class="invalid-feedback">
-                  {{ $message }}
+              <input type="date" name="birthdate" id="birthdate" class="form-control is-invalid" value="#">
+              <div class="invalid-feedback">
+                  Error 
                 </div>
-              @enderror
             </div>
             
             <div class="col-md-6">
               <label class="form-label" for="phone">Phone Number</label>
-              <input type="text" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
-              @error('phone')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
+              <input type="text" name="phone" id="phone" class="form-control is-invalid" value="#">
             </div>
             
             <div class="col-md-6">
               <label class="form-label" for="photo">Photo</label>
-              <input type="file" name="photo" id="photo" class="form-control @error('photo') is-invalid @enderror">
-              @error('photo')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
+              <input type="file" name="photo" id="photo" class="form-control is-invalid">
               <small class="text-muted">Max: 2MB (JPG, PNG, GIF)</small>
+              <div class="invalid-feedback">
+                Error 
+              </div>
             </div>
           </div>
           
           <div class="form-check mt-3">
-            <input class="form-check-input @error('terms') is-invalid @enderror" type="checkbox" name="terms" id="terms">
+            <input class="form-check-input is-invalid" type="checkbox" name="terms" id="terms">
             <label class="form-check-label" for="terms">
               I agree to the <a href="#">Terms and Conditions</a>
             </label>
-            @error('terms')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-            @enderror
+            <div class="invalid-feedback">
+              Error 
+            </div>
           </div>
           
           <div class="d-flex gap-2 mt-4">
