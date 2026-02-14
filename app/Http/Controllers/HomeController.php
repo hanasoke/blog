@@ -13,11 +13,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.blogs');
-    }
-
-    public function blogs()
-    {
-        return view('pages.blogs_2');
+        return view('home');
     }
 }
