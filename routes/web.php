@@ -26,10 +26,4 @@ Route::prefix('admin')
                 Route::get('/', 'DashboardController@index')
                         ->name('dashboard');
         });
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
