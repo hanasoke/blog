@@ -25,8 +25,9 @@ Route::prefix('admin')
                 Route::get('/', 'DashboardController@index')
                         ->name('dashboard');
         });
-Route::get('/home', 'DashboardController@index')
+Route::prefix('home')
         ->namespace('User')
+        ->middleware(['auth', 'verified'])
         ->group(function() {
                 Route::get('/', 'DashboardController@index')
                         ->name('dashboard');
