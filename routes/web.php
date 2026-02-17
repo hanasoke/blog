@@ -25,4 +25,9 @@ Route::prefix('admin')
                 Route::get('/', 'DashboardController@index')
                         ->name('dashboard');
         });
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'DashboardController@index')
+        ->namespace('User')
+        ->group(function() {
+                Route::get('/', 'DashboardController@index')
+                        ->name('dashboard');
+        });
