@@ -37,7 +37,7 @@
             
             <div class="col-md-6">
               <label class="form-label" for="email">Email</label>
-              <input type="email" name="email" id="email" class="form-control @error('name') is-invalid @enderror" value="{{ old('email') }}">
+              <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
 
               @error('email')
                 <div class="invalid-feedback">
@@ -48,7 +48,7 @@
             
             <div class="col-md-6">
               <label class="form-label" for="password">Password</label>
-              <input type="password" name="password" id="password" class="form-control @error('name') is-invalid @enderror" value="{{ old('password') }}">
+              <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}">
 
               @error('password')
                 <div class="invalid-feedback">
@@ -70,7 +70,7 @@
             
             <div class="col-md-6">
               <label class="form-label" for="phone">Phone Number</label>
-              <input type="text" name="phone" id="phone" class="form-control @error('name') is-invalid @enderror" value="{{ old('phone') }}">
+              <input type="text" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
 
               @error('phone')
                 <div class="invalid-feedback">

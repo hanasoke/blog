@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/email/verify';
 
     /**
      * Create a new controller instance.
@@ -50,13 +50,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'confirmed'],
-            'phone' => ['required', 'int', 'confirmed'],
-            'birthdate' => ['required'],
-            'photo' => ['photo']
+            'name' => ['required','string','max:255','unique:users,name'],
+            'username' => ['required','string','max:255','unique:users,username'],
+            'email' => ['required','string','email','max:255','unique:users,email'],
+            'password' => ['required','string','min:8','confirmed'],
+            'phone' => ['required','digits_between:10,15','unique:users,phone'],
+            'birthdate' => ['required','date'],
+            'photo' => ['nullable','image','mimes:jpg,jpeg,png','max:2048'],
         ]);
     }
 
@@ -68,6 +68,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if (request()->hasFile('photo')) {
+            $photo = request()->file('photo')->store('users','public');
+        } else {
+            $photo = null;
+        }
+
         return User::create([
             'name' => $data['name'],
             'username' => $data['username'],
@@ -75,6 +81,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
             'birthdate' => $data['birthdate'],
+            'photo' => $photo,
         ]);
     }
 }

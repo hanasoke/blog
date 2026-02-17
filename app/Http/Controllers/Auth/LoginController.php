@@ -40,6 +40,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    protected function credentials(Request $request)
+    {
+        return [
+            'email' => $request->email,
+            'password' => $request->password,
+            'email_verified_at' => ['!=', null],
+        ];
+    }
+
     protected function redirectTo()
     {
         if (Auth::user()->roles === 'ADMIN') {
