@@ -9,6 +9,12 @@
                 <h3 class="fw-bold mb-1 text-center">Welcome back</h3>
                 <p class="text-muted mb-4 text-center">Login to your account</p>
 
+                @if (session('resent'))
+                  <div class="alert alert-success">
+                      Email verifikasi telah dikirim ulang.
+                  </div>
+                @endif
+
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                   <strong>Success</strong>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
