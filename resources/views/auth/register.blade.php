@@ -131,16 +131,6 @@
         $(this).val($(this).val().replace(/\D/g, ''));
       });
       
-      // Birthdate validation (must be at least 13 years old)
-      $('#birthdate').on('change', function() {
-        var birthdate = new Date($(this).val());
-        var today = new Date();
-        var age = today.getFullYear() - birthdate.getFullYear();
-        var m = today.getMonth() - birthdate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
-          age--;
-        }
-      });
     });
   </script>
 @endpush
