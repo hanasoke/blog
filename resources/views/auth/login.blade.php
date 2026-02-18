@@ -61,7 +61,7 @@
                 <p class="text-center mt-2 mb-0">
                     @if(Route::has('password.request'))
                         {{ __('Forgot Your Password?') }}
-                      <a href="#" class="text-decoration-none fw-semibold">
+                      <a href="{{ route('password.request') }}" class="text-decoration-none fw-semibold">
                         Click Here
                       </a>
                     @endif 
