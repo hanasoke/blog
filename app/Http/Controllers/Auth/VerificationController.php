@@ -26,7 +26,11 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected function verified(Request $request)
+    {
+        auth()->logout(); // logout SETELAH verified sukses
+        return redirect('/login')->with('status', 'Email berhasil diverifikasi.');
+    }
 
     /**
      * Create a new controller instance.
