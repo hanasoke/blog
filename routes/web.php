@@ -21,6 +21,7 @@ Route::get('/', 'HomeController@index')
 
 Route::prefix('admin')
         ->namespace('Admin')
+        ->middleware(['auth', 'verified'])
         ->group(function() {
                 Route::get('/', 'DashboardController@index')
                         ->name('dashboard');
@@ -30,5 +31,5 @@ Route::prefix('home')
         ->middleware(['auth', 'verified'])
         ->group(function() {
                 Route::get('/', 'DashboardController@index')
-                        ->name('dashboard');
+                        ->name('home');
         });

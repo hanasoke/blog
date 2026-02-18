@@ -10,7 +10,6 @@
 
         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" id="registerForm">
           @csrf
-          
           <div class="row g-3">
             <div class="col-md-6">
               <label class="form-label" for="name">Full Name</label>

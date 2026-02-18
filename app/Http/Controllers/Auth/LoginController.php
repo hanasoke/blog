@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -40,13 +40,17 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function credentials(Request $request)
+    // 🔥 INI KUNCI UTAMANYA
+    protected function authenticated(Request $request, $user) 
     {
-        return [
-            'email' => $request->email,
-            'password' => $request->password,
-            'email_verified_at' => ['!=', null],
-        ];
+        if (!$$user->hasVerifiedEmail()) {
+            auth()->logout();
+
+            return redirect()->route('verification.notice')
+                ->withErrors([
+                    'email' => 'Silahkan verifikasi email terlebih dahulu.'
+                ]);
+        }
     }
 
     protected function redirectTo()
