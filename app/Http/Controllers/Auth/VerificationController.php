@@ -29,7 +29,8 @@ class VerificationController extends Controller
     protected function verified(Request $request)
     {
         auth()->logout(); // logout SETELAH verified sukses
-        return redirect('/login')->with('status', 'Email berhasil diverifikasi.');
+        return redirect('/login')
+            ->with('status', 'Email berhasil diverifikasi.');
     }
 
     /**

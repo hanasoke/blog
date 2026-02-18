@@ -17,6 +17,7 @@
                 @endif
 
                 <form method="POST" action="{{ route('login') }}">
+                  @csrf 
                   <div class="mb-3">
                       <label for="email" class="form-label">{{ __('E-mail Address') }}</label>
                       <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Input Your Email" autofocus>

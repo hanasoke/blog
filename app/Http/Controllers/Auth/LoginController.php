@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -24,13 +25,6 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -40,24 +34,18 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // 🔥 INI KUNCI UTAMANYA
-    protected function authenticated(Request $request, $user) 
-    {
-        if (!$$user->hasVerifiedEmail()) {
-            auth()->logout();
-
-            return redirect()->route('verification.notice')
-                ->withErrors([
-                    'email' => 'Silahkan verifikasi email terlebih dahulu.'
-                ]);
-        }
-    }
-
     protected function redirectTo()
     {
-        if (Auth::user()->roles === 'ADMIN') {
-            return '/admin';
+        return auth()->user()->roles === 'ADMIN'
+            ? '/admin'
+            : '/home';
+    }
+
+    protected function authenticated($request, $user)
+    {
+        if (!$user->hasVerifiedEmail()) {
+            auth()->logout();
+            session()->flash('error', 'Silahkan verifikasi email terlebih dahulu.');
         }
-        return '/';
     }
 }
