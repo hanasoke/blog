@@ -12,9 +12,17 @@
                 @if (session('resent'))
                   <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Email verifikasi telah dikirim ulang</strong>
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
+
+                @if (session('status'))
+                  <div class="alert alert-success alert-dismissible fade show" role="alert"">
+                    {{ session('status') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                @endif
+
 
                 <form method="POST" action="{{ route('login') }}">
                   @csrf 

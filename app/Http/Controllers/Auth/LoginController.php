@@ -48,4 +48,9 @@ class LoginController extends Controller
             session()->flash('error', 'Silahkan verifikasi email terlebih dahulu.');
         }
     }
+
+    protected function loggedOut(Request $request)
+    {
+        return redirect('/login')->with('status', 'Berhasil logout.');
+    }
 }
