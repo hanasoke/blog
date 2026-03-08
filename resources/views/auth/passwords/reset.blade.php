@@ -9,7 +9,8 @@
                 <h3 class="fw-bold mb-1 text-center">{{ __('Reset Password') }}</h3>
                 <form method="POST" action="{{ route('password.update') }}">
                     @csrf
-
+                    <input type="hidden" name="token" value="{{ $token }}"
+                    >
                     <div class="mb-3">
                         <label for="email" class="form-label">{{ __('E-Mail Address') }}</label>
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required placeholder="Input Your Email" autocomplete="email" autofocus>

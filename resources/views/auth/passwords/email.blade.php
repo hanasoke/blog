@@ -29,9 +29,6 @@
                         {{ __('Send Password Reset Link') }}
                     </button>
                 </form>
-                <a href="{{ route('resetpassword') }}" class="btn btn-primary">
-                    Reset Manual
-                </a>
             </div>
         </div>
     </div>

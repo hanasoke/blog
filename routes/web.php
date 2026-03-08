@@ -33,10 +33,3 @@ Route::prefix('home')
                 Route::get('/', 'DashboardController@index')
                         ->name('home');
         });
-
-Route::prefix('password')
-        ->namespace('Auth')
-        ->group(function() {
-                Route::get('/resetpassword', 'ResetPasswordController@reset')
-                        ->name('resetpassword');
-        });
