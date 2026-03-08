@@ -1,3 +1,5 @@
+resources > views > includes > admin > navbar.blade.php
+navbar.blade.php
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -161,10 +163,7 @@
                         {{ Auth::user()->name }}
                     </span>
                     <img class="img-profile rounded-circle"
-                        src="{{ Auth::user()->photo 
-                            ? asset('storage/' . Auth::user()->photo)
-                            : asset('img/undraw_profile.svg')
-                        }}">
+                        src="img/undraw_profile.svg">
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -211,3 +210,25 @@
 
 </nav>
 <!-- End of Topbar -->
+
+app > Http > Controllers > Admin > DashboardController.php
+DashboardController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('pages.user.home');
+    }
+}
+
