@@ -20,7 +20,7 @@
         <!-- CARD 1 -->
         <div class="col-md-6 col-lg-4">
           <div class="card blog-card h-100 border-0 shadow-sm">
-            <a href="{{ url('/detail') }}" class="text-decoration-none">
+            <a href="{{ route('detail') }}" class="text-decoration-none">
               <img src="https://picsum.photos/600/400?1" class="card-img-top" alt="">
               <div class="card-body">
                 <small class="text-muted">Olivia Rhye · 20 Jan 2024</small>

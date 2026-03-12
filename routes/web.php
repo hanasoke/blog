@@ -18,8 +18,6 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')
         ->name('home');
-Route::get('/detail', 'HomeController@detail')
-        ->name('detail');
 
 Route::prefix('admin')
         ->namespace('Admin')

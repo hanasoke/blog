@@ -1,210 +1,95 @@
-mengapa muncul error pada gambar berikut dari kode dibawah
+bagaimana caranya agar halaman detail bisa dibuka ketika user sudah login dari kode berikut
 
-resources > views > auth > passwords > email.blade.php
-email.blade.php
-@extends('layouts.sign.template')
-
-@section('content')
-<div class="container mt-5">
-    <div class="row g-4 justify-content-center">
-        <div class="col-md-5">
-            <div class="card auth-card p-4 h-100">
-                <h3 class="fw-bold mb-1 text-center">{{ __('Reset Password') }}</h3>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
-
-                <form method="POST" action="{{ route('password.email') }}">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="email" class="form-label">{{ __('E-Mail Address') }}</label>
-
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Input Your Email" autofocus>
-
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">
-                        {{ __('Send Password Reset Link') }}
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
-
-resources > views > auth > passwords > reset.blade.php
-reset.blade.php
-@extends('layouts.sign.template')
-
-@section('content')
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <!-- Reset Password -->
-        <div class="col-md-8">
-            <div class="card auth-card p-4 h-100">
-                <h3 class="fw-bold mb-1 text-center">{{ __('Reset Password') }}</h3>
-                <form method="POST" action="{{ route('password.update') }}">
-                    @csrf
-                    <input type="hidden" name="token" value="{{ $token }}"
-                    >
-                    <div class="mb-3">
-                        <label for="email" class="form-label">{{ __('E-Mail Address') }}</label>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required placeholder="Input Your Email" autocomplete="email" autofocus>
-
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Input New Password">
-
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="mb-2">
-                        <label for="password_confirm" class="form-label">{{ __('Confirm Password') }}</label>
-                        <input id="password_confirm" type="password" class="form-control @error('password_confirm') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password" placeholder="Re-enter New Password">
-                        @error('password_confirm')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror 
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">
-                        {{ __('Reset Password') }}
-                    </button>
-                </form>
-                
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
-
-
-app > Http > Controllers > Auth > ResetPasswordController.php
-ResetPasswordController.php
+routes > web.php
+web.php
 <?php
 
-namespace App\Http\Controllers\Auth;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Auth::routes(['verify' => true]);
+
+Route::get('/', 'HomeController@index')
+        ->name('home');
+Route::get('/detail', 'HomeController@detail')
+        ->name('detail');
+
+Route::prefix('admin')
+        ->namespace('Admin')
+        ->middleware(['auth', 'admin'])
+        ->group(function() {
+                Route::get('/', 'DashboardController@index')
+                        ->name('dashboard');
+        });
+Route::prefix('home')
+        ->namespace('User')
+        ->middleware(['auth', 'user'])
+        ->group(function() {
+                Route::get('/', 'DashboardController@index')
+                        ->name('home');
+                Route::get('/detail', 'DashboardController@detail')
+                        ->name('detail');
+        });
+
+app > Http > Controllers > User > DashboardController.php
+DashboardController.php
+<?php
+
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
-class ResetPasswordController extends Controller
+class DashboardController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset requests
-    | and uses a simple trait to include this behavior. You're free to
-    | explore this trait and override any methods you wish to tweak.
-    |
-    */
+    public function index() {
+        return view('pages.user.home');
+    }
 
-    use ResetsPasswords;
-
-    /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    // protected $redirectTo = '/login';
-
-    public function reset() {
-        return view('auth.passwords.reset');
+    public function detail() {
+        return view('pages.user.detail');
     }
 }
 
-app > Http > Controllers > Auth > ForgotPasswordController.php
-ForgotPasswordController.php
+app > Http > Controllers > HomeController.php
+HomeController.php
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Request;
 
-class ForgotPasswordController extends Controller
+class HomeController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset emails and
-    | includes a trait which assists in sending these notifications from
-    | your application to your users. Feel free to explore this trait.
-    |
-    */
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('pages.user.home');
+    }
 
-    use SendsPasswordResetEmails;
+    public function detail() {
+        return view('pages.user.detail');
+    }
 }
 
-.env
-APP_NAME=Laravel
-APP_ENV=local
-APP_KEY=base64:caAXWyWbn1Wqul2q1VVDZcz+R4ByrU5I/tbl7H1bleI=
-APP_DEBUG=true
-APP_URL=http://127.2.2.1:8001
+resources > views > pages > user > detail.blade.php
+detail.blade.php
 
-LOG_CHANNEL=stack
+<h1>Hello Layouting</h1>
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=blogs
-DB_USERNAME=root
-DB_PASSWORD=
-
-BROADCAST_DRIVER=log
-CACHE_DRIVER=file
-QUEUE_CONNECTION=sync
-SESSION_DRIVER=file
-SESSION_LIFETIME=120
-
-REDIS_HOST=127.0.0.8
-REDIS_PASSWORD=null
-REDIS_PORT=6379
-
-MAIL_DRIVER=smtp
-MAIL_HOST=smtp.mailtrap.io
-MAIL_PORT=2525
-MAIL_USERNAME=e5d331c809d3d9
-MAIL_PASSWORD=75cf837f535eb7
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=noreply@example.com
-MAIL_FROM_NAME=" {{ config('app.name') }} "
-
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-AWS_DEFAULT_REGION=us-east-1
-AWS_BUCKET=
-
-PUSHER_APP_ID=
-PUSHER_APP_KEY=
-PUSHER_APP_SECRET=
-PUSHER_APP_CLUSTER=mt1
-
-MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
-MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
-
+resources > views > pages > user > home.blade.php
