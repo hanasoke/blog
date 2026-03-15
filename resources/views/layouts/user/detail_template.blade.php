@@ -7,7 +7,7 @@
 
     @stack('prepend-style')
       @include('includes.detail_blog.style')
-      @include('includes.user.style-blogs')
+      @include('includes.detail_blog.style-blogs')
     @stack('addon-style')
   </head>
   <body>
