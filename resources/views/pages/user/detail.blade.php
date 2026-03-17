@@ -20,7 +20,7 @@
                     </div>
                     <h1 class="display-4 fw-bold mb-4">7 Rules of Effective Branding</h1>
                     <div class="d-flex align-items-center flex-wrap gap-3">
-                        <img src="img/picture/miku_4.jpg" class="rounded-circle" width="50" height="50" alt="Author">
+                        <img src="{{ asset('img_detail_blogs/profile/miku_4.jpg') }}" class="rounded-circle" width="50" height="50" alt="Author">
                         <div>
                             <h6 class="fw-bold mb-0">Sarah Johnson</h6>
                             <small class="text-muted">Senior Brand Strategist</small>
@@ -165,7 +165,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-3 text-center text-md-start mb-4 mb-md-0">
-                <img src="img/picture/miku_4.jpg" class="rounded-circle shadow-lg" width="120" height="120" alt="Sarah Johnson">
+                <img src="{{ asset('img_detail_blogs/profile/miku_4.jpg') }}" class="rounded-circle shadow-lg" width="120" height="120" alt="Sarah Johnson">
             </div>
             <div class="col-md-9">
                 <h4 class="fw-bold mb-2">Sarah Johnson</h4>
@@ -184,7 +184,7 @@
         <div class="row g-4">
             <div class="col-md-6 col-lg-4">
                 <article class="related-post h-100 shadow-lg">
-                    <img src="img/gallery/raja_ampat.jpg" class="w-100" style="height: 200px; object-fit: cover;" alt="Post">
+                    <img src="{{ asset('img_detail_blogs/gallery/raja_ampat.jpg') }}" class="w-100" style="height: 200px; object-fit: cover;" alt="Post">
                     <div class="p-4">
                         <div class="blog-meta mb-2">
                             <i class="bi bi-calendar3"></i> Jan 10, 2024
@@ -197,7 +197,7 @@
             </div>
             <div class="col-md-6 col-lg-4">
                 <article class="related-post h-100 shadow-lg">
-                    <img src="img/gallery/nusa_peninda.jpg" class="w-100" style="height: 200px; object-fit: cover;" alt="Post">
+                    <img src="{{ asset('img_detail_blogs/gallery/nusa_peninda.jpg') }}" class="w-100" style="height: 200px; object-fit: cover;" alt="Post">
                     <div class="p-4">
                         <div class="blog-meta mb-2">
                             <i class="bi bi-calendar3"></i> Dec 28, 2023
@@ -210,7 +210,7 @@
             </div>
             <div class="col-md-6 col-lg-4">
                 <article class="related-post h-100 shadow-lg">
-                    <img src="img/gallery/toba_lake.jpg" class="w-100" style="height: 200px; object-fit: cover;" alt="Post">
+                    <img src="{{ asset('img_detail_blogs/gallery/toba_lake.jpg') }}" class="w-100" style="height: 200px; object-fit: cover;" alt="Post">
                     <div class="p-4">
                         <div class="blog-meta mb-2">
                             <i class="bi bi-calendar3"></i> Feb 5, 2024
