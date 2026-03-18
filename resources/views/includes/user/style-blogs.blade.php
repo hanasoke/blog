@@ -31,4 +31,10 @@
     font-weight: 500;
     color: #495057;
 }
+
+.article-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
 </style>

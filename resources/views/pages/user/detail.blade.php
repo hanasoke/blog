@@ -1,4 +1,4 @@
-@extends('layouts.user.detail_template')
+@extends('layouts.user.template')
 
 @section('content')
 <!-- Blog Content -->
