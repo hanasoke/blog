@@ -1,7 +1,7 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary py-3">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#">Untitled UI</a>
+    <a class="navbar-brand fw-bold" href="#">HAN BLOG</a>
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
       <span class="navbar-toggler-icon"></span>
     </button>
