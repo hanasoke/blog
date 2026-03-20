@@ -16,22 +16,25 @@
         <div class="card-body">
             <form>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Email address</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    <label for="blog_title">Blog Title</label>
+                    <input type="text" class="form-control" id="blog_title" placeholder="Input Blog Title">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Example select</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <label for="genre">Genre</label>
+                    <select class="form-control" id="genre">
+                        <option value="">Choose Genre</option>
+                        <option>Romance</option>
+                        <option>Politic</option>
+                        <option>Geograpy</option>
+                        <option>Paleontologi</option>
+                        <option>Economic</option>
+                        <option>Sports</option>
+                        <option>Education</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Example textarea</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" rows="3"></textarea>
                 </div>
                 <button class="btn btn-success float-right">Submit</button>
             </form>
