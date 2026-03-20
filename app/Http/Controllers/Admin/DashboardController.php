@@ -14,4 +14,8 @@ class DashboardController extends Controller
     public function blogs_data() {
         return view('pages.admin.blogs_data');
     }
+
+    public function add_blog() {
+        return view('pages.admin.add_blog');
+    }
 }

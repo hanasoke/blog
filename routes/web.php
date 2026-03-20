@@ -27,6 +27,8 @@ Route::prefix('admin')
                         ->name('dashboard');
                 Route::get('/blogs_data', 'DashboardController@blogs_data')
                         ->name('blogs_data');
+                Route::get('/add_blog', 'DashboardController@add_blog')
+                        ->name('add_blog');
         });
 Route::prefix('home')
         ->namespace('User')
