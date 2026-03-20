@@ -11,6 +11,10 @@
 <!-- Page level plugins -->
 <script src="{{ url('admin_assets/vendor/chart.js/Chart.min.js') }}"></script>
 
+<script src="{{ url('admin_assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url('admin_assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url('admin_assets/js/demo/datatables-demo.js') }}"></script>
+
 <!-- Page level custom scripts -->
 <script src="{{ url('admin_assets/js/demo/chart-area-demo.js') }}"></script>
 <script src="{{ url('admin_assets/js/demo/chart-pie-demo.js') }}"></script>
