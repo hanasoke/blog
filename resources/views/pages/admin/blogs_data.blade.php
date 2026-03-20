@@ -16,7 +16,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="font-weight-bold text-primary m-0 float-left">Blogs Table List</h6>
-            <a href="{{ route('add_blog') }}" class="btn btn-success float-right">Add Blog</a>
+            <a href="{{ route('add_blog') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Blog</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -42,9 +42,9 @@
                             <td>Belum di Edit</td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger">Delete</button>
-                                    <button type="button" class="btn btn-info">View</button>
-                                    <button type="button" class="btn btn-success">Edit</button>
+                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash fa-sm text-white-100"></i></button>
+                                    <button type="button" class="btn btn-info"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                    <button type="button" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></button>
                                 </div>
                             </td>
                         </tr>
