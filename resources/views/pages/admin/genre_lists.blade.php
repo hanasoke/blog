@@ -16,28 +16,28 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="font-weight-bold text-primary m-0 float-left">Genre Table List</h6>
-            <a href="{{ route('add_blog') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Genre</a>
+            <a href="{{ route('add_genre') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Genre</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                        <tr class="text-center">
-                            <th>No</th>
-                            <th>Nama Genre</th>
+                        <tr>
+                            <th width="20" class="text-center">No</th>
+                            <th>Genre Name</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
+                            <td width="20" class="text-center">1</td>
                             <td>Comedy</td>
                         </tr>
                         <tr>
-                            <td>2</td>
+                            <td width="20" class="text-center">2</td>
                             <td>Technology</td>
                         </tr>
                         <tr>
-                            <td>3</td>
+                            <td width="20" class="text-center">3</td>
                             <td>Romance</td>
                         </tr>
                     </tbody>

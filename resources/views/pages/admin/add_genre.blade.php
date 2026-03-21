@@ -16,7 +16,7 @@
         <div class="card-body">
             <form>
                 <div class="form-group">
-                    <label for="blog_title">Genre</label>
+                    <label for="blog_title">Genre Name</label>
                     <input type="text" class="form-control" id="blog_title" placeholder="Input Blog Title">
                 </div>
                 <button class="btn btn-success btn-lg btn-block">Submit</button>
