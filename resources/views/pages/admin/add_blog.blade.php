@@ -36,7 +36,7 @@
                     <label for="description">Description</label>
                     <textarea class="form-control" id="description" rows="3"></textarea>
                 </div>
-                <button class="btn btn-success float-right">Submit</button>
+                <button class="btn btn-success btn-lg btn-block">Submit</button>
             </form>
         </div>
     </div>

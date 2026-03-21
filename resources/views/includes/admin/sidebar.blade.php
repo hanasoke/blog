@@ -1,7 +1,7 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('admin') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/admin') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -13,7 +13,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ url('/admin') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
@@ -37,7 +37,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Blogs Component</h6>
-                <a class="collapse-item" href="#">Added A Blog</a>
+                <a class="collapse-item" href="{{ route('add_blog') }}">Add Blog</a>
                 <a class="collapse-item" href="{{ route('blogs_data') }}">Blogs Data View</a>
                 <a class="collapse-item" href="#">Access Blog Article</a>
             </div>
