@@ -18,4 +18,12 @@ class DashboardController extends Controller
     public function add_blog() {
         return view('pages.admin.add_blog');
     }
+    
+    public function add_genre() {
+        return view('pages.admin.add_genre');
+    }
+
+    public function genre_lists() {
+        return view('pages.admin.genre_lists');
+    }
 }

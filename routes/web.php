@@ -29,6 +29,10 @@ Route::prefix('admin')
                         ->name('blogs_data');
                 Route::get('/add_blog', 'DashboardController@add_blog')
                         ->name('add_blog');
+                Route::get('/add_genre', 'DashboardController@add_genre')
+                        ->name('add_genre');
+                Route::get('/genre_lists', 'DashboardController@genre_lists')
+                        ->name('genre_lists');
         });
 Route::prefix('home')
         ->namespace('User')
