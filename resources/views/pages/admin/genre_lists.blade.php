@@ -19,26 +19,52 @@
             <a href="{{ route('add_genre') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Genre</a>
         </div>
         <div class="card-body">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>A Genre has been added</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th width="20" class="text-center">No</th>
                             <th>Genre Name</th>
+                            <th width="30">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td width="20" class="text-center">1</td>
                             <td>Comedy</td>
+                            <td width="30">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-danger">
+                                        <i class="fas fa-trash fa-sm text-white-100"></i></button>
+                                    <button type="button" class="btn btn-info"><i class="fas fa-edit fa-sm text-white-100"></i></button>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td width="20" class="text-center">2</td>
                             <td>Technology</td>
+                            <td width="30">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash fa-sm text-white-100"></i></button>
+                                    <button type="button" class="btn btn-info"><i class="fas fa-edit fa-sm text-white-100"></i></button>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td width="20" class="text-center">3</td>
                             <td>Romance</td>
+                            <td width="30">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash fa-sm text-white-100"></i></button>
+                                    <button type="button" class="btn btn-info"><i class="fas fa-edit fa-sm text-white-100"></i></button>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
