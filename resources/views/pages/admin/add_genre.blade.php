@@ -17,7 +17,10 @@
             <form>
                 <div class="form-group">
                     <label for="blog_title">Genre Name</label>
-                    <input type="text" class="form-control" id="blog_title" placeholder="Input Blog Title">
+                    <input type="text" class="form-control is-invalid" id="blog_title" placeholder="Input Blog Title" aria-describedby="validationServer03Feedback">
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                        Please Type Genre Name
+                    </div>
                 </div>
                 <button class="btn btn-success btn-lg btn-block">Submit</button>
             </form>

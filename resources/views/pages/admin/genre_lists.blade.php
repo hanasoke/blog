@@ -27,9 +27,9 @@
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
+                    <thead class="text-center">
                         <tr>
-                            <th width="20" class="text-center">No</th>
+                            <th width="20">No</th>
                             <th>Genre Name</th>
                             <th width="30">Action</th>
                         </tr>
