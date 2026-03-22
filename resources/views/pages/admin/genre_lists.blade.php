@@ -40,7 +40,7 @@
                             <td>Comedy</td>
                             <td width="30">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
                                         <i class="fas fa-trash fa-sm text-white-100"></i>
                                     </button>
                                     <a href="{{ route('edit_genre') }}" class="btn btn-info">
@@ -54,7 +54,7 @@
                             <td>Technology</td>
                             <td width="30">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
                                         <i class="fas fa-trash fa-sm text-white-100"></i>
                                     </button>
                                     <a href="{{ route('edit_genre') }}" class="btn btn-info">
@@ -68,7 +68,7 @@
                             <td>Romance</td>
                             <td width="30">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
                                         <i class="fas fa-trash fa-sm text-white-100"></i>
                                     </button>
                                     <a href="{{ route('edit_genre') }}" class="btn btn-info">
@@ -77,6 +77,27 @@
                                 </div>
                             </td>
                         </tr>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete This Genre</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure want to delete {name} genre ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                     </tbody>
                 </table>
             </div>
