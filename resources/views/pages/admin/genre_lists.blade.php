@@ -41,8 +41,11 @@
                             <td width="30">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-danger">
-                                        <i class="fas fa-trash fa-sm text-white-100"></i></button>
-                                    <button type="button" class="btn btn-info"><i class="fas fa-edit fa-sm text-white-100"></i></button>
+                                        <i class="fas fa-trash fa-sm text-white-100"></i>
+                                    </button>
+                                    <a href="{{ route('edit_genre') }}" class="btn btn-info">
+                                        <i class="fas fa-edit fa-sm text-white-100"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -51,8 +54,12 @@
                             <td>Technology</td>
                             <td width="30">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash fa-sm text-white-100"></i></button>
-                                    <button type="button" class="btn btn-info"><i class="fas fa-edit fa-sm text-white-100"></i></button>
+                                    <button type="button" class="btn btn-danger">
+                                        <i class="fas fa-trash fa-sm text-white-100"></i>
+                                    </button>
+                                    <a href="{{ route('edit_genre') }}" class="btn btn-info">
+                                        <i class="fas fa-edit fa-sm text-white-100"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -61,8 +68,12 @@
                             <td>Romance</td>
                             <td width="30">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash fa-sm text-white-100"></i></button>
-                                    <button type="button" class="btn btn-info"><i class="fas fa-edit fa-sm text-white-100"></i></button>
+                                    <button type="button" class="btn btn-danger">
+                                        <i class="fas fa-trash fa-sm text-white-100"></i>
+                                    </button>
+                                    <a href="{{ route('edit_genre') }}" class="btn btn-info">
+                                        <i class="fas fa-edit fa-sm text-white-100"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

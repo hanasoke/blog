@@ -33,6 +33,8 @@ Route::prefix('admin')
                         ->name('add_genre');
                 Route::get('/genre_lists', 'DashboardController@genre_lists')
                         ->name('genre_lists');
+                Route::get('/edit_genre', 'DashboardController@edit_genre')
+                        ->name('edit_genre');
         });
 Route::prefix('home')
         ->namespace('User')

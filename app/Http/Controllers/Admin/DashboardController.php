@@ -23,6 +23,10 @@ class DashboardController extends Controller
         return view('pages.admin.add_genre');
     }
 
+    public function edit_genre() {
+        return view('pages.admin.edit_genre');
+    }
+
     public function genre_lists() {
         return view('pages.admin.genre_lists');
     }
