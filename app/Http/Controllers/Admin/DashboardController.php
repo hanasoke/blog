@@ -48,7 +48,7 @@ class DashboardController extends Controller
             'name' => 'required' 
         ]);
 
-        $genre = Genre::findOOrFail($id);
+        $genre = Genre::findOrFail($id);
         $genre->update([
             'name' => $request->name 
         ]);
