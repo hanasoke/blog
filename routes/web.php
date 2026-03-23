@@ -29,12 +29,21 @@ Route::prefix('admin')
                         ->name('blogs_data');
                 Route::get('/add_blog', 'DashboardController@add_blog')
                         ->name('add_blog');
-                Route::get('/add_genre', 'DashboardController@add_genre')
-                        ->name('add_genre');
+
                 Route::get('/genre_lists', 'DashboardController@genre_lists')
                         ->name('genre_lists');
-                Route::get('/edit_genre', 'DashboardController@edit_genre')
+
+                Route::get('/add_genre', 'DashboardController@add_genre')
+                        ->name('add_genre');
+                Route::post('/add_genre', 'DashboardController@store_genre')
+                        ->name('store_genre');
+
+                Route::get('/edit_genre/{id}', 'DashboardController@edit_genre')
                         ->name('edit_genre');
+                Route::post('/edit_genre{id}', 'DashboardController@update_genre')
+                        ->name('update_genre');
+                Route::delete('/delete_genre/{id}', 'DashboardController@delete_genre')
+                        ->name('delete_genre');
         });
 Route::prefix('home')
         ->namespace('User')
