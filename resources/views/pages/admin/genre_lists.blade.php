@@ -19,12 +19,14 @@
             <a href="{{ route('add_genre') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Genre</a>
         </div>
         <div class="card-body">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>A Genre has been added</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-center">
@@ -35,43 +37,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($genres as $no => $genre)
                         <tr>
-                            <td width="20" class="text-center">1</td>
-                            <td>Comedy</td>
+                            <td width="20" class="text-center">{{ $no + 1 }}</td>
+                            <td>{{ $genre->name }}</td>
                             <td width="30">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
                                         <i class="fas fa-trash fa-sm text-white-100"></i>
                                     </button>
-                                    <a href="{{ route('edit_genre') }}" class="btn btn-info">
-                                        <i class="fas fa-edit fa-sm text-white-100"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="20" class="text-center">2</td>
-                            <td>Technology</td>
-                            <td width="30">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fas fa-trash fa-sm text-white-100"></i>
-                                    </button>
-                                    <a href="{{ route('edit_genre') }}" class="btn btn-info">
-                                        <i class="fas fa-edit fa-sm text-white-100"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="20" class="text-center">3</td>
-                            <td>Romance</td>
-                            <td width="30">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fas fa-trash fa-sm text-white-100"></i>
-                                    </button>
-                                    <a href="{{ route('edit_genre') }}" class="btn btn-info">
+                                    <a href="{{ route('edit_genre', $genre->id) }}" class="btn btn-info btn-sm">
                                         <i class="fas fa-edit fa-sm text-white-100"></i>
                                     </a>
                                 </div>
@@ -89,15 +64,20 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    Are you sure want to delete {name} genre ?
+                                    Are you sure want to delete {{ $genre->name }} genre ?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-danger">Delete</button>
+                                    <form action="{{ route('delete_genre', $genre->id) }}" method="POST">
+                                        @csrf 
+                                        @method('DELETE')
+                                            <button class="btn btn-danger" type="submit" >Delete</button>
+                                    </form>
                                 </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
