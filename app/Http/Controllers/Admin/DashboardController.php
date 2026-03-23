@@ -58,6 +58,14 @@ class DashboardController extends Controller
             ->with('success', 'Genre berhasil diupdate');
     }
 
+    public function delete_genre($id) {
+        Genre::findOrFail($id)->delete();
+
+        return redirect()
+            ->route('genre_lists')
+            ->with('success', 'Genre berhasil dihapus');
+    }
+
     public function genre_lists() {
         $genres = Genre::orderBy('id', 'DESC')->get();
         return view('pages.admin.genre_lists', compact('genres'));
