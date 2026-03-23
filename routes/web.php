@@ -30,19 +30,19 @@ Route::prefix('admin')
                 Route::get('/add_blog', 'DashboardController@add_blog')
                         ->name('add_blog');
 
-                Route::get('/genre_lists', 'DashboardController@genre_lists')
+                Route::get('/genre_lists', 'GenreController@genre_lists')
                         ->name('genre_lists');
 
-                Route::get('/add_genre', 'DashboardController@add_genre')
+                Route::get('/add_genre', 'GenreController@add_genre')
                         ->name('add_genre');
-                Route::post('/add_genre', 'DashboardController@store_genre')
+                Route::post('/add_genre', 'GenreController@store_genre')
                         ->name('store_genre');
 
-                Route::get('/edit_genre/{id}', 'DashboardController@edit_genre')
+                Route::get('/edit_genre/{id}', 'GenreController@edit_genre')
                         ->name('edit_genre');
-                Route::post('/edit_genre{id}', 'DashboardController@update_genre')
+                Route::post('/edit_genre{id}', 'GenreController@update_genre')
                         ->name('update_genre');
-                Route::delete('/delete_genre/{id}', 'DashboardController@delete_genre')
+                Route::delete('/delete_genre/{id}', 'GenreController@delete_genre')
                         ->name('delete_genre');
         });
 Route::prefix('home')
