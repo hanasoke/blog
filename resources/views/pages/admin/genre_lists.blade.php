@@ -15,7 +15,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="font-weight-bold text-primary m-0 float-left">Genre Table List</h6>
+            <h4 class="font-weight-bold text-primary m-0 float-left">Genre Table List</h6>
             <a href="{{ route('add_genre') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Genre</a>
         </div>
         <div class="card-body">

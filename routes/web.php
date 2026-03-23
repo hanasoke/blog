@@ -25,9 +25,9 @@ Route::prefix('admin')
         ->group(function() {
                 Route::get('/', 'DashboardController@index')
                         ->name('dashboard');
-                Route::get('/blogs_data', 'DashboardController@blogs_data')
+                Route::get('/blogs_data', 'BlogController@blogs_data')
                         ->name('blogs_data');
-                Route::get('/add_blog', 'DashboardController@add_blog')
+                Route::get('/add_blog', 'BlogController@add_blog')
                         ->name('add_blog');
 
                 Route::get('/genre_lists', 'GenreController@genre_lists')

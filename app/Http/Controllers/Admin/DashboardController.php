@@ -10,12 +10,4 @@ class DashboardController extends Controller
     public function index() {
         return view('pages.admin.base');
     }
-
-    public function blogs_data() {
-        return view('pages.admin.blogs_data');
-    }
-
-    public function add_blog() {
-        return view('pages.admin.add_blog');
-    }
 }
