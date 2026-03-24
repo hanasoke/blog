@@ -33,8 +33,16 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" placeholder="Input City">
+                </div>
+                <div class="form-group">
                     <label for="description">Description</label>
                     <textarea class="form-control" id="description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <textarea class="form-control" id="tags" rows="2" placeholder="Input Tags"></textarea>
                 </div>
                 <button class="btn btn-success btn-lg btn-block">Submit</button>
             </form>
