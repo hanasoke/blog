@@ -44,7 +44,7 @@
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-danger"><i class="fas fa-trash fa-sm text-white-100"></i></button>
                                     <button type="button" class="btn btn-info"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                    <button type="button" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></button>
+                                    <a href="{{ route('add_blog') }}" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
                                 </div>
                             </td>
                         </tr>

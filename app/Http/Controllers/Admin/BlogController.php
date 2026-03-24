@@ -14,4 +14,8 @@ class BlogController extends Controller
     public function add_blog() {
         return view('pages.admin.blog.add_blog');
     }
+
+    public function edit_blog() {
+        return view('pages.admin.blog.edit_blog');
+    }
 }

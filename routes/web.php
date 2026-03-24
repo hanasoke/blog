@@ -29,6 +29,8 @@ Route::prefix('admin')
                         ->name('blogs_data');
                 Route::get('/add_blog', 'BlogController@add_blog')
                         ->name('add_blog');
+                Route::get('/edit_blog', 'BlogController@edit_blog')
+                        ->name('edit_blog');
 
                 Route::get('/genre_lists', 'GenreController@genre_lists')
                         ->name('genre_lists');
