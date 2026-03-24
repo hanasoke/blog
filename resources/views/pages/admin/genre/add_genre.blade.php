@@ -23,7 +23,7 @@
                         name="name" 
                         class="form-control @error('name') is-invalid @enderror" 
                         value="{{ old('name') }}" 
-                        id="blog_title">
+                        id="blog_title" placeholder="Input Your Genre Name">
 
                     @error('name')
                         <div class="invalid-feedback">

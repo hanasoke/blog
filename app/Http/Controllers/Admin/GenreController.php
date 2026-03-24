@@ -11,11 +11,11 @@ class GenreController extends Controller
 {
     public function genre_lists() {
         $genres = Genre::orderBy('id', 'DESC')->get();
-        return view('pages.admin.genre_lists', compact('genres'));
+        return view('pages.admin.genre.genre_lists', compact('genres'));
     }
     
     public function add_genre() {
-        return view('pages.admin.add_genre');
+        return view('pages.admin.genre.add_genre');
     }
 
     public function store_genre(Request $request) {
@@ -37,7 +37,7 @@ class GenreController extends Controller
 
     public function edit_genre($id) {
         $genre = Genre::findOrFail($id);
-        return view('pages.admin.edit_genre', compact('genre'));
+        return view('pages.admin.genre.edit_genre', compact('genre'));
     }
 
     public function update_genre(Request $request, $id) {
