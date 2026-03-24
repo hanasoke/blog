@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Genre;
+use Illuminate\Validation\Rule;
 
 class GenreController extends Controller 
 {
@@ -19,7 +20,10 @@ class GenreController extends Controller
 
     public function store_genre(Request $request) {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|unique:genres,name'
+        ], [
+            'name.required' => 'Nama genre wajib diisi',
+            'name.unique' => 'Genre sudah ada'
         ]);
 
         Genre::create([
@@ -38,7 +42,13 @@ class GenreController extends Controller
 
     public function update_genre(Request $request, $id) {
         $request->validate([
-            'name' => 'required' 
+            'name' => [
+                'required',
+                Rule::unique('genres', 'name')->ignore($id)
+            ] 
+        ], [
+            'name.required' => 'Nama genre wajib diisi',
+            'name.unique'   => 'Genre sudah ada'
         ]);
 
         $genre = Genre::findOrFail($id);
