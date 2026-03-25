@@ -17,61 +17,49 @@
             <div class="form-group row">
                 <label for="full_name" class="col-sm-2 col-form-label">Full Name</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="full_name" value="#">
+                    <input type="text" readonly class="form-control-plaintext" id="full_name" value="{{ $admin->name }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="username" class="col-sm-2 col-form-label">Username</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="username" value="#">
+                    <input type="text" readonly class="form-control-plaintext" id="username" value="{{ $admin->username }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="email" value="#">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="phone" class="col-sm-2 col-form-label">Phone</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="phone" value="#">
+                    <input type="text" readonly class="form-control-plaintext" id="email" value="{{ $admin->email }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="phone" class="col-sm-2 col-form-label">Phone</label>
                     <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="phone" value="#">
+                <input type="text" readonly class="form-control-plaintext" id="phone" value="{{ $admin->phone }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="birthdate" class="col-sm-2 col-form-label">Birthdate</label>
                 <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="birthdate" value="#">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="birthdate" class="col-sm-2 col-form-label">Birthdate</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="birthdate" value="#">
+                        <input type="text" readonly class="form-control-plaintext" id="birthdate" value="{{ $admin->birthdate->format('d M Y') }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="roles" class="col-sm-2 col-form-label">Roles</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="roles" value="#">
+                    <input type="text" readonly class="form-control-plaintext" id="roles" value="{{ $admin->roles }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="access" class="col-sm-2 col-form-label">Access</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="access" value="#">
+                    <input type="text" readonly class="form-control-plaintext" id="access" value="{{ $admin->access }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="picture" class="col-sm-2 col-form-label">Picture</label>
                 <div class="col-sm-10">
-                    <img src="..." id="picture" class="img-thumbnail" alt="...">
+                    <img src="{{ asset('storage/' . $admin->photo) }}" id="picture" class="img-thumbnail" width="150" alt="{{ $admin->username }}">
                 </div>
             </div>
             <div class="float-right">
