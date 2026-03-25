@@ -19,4 +19,41 @@ class AdminController extends Controller
 
         return view('pages.admin.profile.edit_profile', compact('admin'));
     }
+
+    public function update_profile(Request $request) 
+    {
+        $admin = Auth::user();
+
+        // ✅ VALIDATION
+        $request->validasi([
+            'name'      => 'required|string|max:255',
+            'username'  => 'required|string|max:255|unique:users,username,' . $admin->id,
+            'email'     => 'required|email|unique:users,email,' . $admin->id,
+            'phone'     => 'required',
+            'birthdate' => 'required|date',
+            'photo'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        // ✅ UPDATE BASIC  DATA
+        $data = $request->only([
+            'name', 'username', 'email', 'phone', 'birthdate'
+        ]);
+
+        // ✅ UPLOAD PHOTO (IF AVAILABLE)
+        if($request->hasFile('photo')) {
+
+            // delete old photo
+            if($admin->photo && Storage::disk('public')->exists($admin->photo)) {
+                Storage::disk('public')->delete($admin->photo);
+            }
+
+            $data['photo'] = $request->file('photo')->store('users', 'public');
+        }
+
+        $admin->update($data);
+
+        return redirect() 
+            ->route('admin_profile')
+            ->with('success', 'Profile berhasil diperbarui');
+    }
 }
