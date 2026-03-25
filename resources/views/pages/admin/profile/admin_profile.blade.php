@@ -68,6 +68,12 @@
                     <input type="text" readonly class="form-control-plaintext" id="access" value="#">
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="picture" class="col-sm-2 col-form-label">Picture</label>
+                <div class="col-sm-10">
+                    <img src="..." id="picture" class="img-thumbnail" alt="...">
+                </div>
+            </div>
             <div class="float-right">
                 <a href="{{ route('edit_profile') }}" class="btn btn-info">Edit</a>
             </div>

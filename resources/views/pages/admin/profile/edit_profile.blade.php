@@ -69,6 +69,21 @@
                         <input type="text" class="form-control" id="access" value="#">
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="picture" class="col-sm-2 col-form-label">Picture</label>
+                    <div class="col-sm-10">
+                        <img src="..." id="picture" class="img-thumbnail" alt="...">
+                        <div class="input-group my-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="float-right">
                     <button class="btn btn-success">Submit</button>
                 </div>
