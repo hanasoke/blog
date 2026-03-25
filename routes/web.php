@@ -27,7 +27,7 @@ Route::prefix('admin')
                         ->name('dashboard');
 
                 Route::get('/admin_profile', 'AdminController@admin_profile') 
-                        ->name('view_admin_profile');
+                        ->name('admin_profile');
 
                 Route::get('/blogs_data', 'BlogController@blogs_data')
                         ->name('blogs_data');
