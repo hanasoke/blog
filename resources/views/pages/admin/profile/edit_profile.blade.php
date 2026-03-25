@@ -73,6 +73,9 @@
                     <button class="btn btn-success">Submit</button>
                 </div>
             </form>
+            <div class="float-left">
+                <a href="{{ route('admin_profile') }}" class="btn btn-secondary">Back</a>
+            </div>
         </div>
     </div>
 

@@ -29,6 +29,9 @@ Route::prefix('admin')
                 Route::get('/admin_profile', 'AdminController@admin_profile') 
                         ->name('admin_profile');
 
+                Route::get('/edit_profile', 'AdminController@edit_profile') 
+                        ->name('edit_profile');
+
                 Route::get('/blogs_data', 'BlogController@blogs_data')
                         ->name('blogs_data');
                 Route::get('/add_blog', 'BlogController@add_blog')

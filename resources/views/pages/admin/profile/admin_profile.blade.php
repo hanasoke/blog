@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="float-right">
-                <button class="btn btn-info">Edit</button>
+                <a href="{{ route('edit_profile') }}" class="btn btn-info">Edit</a>
             </div>
         </div>
     </div>
