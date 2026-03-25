@@ -14,47 +14,41 @@
             <h6 class="font-weight-bold text-primary m-0 float-left">Edit Admin Profile</h6>
         </div>
         <div class="card-body">
-            <form action="#">
+            <form action="{{ route('update_profile') }}" method="POST"  enctype="multipart/form-data">
+                @csrf 
+                <!-- Full Name -->
                 <div class="form-group row">
                     <label for="full_name" class="col-sm-2 col-form-label">Full Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="full_name" value="#">
+                        <input type="text" name="name" class="form-control" id="full_name" value="{{ old('name', $admin->name) }}">
                     </div>
                 </div>
+
+                <!-- Username -->
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="username" value="#">
+                        <input type="text" name="username" class="form-control" id="username" value="{{ old('username', $admin->username) }}">
                     </div>
                 </div>
+
+                <!-- Email -->
                 <div class="form-group row">
                     <label for="email" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="email" value="#">
+                        <input type="text" name="email" class="form-control" id="email" value="{{ old('email', $admin->email) }}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="phone" class="col-sm-2 col-form-label">Phone</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="phone" value="#">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="phone" class="col-sm-2 col-form-label">Phone</label>
-                        <div class="col-sm-10">
-                    <input type="text" class="form-control" id="phone" value="#">
+                        <input type="text" name="phone" class="form-control" id="phone" value="{{ old('phone', $admin->phone) }}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="birthdate" class="col-sm-2 col-form-label">Birthdate</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="birthdate" value="#">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="birthdate" class="col-sm-2 col-form-label">Birthdate</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="birthdate" value="#">
+                        <input type="date" name="birthdate" class="form-control" id="birthdate" value="{{ old('birthdate', $admin->birthdate->format('Y-m-d')) }}">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -70,22 +64,22 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="picture" class="col-sm-2 col-form-label">Picture</label>
+                    <label for="upload_picture" class="col-sm-2 col-form-label">Picture</label>
                     <div class="col-sm-10">
-                        <img src="..." id="picture" class="img-thumbnail" alt="...">
+                        <img src="{{ asset('storage/'.$admin->photo) }}" id="upload_picture" class="img-thumbnail" alt="{{ $admin->username }}" width="150">
                         <div class="input-group my-2">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                <span class="input-group-text" for="upload_picture">Upload</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                <input type="file" name="photo" class="custom-file-input" id="upload_picture">
+                                <label class="custom-file-label" for="upload_picture">Choose file</label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="float-right">
-                    <button class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success">Update</button>
                 </div>
             </form>
             <div class="float-left">
