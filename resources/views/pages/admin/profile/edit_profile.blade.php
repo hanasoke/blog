@@ -60,13 +60,13 @@
                 <div class="form-group row">
                     <label for="roles" class="col-sm-2 col-form-label">Roles</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="roles" value="#">
+                        <input type="text" readonly class="form-control-plaintext" id="roles" value="{{ $admin->roles }}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="access" class="col-sm-2 col-form-label">Access</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="access" value="#">
+                        <input type="text" readonly class="form-control-plaintext" id="access" value="{{ $admin->access }}">
                     </div>
                 </div>
                 <div class="form-group row">
