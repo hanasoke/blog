@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="float-right">
-                <button class="btn btn-success">Edit</button>
+                <button class="btn btn-info">Edit</button>
             </div>
         </div>
     </div>
