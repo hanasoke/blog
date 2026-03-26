@@ -17,7 +17,6 @@
         </div>
     @endif 
 
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="font-weight-bold text-primary m-0 float-left">Admin Profile Detail</h6>
