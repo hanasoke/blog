@@ -33,7 +33,7 @@ class AdminController extends Controller
             'email'     => 'required|email|unique:users,email,' . $admin->id,
             'phone'     => [
                 'required',
-                'unique:users,phone', 
+                'unique:users,phone,' . $admin->id, 
                 'digits_between:10,15',
                 'regex:/^[0-9]+$/'
             ],
