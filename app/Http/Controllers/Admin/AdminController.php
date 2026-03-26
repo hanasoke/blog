@@ -31,7 +31,11 @@ class AdminController extends Controller
             'name'      => 'required|string|max:255',
             'username'  => 'required|string|max:255|unique:users,username,' . $admin->id,
             'email'     => 'required|email|unique:users,email,' . $admin->id,
-            'phone'     => 'required',
+            'phone'     => [
+                'required', 
+                'digits_between:10,15',
+                'regex:/^[0-9]+$/'
+            ],
             'birthdate' => 'required|date',
             'photo'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
