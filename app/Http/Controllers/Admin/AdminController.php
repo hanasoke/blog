@@ -28,11 +28,12 @@ class AdminController extends Controller
 
         // ✅ VALIDATION
         $request->validate([
-            'name'      => 'required|string|max:255',
+            'name'      => 'required|string|max:255|unique:users,name,' . $admin->id,
             'username'  => 'required|string|max:255|unique:users,username,' . $admin->id,
             'email'     => 'required|email|unique:users,email,' . $admin->id,
             'phone'     => [
-                'required', 
+                'required',
+                'unique:users,phone', 
                 'digits_between:10,15',
                 'regex:/^[0-9]+$/'
             ],
