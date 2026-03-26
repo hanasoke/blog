@@ -19,10 +19,13 @@
                 <div class="form-group row">
                     <label for="full_name" class="col-sm-2 col-form-label">Full Name</label>
                     <div class="col-sm-10">
-                        <input type="text" name="name" class="form-control is-invalid" id="full_name" value="{{ old('name', $admin->name) }}">
-                        <div class="invalid-feedback">
-                            error 
-                        </div>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="full_name" value="{{ old('name', $admin->name) }}">
+
+                        @error('name')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror 
                     </div>
                 </div>
 
@@ -30,10 +33,13 @@
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
-                        <input type="text" name="username" class="form-control is-invalid" id="username" value="{{ old('username', $admin->username) }}">
-                        <div class="invalid-feedback">
-                            error 
-                        </div>
+                        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username" value="{{ old('username', $admin->username) }}">
+
+                        @error('username')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror 
                     </div>
                 </div>
 
@@ -41,28 +47,38 @@
                 <div class="form-group row">
                     <label for="email" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="text" name="email" class="form-control is-invalid" id="email" value="{{ old('email', $admin->email) }}">
-                        <div class="invalid-feedback">
-                            error 
-                        </div>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email', $admin->email) }}">
+
+                        @error('email')
+                            <div class="invalid-feedback">
+                                {{ $message }} 
+                            </div>
+                        @enderror 
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="phone" class="col-sm-2 col-form-label">Phone</label>
                     <div class="col-sm-10">
-                        <input type="text" name="phone" class="form-control is-invalid" id="phone" value="{{ old('phone', $admin->phone) }}">
-                        <div class="invalid-feedback">
-                            error 
-                        </div>
+                        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="phone" value="{{ old('phone', $admin->phone) }}">
+
+                        @error('phone')
+                            <div class="invalid-feedback">
+                                {{ $message }} 
+                            </div>
+                        @enderror 
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="birthdate" class="col-sm-2 col-form-label">Birthdate</label>
                     <div class="col-sm-10">
-                        <input type="date" name="birthdate" class="form-control is-invalid" id="birthdate" value="{{ old('birthdate', $admin->birthdate->format('Y-m-d')) }}">
-                        <div class="invalid-feedback">
-                            error 
-                        </div>
+                        <input type="date" name="birthdate" class="form-control @error('birthdate') is-invalid @enderror" id="birthdate" value="{{ old('birthdate', $admin->birthdate->format('Y-m-d')) }}">
+
+                        @error('birthdate')
+                            <div class="invalid-feedback">
+                                {{ $message }} 
+                            </div>
+                        @enderror 
+
                     </div>
                 </div>
                 <div class="form-group row">
@@ -86,12 +102,16 @@
                                 <span class="input-group-text" for="upload_picture">Upload</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" name="photo" class="custom-file-input is-invalid" id="upload_picture">
+                                <input type="file" name="photo" class="custom-file-input @error('photo') is-invalid @enderror" id="upload_picture">
                                 <label class="custom-file-label" for="upload_picture">Choose file</label>
                             </div>
-                            <div class="invalid-feedback">
-                                error 
-                            </div>
+
+                            @error('photo')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
                         </div>
                     </div>
                 </div>
