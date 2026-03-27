@@ -34,11 +34,33 @@
                             <th>Age</th>
                             <th>Access</th>
                             <th>Picture</th>
-                            <th>Action</th>
+                            <th width="20">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-
+                        <tr>
+                            <td>1</td>
+                            <td>Mitsuba AOI</td>
+                            <td>mitsuba@gmail.com</td>
+                            <td>25</td>
+                            <td>FREE</td>
+                            <td>
+                                .....
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-danger">
+                                        <i class="fas fa-trash fa-sm text-white-100"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-success">
+                                        <i class="fas fa-eye fa-sm text-white-100"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary">
+                                        <i class="fas fa-edit fa-sm text-white-100"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
