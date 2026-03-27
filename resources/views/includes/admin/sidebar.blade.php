@@ -54,7 +54,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('users_list') }}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Users Data</span>
         </a>

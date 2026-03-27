@@ -56,6 +56,9 @@ Route::prefix('admin')
                         ->name('update_genre');
                 Route::delete('/delete_genre/{id}', 'GenreController@delete_genre')
                         ->name('delete_genre');
+
+                Route::get('/users_list', 'UserController@index')
+                        ->name('users_list');
         });
 Route::prefix('home')
         ->namespace('User')

@@ -32,7 +32,9 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Age</th>
-                            <th width="30">Action</th>
+                            <th>Access</th>
+                            <th>Picture</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
