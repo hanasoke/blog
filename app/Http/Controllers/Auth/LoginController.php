@@ -36,17 +36,22 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        return auth()->user()->roles === 'ADMIN'
-            ? '/admin'
-            : '/home';
+        //
     }
 
     protected function authenticated($request, $user)
     {
         if (!$user->hasVerifiedEmail()) {
             auth()->logout();
-            session()->flash('error', 'Silahkan verifikasi email terlebih dahulu.');
+            return redirect('/login')
+                ->with('error', 'Silahkan verifikasi email terlebih dahulu.');
         }
+
+        if($user->roles === 'ADMIN') {
+            return redirect('/admin');
+        }
+
+        return redirect('/home');
     }
 
     protected function loggedOut(Request $request)
