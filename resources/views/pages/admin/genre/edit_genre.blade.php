@@ -24,7 +24,7 @@
                         name="name"
                         class="form-control @error('name') is-invalid @enderror" 
                         id="blog_title" 
-                        value="{{ $genre->name }}">
+                        value="{{ old('name', $genre->name) }}">
                     @error('name')
                         <div class="invalid-feedback">
                             {{ $message }}
