@@ -38,29 +38,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mitsuba AOI</td>
-                            <td>mitsuba@gmail.com</td>
-                            <td>25</td>
-                            <td>FREE</td>
-                            <td>
-                                .....
-                            </td>
-                            <td>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger">
-                                        <i class="fas fa-trash fa-sm text-white-100"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-success">
-                                        <i class="fas fa-eye fa-sm text-white-100"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-primary">
-                                        <i class="fas fa-edit fa-sm text-white-100"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach($users as $index => $user) 
+                            <tr>
+                                <td class="text-center">
+                                    {{ $index + 1 }}
+                                </td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>
+                                    {{ \Carbon\Carbon::parse($user->birthdate)->age }} tahun
+                                </td>
+                                <td>
+                                    {{ $user->access }}
+                                </td>
+                                <td class="text-center">
+                                    @if($user->photo)
+                                        <img src="{{ asset('storage/'.$user->photo) }}" width="100" class="rounded" alt="{{ $user->username }}">
+                                    @else 
+                                        -
+                                    @endif 
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-danger">
+                                            <i class="fas fa-trash fa-sm text-white-100"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-success">
+                                            <i class="fas fa-eye fa-sm text-white-100"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-primary">
+                                            <i class="fas fa-edit fa-sm text-white-100"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
