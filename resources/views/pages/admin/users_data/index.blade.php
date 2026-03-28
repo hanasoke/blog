@@ -60,20 +60,17 @@
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-danger">
-                                            <i class="fas fa-trash fa-sm text-white-100"></i>
-                                        </button>
                                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#viewModal">
                                             <i class="fas fa-eye fa-sm text-white-100"></i>
                                         </button>
-                                        <button type="button" class="btn btn-primary">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
                                             <i class="fas fa-edit fa-sm text-white-100"></i>
                                         </button>
                                     </div>
                                 </td>
                             </tr>
 
-                            <!-- Modal -->
+                            <!-- View Modal -->
                             <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -141,11 +138,42 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
                                     </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Edit Modal -->
+                            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">Edit Modal</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="access">Access</label>
+                                                    <select class="form-control" id="access">
+                                                        <option>FREE</option>
+                                                        <option>STANDARD</option>
+                                                        <option>PREMIUM</option>
+                                                        <option>PROFESSIONAL</option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-success">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         @endforeach
                     </tbody>
                 </table>
