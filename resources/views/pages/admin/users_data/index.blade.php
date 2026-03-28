@@ -60,7 +60,20 @@
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#viewModal">
+                                        <button type="button" 
+                                            class="btn btn-success btn-view" 
+                                            data-toggle="modal" 
+                                            data-target="#viewModal"
+                                            data-name="{{ $user->name }}"
+                                            data-username="{{ $user->username }}"
+                                            data-email="{{ $user->email }}"
+                                            data-phone="{{ $user->phone }}"
+                                            data-birthdate="{{ $user->birthdate }}"
+                                            data-age="{{ \Carbon\Carbon::parse($user->birthdate)->age }}"
+                                            data-roles="{{ $user->roles }}"
+                                            data-access="{{ $user->access }}"
+                                            data-photo="{{ $user->photo ? asset('storage/'.$user->photo) : '' }}"
+                                        >
                                             <i class="fas fa-eye fa-sm text-white-100"></i>
                                         </button>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
@@ -81,63 +94,24 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group row">
-                                            <label for="name" class="col-sm-3 col-form-label">Name</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" readonly class="form-control-plaintext" id="name" value="#">
+                                        @foreach(['name', 'username', 'email', 'phone', 'birthdate', 'age', 'roles', 'access'] as $field)
+                                            <div class="form-group row">
+                                                <label for="name" class="col-sm-3 col-form-label">{{ $field }}</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly class="form-control-plaintext" id="{{ $field }}">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="username" class="col-sm-3 col-form-label">Username</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" readonly class="form-control-plaintext" id="username" value="#">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="email" class="col-sm-3 col-form-label">Email</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" readonly class="form-control-plaintext" id="email" value="#">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="phone" class="col-sm-3 col-form-label">Phone</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" readonly class="form-control-plaintext" id="phone" value="#">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="birthdate" class="col-sm-3 col-form-label">Birtdate</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" readonly class="form-control-plaintext" id="birthdate" value="#">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="age" class="col-sm-3 col-form-label">Age</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" readonly class="form-control-plaintext" id="age" value="#">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="roles" class="col-sm-3 col-form-label">Roles</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" readonly class="form-control-plaintext" id="roles" value="#">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="access" class="col-sm-3 col-form-label">Access</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" readonly class="form-control-plaintext" id="access" value="#">
-                                            </div>
-                                        </div>
+                                        @endforeach
                                         <div class="form-group row">
                                             <label for="access" class="col-sm-3 col-form-label">Photo</label>
                                             <div class="col-sm-9">
-                                                <img src="#" class="img-thumbnail" alt="#">
+                                                <img id="photo" class="img-thumbnail" width="150">
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                     </div>
                                 </div>
