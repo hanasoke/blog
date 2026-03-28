@@ -63,7 +63,7 @@
                                         <button type="button" class="btn btn-danger">
                                             <i class="fas fa-trash fa-sm text-white-100"></i>
                                         </button>
-                                        <button type="button" class="btn btn-success">
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#viewModal">
                                             <i class="fas fa-eye fa-sm text-white-100"></i>
                                         </button>
                                         <button type="button" class="btn btn-primary">
@@ -72,6 +72,62 @@
                                     </div>
                                 </td>
                             </tr>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="viewModalLabel">Detail Modal</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label for="name" class="col-sm-3 col-form-label">Name</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="name" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="username" class="col-sm-3 col-form-label">Username</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="username" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="email" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="phone" class="col-sm-3 col-form-label">Phone</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="phone" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="roles" class="col-sm-3 col-form-label">Roles</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="roles" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="access" class="col-sm-3 col-form-label">Access</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="access" value="#">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
