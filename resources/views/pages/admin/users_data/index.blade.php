@@ -63,16 +63,7 @@
                                         <button type="button" 
                                             class="btn btn-success btn-view" 
                                             data-toggle="modal" 
-                                            data-target="#viewModal"
-                                            data-name="{{ $user->name }}"
-                                            data-username="{{ $user->username }}"
-                                            data-email="{{ $user->email }}"
-                                            data-phone="{{ $user->phone }}"
-                                            data-birthdate="{{ $user->birthdate }}"
-                                            data-age="{{ \Carbon\Carbon::parse($user->birthdate)->age }}"
-                                            data-roles="{{ $user->roles }}"
-                                            data-access="{{ $user->access }}"
-                                            data-photo="{{ $user->photo ? asset('storage/'.$user->photo) : '' }}"
+                                            data-target="#viewModal{{ $user->id }}"
                                         >
                                             <i class="fas fa-eye fa-sm text-white-100"></i>
                                         </button>
@@ -84,24 +75,64 @@
                             </tr>
 
                             <!-- View Modal -->
-                            <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="viewModal{{ $user->id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ $user->id }}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="viewModalLabel">Detail Modal</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
+                                        <h5 class="modal-title" id="viewModalLabel{{ $user->id }}">Detail Modal</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        @foreach(['name', 'username', 'email', 'phone', 'birthdate', 'age', 'roles', 'access'] as $field)
-                                            <div class="form-group row">
-                                                <label for="name" class="col-sm-3 col-form-label">{{ $field }}</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" readonly class="form-control-plaintext" id="{{ $field }}">
-                                                </div>
+                                        <div class="form-group row">
+                                            <label for="name" class="col-sm-3 col-form-label">Name</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="name" value="#">
                                             </div>
-                                        @endforeach
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="username" class="col-sm-3 col-form-label">Username</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="username" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="email" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="phone" class="col-sm-3 col-form-label">Phone</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="phone" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="birthdate" class="col-sm-3 col-form-label">Birtdate</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="birthdate" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="age" class="col-sm-3 col-form-label">Age</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="age" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="roles" class="col-sm-3 col-form-label">Roles</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="roles" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="access" class="col-sm-3 col-form-label">Access</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="access" value="#">
+                                            </div>
+                                        </div>
                                         <div class="form-group row">
                                             <label for="access" class="col-sm-3 col-form-label">Photo</label>
                                             <div class="col-sm-9">
