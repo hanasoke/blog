@@ -109,6 +109,18 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
+                                            <label for="birthdate" class="col-sm-3 col-form-label">Birtdate</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="birthdate" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="age" class="col-sm-3 col-form-label">Age</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="age" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <label for="roles" class="col-sm-3 col-form-label">Roles</label>
                                             <div class="col-sm-9">
                                                 <input type="text" readonly class="form-control-plaintext" id="roles" value="#">
@@ -118,6 +130,12 @@
                                             <label for="access" class="col-sm-3 col-form-label">Access</label>
                                             <div class="col-sm-9">
                                                 <input type="text" readonly class="form-control-plaintext" id="access" value="#">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="access" class="col-sm-3 col-form-label">Photo</label>
+                                            <div class="col-sm-9">
+                                                <img src="#" class="img-thumbnail" alt="#">
                                             </div>
                                         </div>
                                     </div>
