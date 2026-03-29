@@ -42,14 +42,82 @@
                             <td>Belum di Edit</td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash fa-sm text-white-100"></i></button>
-                                    <button type="button" class="btn btn-info"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                    <a href="{{ route('add_blog') }}" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash fa-sm text-white-100"></i></button>
+                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                    <a href="{{ route('edit_blog') }}" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+
+                <!-- Delete Modal -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Delete Blog</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                <b>Are you sure want to delete {blog_name} article ?</b>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail Modal -->
+                <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="viewModalLabel">View Detail {blog_name} Article</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group row">
+                                    <label for="title" class="col-sm-4 col-form-label">Judul Blog</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="title" value="email@example.com">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="published_date" class="col-sm-4 col-form-label">Tanggal Terbit</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="published_date" value="email@example.com">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="kota_terbit" class="col-sm-4 col-form-label">Kota Terbit</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="kota_terbit" value="email@example.com">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="tanggal_edit" class="col-sm-4 col-form-label">Tanggal Edit</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="tanggal_edit" value="email@example.com">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
