@@ -15,7 +15,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="font-weight-bold text-primary m-0 float-left">Blogs Table List</h6>
+            <h4 class="font-weight-bold text-primary m-0 float-left">Blogs Table View</h4>
             <a href="{{ route('add_blog') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Blog</a>
         </div>
         <div class="card-body">
