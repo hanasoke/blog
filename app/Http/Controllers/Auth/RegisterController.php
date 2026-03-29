@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'password' => 'required|string|min:8',
             'phone' => 'required|digits_between:10,15|unique:users,phone',
             'birthdate' => 'required|date',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'photo' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
     }
 
