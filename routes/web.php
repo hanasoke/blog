@@ -59,6 +59,8 @@ Route::prefix('admin')
 
                 Route::get('/users_list', 'UserController@index')
                         ->name('users_list');
+
+                Route::put('/users_list/{id}/update-access', 'UserController@updateAccess')->name('update_user_access');
         });
 Route::prefix('home')
         ->namespace('User')

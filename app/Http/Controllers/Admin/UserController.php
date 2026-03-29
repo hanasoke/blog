@@ -14,4 +14,13 @@ class UserController extends Controller
 
         return view('pages.admin.users_data.index', compact('users'));
     }
+
+    public function updateAccess(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->access = $request->access;
+        $user->save();
+
+        return redirect()->route('users_list')->with('success', 'User access updated successfully!');
+    }
 }
