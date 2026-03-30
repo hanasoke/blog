@@ -52,7 +52,7 @@ Route::prefix('admin')
 
                 Route::get('/edit_genre/{id}', 'GenreController@edit_genre')
                         ->name('edit_genre');
-                Route::post('/edit_genre{id}', 'GenreController@update_genre')
+                Route::post('/update_genre/{id}', 'GenreController@update_genre')
                         ->name('update_genre');
                 Route::delete('/delete_genre/{id}', 'GenreController@delete_genre')
                         ->name('delete_genre');
@@ -74,8 +74,9 @@ Route::prefix('admin')
                 
                 Route::post('/adding_source', 'SourceController@adding_source')
                         ->name('adding_source');
-                Route::post('/update_source{id}', 'GenreController@update_source')
-                        ->name('update_genre');
+
+                Route::post('/update_source/{id}', 'SourceController@update_source')
+                        ->name('update_source');
                 Route::delete('/delete_source/{id}', 'SourceController@delete_source')
                         ->name('delete_source');
 

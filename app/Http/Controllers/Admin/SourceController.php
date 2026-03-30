@@ -44,7 +44,7 @@ class SourceController extends Controller
         $request->validate([
             'name' => [
                 'required',
-                Rule::unique('genres', 'name')->ignore($id)
+                Rule::unique('sources', 'name')->ignore($id)
             ]
         ], [
             'name.required' => 'Source Name must be fulfilled',
