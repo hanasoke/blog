@@ -8,7 +8,6 @@
         <h1 class="h3 mb-0 text-gray-800">Add New Genre</h1>
     </div>
 
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="font-weight-bold text-primary m-0 float-left">Add Genre</h6>
@@ -31,7 +30,7 @@
                         </div>
                     @enderror 
                 </div>
-                <button class="btn btn-success btn-lg btn-block">Submit</button>
+                <button type="submit" class="btn btn-success btn-lg btn-block">Submit</button>
             </form>
         </div>
     </div>

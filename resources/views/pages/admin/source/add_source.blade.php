@@ -14,20 +14,22 @@
             <h6 class="font-weight-bold text-primary m-0 float-left">Add Source</h6>
         </div>
         <div class="card-body">
-            <div class="form-group">
-                <label for="source_name">Source Name</label>
-                <input 
-                    type="text"
-                    name="name" 
-                    class="form-control is-invalid @enderror" 
-                    value="#" 
-                    id="source_name" placeholder="Input Your Genre Name">
+            <form action="{{ route('adding_source') }}" method="POST">
+                <div class="form-group">
+                    <label for="source_name">Source Name</label>
+                    <input 
+                        type="text"
+                        name="name" 
+                        class="form-control @error('name') is-invalid @enderror" 
+                        value="{{ old('name') }}" 
+                        id="source_name" placeholder="Input Your Source Name">
 
-                    <div class="invalid-feedback">
-                        #
-                    </div>
-            </div>
-            <button class="btn btn-success btn-lg btn-block">Submit</button>
+                        <div class="invalid-feedback">
+                            #
+                        </div>
+                </div>
+                <button class="btn btn-success btn-lg btn-block">Submit</button>
+            </form>
         </div>
     </div>
 

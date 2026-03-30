@@ -4,30 +4,27 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Add Edit Source</h1>
-    </div>
+    <h1 class="h3 mb-0 text-gray-800">Add Edit Source</h1>
 
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="font-weight-bold text-primary m-0 float-left">Edit Source</h6>
+            <h6 class="font-weight-bold text-primary m-0 float-left">Edit Genre</h6>
         </div>
         <div class="card-body">
-            <div class="form-group">
-                <label for="source_name">Source Name</label>
-                <input 
-                    type="text"
-                    name="name" 
-                    class="form-control is-invalid @enderror" 
-                    value="#" 
-                    id="source_name" placeholder="Input Your Genre Name">
+            <form action="{{ route('update_genre', $genre->id) }}" method="POST">
+                @csrf 
+                <div class="form-group">
+                    <label for="blog_title">Genre Name</label>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="blog_title" value="{{ old('name', $genre->name) }}">
 
-                    <div class="invalid-feedback">
-                        #
-                    </div>
-            </div>
-            <button class="btn btn-success btn-lg btn-block">Update</button>
+                    @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
+                </div>
+                <button type="submit" class="btn btn-success btn-lg btn-block">Update</button>
+            </form>
         </div>
     </div>
 
