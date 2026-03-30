@@ -71,6 +71,9 @@ Route::prefix('admin')
 
                 Route::get('/edit_source', 'SourceController@edit_source')
                         ->name('edit_source');
+                
+                Route::post('/adding_source', 'SourceController@adding_source')
+                        ->name('adding_source');
 
         });
 Route::prefix('home')

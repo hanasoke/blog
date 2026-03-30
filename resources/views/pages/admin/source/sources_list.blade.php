@@ -19,12 +19,14 @@
             <a href="{{ route('add_source') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Source</a>
         </div>
         <div class="card-body">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>#</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-center">
@@ -35,9 +37,10 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($sources as $no => $source)
                         <tr>
-                            <td width="20" class="text-center">1</td>
-                            <td>CNN</td>
+                            <td width="20" class="text-center">{{ $no + 1 }}</td>
+                            <td>{{ $source->name }}</td>
                             <td width="30">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
@@ -72,6 +75,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endforeach 
                     </tbody>
                 </table>
             </div>

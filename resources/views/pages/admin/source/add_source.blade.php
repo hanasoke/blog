@@ -15,6 +15,7 @@
         </div>
         <div class="card-body">
             <form action="{{ route('adding_source') }}" method="POST">
+                @csrf 
                 <div class="form-group">
                     <label for="source_name">Source Name</label>
                     <input 
@@ -24,11 +25,13 @@
                         value="{{ old('name') }}" 
                         id="source_name" placeholder="Input Your Source Name">
 
+                    @error('name')
                         <div class="invalid-feedback">
-                            #
+                            {{message}}
                         </div>
+                    @enderror 
                 </div>
-                <button class="btn btn-success btn-lg btn-block">Submit</button>
+                <button type="submit" class="btn btn-success btn-lg btn-block">Submit</button>
             </form>
         </div>
     </div>

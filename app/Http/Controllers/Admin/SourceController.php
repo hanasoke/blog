@@ -26,7 +26,7 @@ class SourceController extends Controller
             'name.unique' => 'Source sudah ada'
         ]);
 
-        Genre::create([
+        Source::create([
             'name' => $request->name
         ]);
 
