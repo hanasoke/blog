@@ -16,7 +16,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h4 class="font-weight-bold text-primary m-0 float-left">Source Table View</h6>
-            <a href="{{ route('add_source') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Source</a>
+            <a href="#" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Source</a>
         </div>
         <div class="card-body">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -61,7 +61,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        Are you sure want to delete {{ genre->name }} genre ?
+                                        Are you sure want to delete this source ?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

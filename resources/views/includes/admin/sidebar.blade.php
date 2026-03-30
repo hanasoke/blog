@@ -39,6 +39,7 @@
                 <h6 class="collapse-header">Blogs Component</h6>
                 <a class="collapse-item" href="{{ route('genre_lists') }}">Genre Data View</a>
                 <a class="collapse-item" href="{{ route('blogs_data') }}">Blogs Data View</a>
+                <a class="collapse-item" href="{{ route('sources_list') }}">Sources Data View</a>
                 <a class="collapse-item" href="#">Access Blog Article</a>
             </div>
         </div>

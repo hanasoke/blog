@@ -60,7 +60,11 @@ Route::prefix('admin')
                 Route::get('/users_list', 'UserController@index')
                         ->name('users_list');
 
-                Route::put('/users_list/{id}/update-access', 'UserController@updateAccess')->name('update_user_access');
+                Route::put('/users_list/{id}/update-access', 'UserController@updateAccess')
+                        ->name('update_user_access');
+
+                Route::get('/sources_list', 'SourceController@sources_list')
+                        ->name('sources_list');
         });
 Route::prefix('home')
         ->namespace('User')
