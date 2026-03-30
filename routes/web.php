@@ -69,12 +69,13 @@ Route::prefix('admin')
                 Route::get('/add_source', 'SourceController@add_source')
                         ->name('add_source');
 
-                Route::get('/edit_source', 'SourceController@edit_source')
+                Route::get('/edit_source/{id}', 'SourceController@edit_source')
                         ->name('edit_source');
                 
                 Route::post('/adding_source', 'SourceController@adding_source')
                         ->name('adding_source');
-
+                Route::post('/update_source{id}', 'GenreController@update_source')
+                        ->name('update_genre');
                 Route::delete('/delete_source/{id}', 'SourceController@delete_source')
                         ->name('delete_source');
 

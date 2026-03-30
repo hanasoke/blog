@@ -35,8 +35,30 @@ class SourceController extends Controller
             ->with('success', 'Source has been added');
     }
 
-    public function edit_source() {
-        return view('pages.admin.source.edit_source');
+    public function edit_source($id) {
+        $source = Source::findOrFail($id);
+        return view('pages.admin.source.edit_source', compact('source'));
+    }
+
+    public function update_source(Request $request, $id) {
+        $request->validate([
+            'name' => [
+                'required',
+                Rule::unique('genres', 'name')->ignore($id)
+            ]
+        ], [
+            'name.required' => 'Source Name must be fulfilled',
+            'name.unique'   => 'Source has existed'
+        ]);
+
+        $source = Source::findOrFail($id);
+        $source->update([
+            'name' => $request->name 
+        ]);
+
+        return redirect()
+            ->route('sources_list')
+            ->with('success', 'Source has been updated');
     }
 
     public function delete_source($id) {
