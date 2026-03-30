@@ -57,23 +57,23 @@
                         <div class="modal fade" id="deleteModal{{ $genre->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $genre->id }}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel{{ $genre->id }}">Delete This Genre</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    Are you sure want to delete {{ $genre->name }} genre ?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <form action="{{ route('delete_genre', $genre->id) }}" method="POST">
-                                        @csrf 
-                                        @method('DELETE')
-                                            <button class="btn btn-danger" type="submit" >Delete</button>
-                                    </form>
-                                </div>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel{{ $genre->id }}">Delete This Genre</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure want to delete {{ $genre->name }} genre ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <form action="{{ route('delete_genre', $genre->id) }}" method="POST">
+                                            @csrf 
+                                            @method('DELETE')
+                                                <button class="btn btn-danger" type="submit">Delete</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

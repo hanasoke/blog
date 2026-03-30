@@ -75,6 +75,9 @@ Route::prefix('admin')
                 Route::post('/adding_source', 'SourceController@adding_source')
                         ->name('adding_source');
 
+                Route::delete('/delete_source/{id}', 'SourceController@delete_source')
+                        ->name('delete_source');
+
         });
 Route::prefix('home')
         ->namespace('User')

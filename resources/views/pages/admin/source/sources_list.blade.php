@@ -43,7 +43,7 @@
                             <td>{{ $source->name }}</td>
                             <td width="30">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $source->id }}">
                                         <i class="fas fa-trash fa-sm text-white-100"></i>
                                     </button>
                                     <a href="{{ route('edit_source') }}" class="btn btn-info">
@@ -54,22 +54,24 @@
                         </tr>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="deleteModal{{ $source->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $source->id }}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel">Delete This Genre</h5>
+                                        <h5 class="modal-title" id="deleteModalLabel{{ $source->id }}">Delete This Source</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        Are you sure want to delete this source ?
+                                        Are you sure want to delete {{ $source->name }} ?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <form action="#" method="POST">
-                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                        <form action="{{ route('delete_source', $source->id) }}" method="POST">
+                                            @csrf 
+                                            @method('DELETE')
+                                                <button class="btn btn-danger" type="submit">Delete</button>
                                         </form>
                                     </div>
                                 </div>
