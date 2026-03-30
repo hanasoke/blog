@@ -38,4 +38,12 @@ class SourceController extends Controller
     public function edit_source() {
         return view('pages.admin.source.edit_source');
     }
+
+    public function delete_source($id) {
+        Source::findOrFail($id)->delete();
+
+        return redirect()
+            ->route('sources_list')
+            ->with('success', 'Source has been deleted');
+    }
 }
