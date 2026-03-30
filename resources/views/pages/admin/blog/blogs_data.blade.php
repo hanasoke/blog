@@ -26,8 +26,7 @@
                             <th>NO</th>
                             <th>Judul Blog</th>
                             <th>Tanggal Terbit</th>
-                            <th>Jumlah Baris</th>
-                            <th>Kota Terbit</th>
+                            <th>Source</th>
                             <th>Tanggal Edit</th>
                             <th>Action</th>
                         </tr>
@@ -36,9 +35,8 @@
                         <tr>
                             <td>1</td>
                             <td>Papua Merupakan Bagian dari Indonesia</td>
-                            <td>27 Mei 1999</td>
-                            <td>150 Baris</td>
-                            <td>Banyumas</td>
+                            <td>27 Maret 2026</td>
+                            <td>New York Times</td>
                             <td>Belum di Edit</td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
@@ -87,27 +85,27 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group row">
-                                    <label for="title" class="col-sm-4 col-form-label">Judul Blog</label>
+                                    <label for="title" class="col-sm-4 col-form-label">Blog Title</label>
                                     <div class="col-sm-8">
-                                        <input type="text" readonly class="form-control-plaintext" id="title" value="email@example.com">
+                                        <input type="text" readonly class="form-control-plaintext" id="title" value="blog_title">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="published_date" class="col-sm-4 col-form-label">Tanggal Terbit</label>
+                                    <label for="published_date" class="col-sm-4 col-form-label">Published</label>
                                     <div class="col-sm-8">
-                                        <input type="text" readonly class="form-control-plaintext" id="published_date" value="email@example.com">
+                                        <input type="text" readonly class="form-control-plaintext" id="published_date" value="27 March 2026">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="kota_terbit" class="col-sm-4 col-form-label">Kota Terbit</label>
+                                    <label for="source" class="col-sm-4 col-form-label">Source</label>
                                     <div class="col-sm-8">
-                                        <input type="text" readonly class="form-control-plaintext" id="kota_terbit" value="email@example.com">
+                                        <input type="text" readonly class="form-control-plaintext" id="source" value="source">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="tanggal_edit" class="col-sm-4 col-form-label">Tanggal Edit</label>
                                     <div class="col-sm-8">
-                                        <input type="text" readonly class="form-control-plaintext" id="tanggal_edit" value="email@example.com">
+                                        <input type="text" readonly class="form-control-plaintext" id="tanggal_edit" value="Belum di Edit">
                                     </div>
                                 </div>
                             </form>

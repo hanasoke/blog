@@ -33,6 +33,19 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="source">Source</label>
+                    <select class="form-control" id="source">
+                        <option value="#">Choose A Source</option>
+                        <option>CNN</option>
+                        <option>Kompas</option>
+                        <option>New York Times</option>
+                        <option>Guardian</option>
+                        <option>CNBC</option>
+                        <option>Detik</option>
+                        <option>Trans 7</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="description">Description</label>
                     <textarea class="form-control" id="description" rows="3"></textarea>
                 </div>
