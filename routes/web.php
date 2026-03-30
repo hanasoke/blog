@@ -65,6 +65,13 @@ Route::prefix('admin')
 
                 Route::get('/sources_list', 'SourceController@sources_list')
                         ->name('sources_list');
+
+                Route::get('/add_source', 'SourceController@add_source')
+                        ->name('add_source');
+
+                Route::get('/edit_source', 'SourceController@edit_source')
+                        ->name('edit_source');
+
         });
 Route::prefix('home')
         ->namespace('User')

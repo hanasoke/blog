@@ -17,13 +17,13 @@
             <form action="{{ route('store_genre') }}" method="POST">
                 @csrf 
                 <div class="form-group">
-                    <label for="blog_title">Genre Name</label>
+                    <label for="genre_title">Genre Name</label>
                     <input 
                         type="text"
                         name="name" 
                         class="form-control @error('name') is-invalid @enderror" 
                         value="{{ old('name') }}" 
-                        id="blog_title" placeholder="Input Your Genre Name">
+                        id="genre_title" placeholder="Input Your Genre Name">
 
                     @error('name')
                         <div class="invalid-feedback">
