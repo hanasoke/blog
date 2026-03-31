@@ -32,9 +32,14 @@
                         <option>Education</option>
                     </select>
                 </div>
+
                 <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" class="form-control" id="city" placeholder="Input City">
+                    <label for="source">Source</label>
+                    <select class="form-control" id="source">
+                        <option value="#">Choose Source</option>
+                        <option>CNBC</option>
+                        <option>CNN</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -46,7 +51,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="image_2">Image 2</label>
+                    <label for="image_2">Image 2 (Optional)</label>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="image_2">
                         <label class="custom-file-label" for="image_2">Choose file...</label>
@@ -54,7 +59,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="image_3">Image 3</label>
+                    <label for="image_3">Image 3 (Optional)</label>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="image_3">
                         <label class="custom-file-label" for="image_3">Choose file...</label>

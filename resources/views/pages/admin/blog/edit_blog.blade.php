@@ -45,6 +45,31 @@
                         <option>Trans 7</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="thumbnail">Thumbnail</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="thumbnail">
+                        <label class="custom-file-label" for="thumbnail">Choose file...</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="image_2">Image 2 (Optional)</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image_2">
+                        <label class="custom-file-label" for="image_2">Choose file...</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="image_3">Image 3 (Optional)</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image_3">
+                        <label class="custom-file-label" for="image_3">Choose file...</label>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea class="form-control" id="description" rows="3"></textarea>
