@@ -108,6 +108,24 @@
                                         <input type="text" readonly class="form-control-plaintext" id="tanggal_edit" value="Belum di Edit">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
+                                    <div class="col-sm-8">
+                                        <img src="..." class="img-thumbnail" alt="...">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="thumbnail" class="col-sm-4 col-form-label">Image 2</label>
+                                    <div class="col-sm-8">
+                                        <img src="..." class="img-thumbnail" alt="...">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="thumbnail" class="col-sm-4 col-form-label">Image 3</label>
+                                    <div class="col-sm-8">
+                                        <img src="..." class="img-thumbnail" alt="...">
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
