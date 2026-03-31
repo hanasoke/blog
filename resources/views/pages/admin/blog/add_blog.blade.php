@@ -36,13 +36,34 @@
                     <label for="city">City</label>
                     <input type="text" class="form-control" id="city" placeholder="Input City">
                 </div>
+
+                <div class="form-group">
+                    <label for="thumbnail">Thumbnail</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="thumbnail">
+                        <label class="custom-file-label" for="thumbnail">Choose file...</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="image_2">Image 2</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image_2">
+                        <label class="custom-file-label" for="image_2">Choose file...</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="image_3">Image 3</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image_3">
+                        <label class="custom-file-label" for="image_3">Choose file...</label>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea class="form-control" id="description" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="tags">Tags</label>
-                    <textarea class="form-control" id="tags" rows="2" placeholder="Input Tags"></textarea>
                 </div>
                 <button class="btn btn-success btn-lg btn-block">Submit</button>
             </form>
