@@ -25,7 +25,69 @@ class BlogController extends Controller
 
     public function store_blog(Request $request)
     {
-        
+        // Validation rules 
+        $rules = [
+            'title' => 'required|string|max:255',
+            'genre_id' => 'required|exists:genres,id',
+            'source_id' => 'required|exists:sources,id',
+            'thumbnail' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'image_2' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'image_3' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'description' => 'required|string|min:10',
+        ];
+
+        // Custom error messages 
+        $messages = [
+            'title.required' => 'Blog title is required.',
+            'title.max' => 'Blog title cannot exceed 255 characters.',
+            'genre_id.required' => 'Please select a genre.',
+            'genre_id.exists' => 'Selected genre is invalid.',
+            'source_id.required' => 'Please select a source.',
+            'source_id.exists' => 'Selected source is invalid.',
+            'thumbnail.required' => 'Thumbnail image is required.',
+            'thumbnail.image' => 'Thumbnail must be an image file.',
+            'thumbnail.mimes' => 'Thumbnail must be a JPG, JPEG, or PNG file.',
+            'thumbnail.max' => 'Thumbnail size must not exceed 2MB.',
+            'image_2.image' => 'Image 2 must be an image file.',
+            'image_2.mimes' => 'Image 2 must be a JPG, JPEG, or PNG file.',
+            'image_2.max' => 'Image 2 size must not exceed 2MB.',
+            'image_3.image' => 'Image 3 must be an image file.',
+            'image_3.mimes' => 'Image 3 must be a JPG, JPEG, or PNG file.',
+            'image_3.max' => 'Image 3 size must not exceed 2MB.',
+            'description.required' => 'Description is required.',
+            'description.min' => 'Description must be at least 10 characters.',
+        ];
+
+        // Validate request 
+        $this->validate($request, $rules, $messages);
+
+        // Handle file uploads 
+        $thumbnailPath = $request->file('thumbnail')->store('blogs/thumbnails', 'public');
+
+        $image2Path = null;
+        if($request->hasFile('image_2')) {
+            $image2Path = $request->file('image_2')->store('blogs/images', 'public');
+        }
+
+        $image3Path = null;
+        if($request->hasFile('image_3')) {
+            $image3Path = $request->file('image_3')->store('blogs/images', 'public');
+        }
+
+        // Create blog 
+        $blog = Blog::create([
+            'title' => $request->title,
+            'genre_id' => $request->genre_id,
+            'source_id' => $request->source_id,
+            'thumbnail' => $thumbnailPath,
+            'image_2' => $image2Path,
+            'image_3' => $image3Path,
+            'description' => $request->description,
+        ]);
+
+        // Redirect with success message 
+        return redirect()->route('blogs_data')
+                        ->with('success', 'Blog "' . $blog->title . '" has been successfully added!');
     }
 
     public function edit_blog() {
