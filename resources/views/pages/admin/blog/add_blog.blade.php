@@ -23,32 +23,37 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="genre">Genre</label>
-                    <select class="form-control is-invalid" id="genre">
+                    <label for="genre_id">Genre <span class="text-danger">*</span></label>
+                    <select class="form-control @error('genre_id') is-invalid @enderror" id="genre_id" name="genre_id">
                         <option value="">Choose Genre</option>
-                        <option>Romance</option>
-                        <option>Politic</option>
-                        <option>Geograpy</option>
-                        <option>Paleontologi</option>
-                        <option>Economic</option>
-                        <option>Sports</option>
-                        <option>Education</option>
+                        @foreach($genres as $genre) 
+                            <option value="{{ $genre->id }}" {{ old('genre_id') == $genre->id ? 'selected' : '' }}>
+                                {{ $genre->name }}
+                            </option>
+                        @endforeach
                     </select>
-                    <div class="invalid-feedback">
-                        #
-                    </div>
+                    @error('genre_id') 
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
                 </div>
 
                 <div class="form-group">
-                    <label for="source">Source</label>
-                    <select class="form-control is-invalid" id="source">
-                        <option value="#">Choose Source</option>
-                        <option>CNBC</option>
-                        <option>CNN</option>
+                    <label for="source_id">Source <span class="text-danger">*</span></label>
+                    <select class="form-control @error('source_id') is-invalid @enderror" id="source_id" name="source_id">
+                        <option value="">Choose Source</option>
+                        @foreach($sources as $source)
+                            <option value="{{ $source->id }}" {{ old('source_id') == $source->id ? 'selected' : '' }}>
+                                {{ $source->name }}
+                            </option>
+                        @endforeach 
                     </select>
-                    <div class="invalid-feedback">
-                        #
-                    </div>
+                    @error('source_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
                 </div>
 
                 <div class="form-group">

@@ -23,6 +23,11 @@ class BlogController extends Controller
         return view('pages.admin.blog.add_blog', compact('genres', 'sources'));
     }
 
+    public function store_blog(Request $request)
+    {
+        
+    }
+
     public function edit_blog() {
         return view('pages.admin.blog.edit_blog');
     }
