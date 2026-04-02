@@ -19,39 +19,48 @@
             <a href="{{ route('add_blog') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Blog</a>
         </div>
         <div class="card-body">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>#</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            <!-- Alert Success -->
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
                             <th>NO</th>
                             <th>Judul Blog</th>
+                            <th>Genre</th>
                             <th>Tanggal Terbit</th>
                             <th>Source</th>
-                            <th>Tanggal Edit</th>
+                            <th>Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Papua Merupakan Bagian dari Indonesia</td>
-                            <td>27 Maret 2026</td>
-                            <td>New York Times</td>
-                            <td>Belum di Edit</td>
-                            <td class="text-center">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash fa-sm text-white-100"></i></button>
-                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                    <a href="{{ route('edit_blog') }}" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach($blogs as $index => $blog)
+                            <tr>
+                                <td class="text-center">{{ $index + 1 }}</td>
+                                <td>{{ $blog->title }}</td>
+                                <td>{{ $blog->genre->name ?? '-' }}</td>
+                                <td>{{ \Carbon\Carbon::parse($blog->created_at)->format('d F Y') }}</td>
+                                <td>{{ $blog->source->name ?? '-' }}</td>
+                                <td>
+                                    {{ $blog->description }}
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash fa-sm text-white-100"></i></button>
+                                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                        <a href="{{ route('edit_blog') }}" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
 
