@@ -54,9 +54,9 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash fa-sm text-white-100"></i></button>
-                                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                        <a href="{{ route('edit_blog') }}" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $blog->id }}"><i class="fas fa-trash fa-sm text-white-100"></i></button>
+                                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal{{ $blog->id }}"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                        <a href="{{ route('edit_blog', $blog->id) }}" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -65,11 +65,11 @@
                 </table>
 
                 <!-- Delete Modal -->
-                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal fade" id="deleteModal{{ $blog->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $blog->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLabel">Delete Blog</h5>
+                            <h5 class="modal-title" id="deleteModalLabel{{ $blog->id }}">Delete Blog</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
@@ -88,60 +88,58 @@
                 </div>
 
                 <!-- Detail Modal -->
-                <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+                <div class="modal fade" id="viewModal{{ $blog->id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ $blog->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="viewModalLabel">View Detail {blog_name} Article</h5>
+                            <h5 class="modal-title" id="viewModalLabel{{ $blog->id }}">View Detail {{ $blog->title }} Article</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <div class="form-group row">
-                                    <label for="title" class="col-sm-4 col-form-label">Blog Title</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" readonly class="form-control-plaintext" id="title" value="blog_title">
-                                    </div>
+                            <div class="form-group row">
+                                <label for="title" class="col-sm-4 col-form-label">Blog Title</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-plaintext" id="title">{{ $blog->title }}</p>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="published_date" class="col-sm-4 col-form-label">Published</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" readonly class="form-control-plaintext" id="published_date" value="27 March 2026">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="published_date" class="col-sm-4 col-form-label">Published</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-plaintext">{{ \Carbon\Carbon::parse($blog->created_at)->format('d F Y') }}</p>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="source" class="col-sm-4 col-form-label">Source</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" readonly class="form-control-plaintext" id="source" value="source">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="source" class="col-sm-4 col-form-label">Source</label>
+                                <div class="col-sm-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="source" value="source">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="tanggal_edit" class="col-sm-4 col-form-label">Tanggal Edit</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" readonly class="form-control-plaintext" id="tanggal_edit" value="Belum di Edit">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="tanggal_edit" class="col-sm-4 col-form-label">Tanggal Edit</label>
+                                <div class="col-sm-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="tanggal_edit" value="Belum di Edit">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
-                                    <div class="col-sm-8">
-                                        <img src="..." class="img-thumbnail" alt="...">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
+                                <div class="col-sm-8">
+                                    <img src="..." class="img-thumbnail" alt="...">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="thumbnail" class="col-sm-4 col-form-label">Image 2</label>
-                                    <div class="col-sm-8">
-                                        <img src="..." class="img-thumbnail" alt="...">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="thumbnail" class="col-sm-4 col-form-label">Image 2</label>
+                                <div class="col-sm-8">
+                                    <img src="..." class="img-thumbnail" alt="...">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="thumbnail" class="col-sm-4 col-form-label">Image 3</label>
-                                    <div class="col-sm-8">
-                                        <img src="..." class="img-thumbnail" alt="...">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="thumbnail" class="col-sm-4 col-form-label">Image 3</label>
+                                <div class="col-sm-8">
+                                    <img src="..." class="img-thumbnail" alt="...">
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
