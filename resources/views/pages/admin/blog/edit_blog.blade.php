@@ -19,47 +19,57 @@
         <div class="card-body">
             <form>
                 <div class="form-group">
-                    <label for="blog_title">Blog Title</label>
-                    <input type="text" class="form-control is-invalid" id="blog_title" placeholder="Edit Blog Title">
-                    <div class="invalid-feedback">
-                        #
-                    </div>
+                    <label for="title">Blog Title <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Edit Blog Title" value="{{ old('title', $blog->title) }}">
+                    @error('title')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
                 </div>
                 <div class="form-group">
-                    <label for="genre">Genre</label>
-                    <select class="form-control is-invalid" id="genre">
-                        <option value="#">Choose Genre</option>
-                        <option>Romance</option>
-                        <option>Politic</option>
-                        <option>Geograpy</option>
-                        <option>Paleontologi</option>
-                        <option>Economic</option>
-                        <option>Sports</option>
-                        <option>Education</option>
+                    <label for="genre_id">Genre <span class="text-danger">*</span></label>
+                    <select class="form-control @error('genre_id') is-invalid @enderror" id="genre_id" name="genre_id">
+                        <option value="">Choose Genre</option>
+                        @foreach($genres as $genre)
+                            <option value="{{ $genre->id }}" {{ old('genre_id', $blog->genre_id) == $genre->id ? 'selected' : '' }}>
+                                {{ $genre->name }}
+                            </option>
+                        @endforeach
                     </select>
-                    <div class="invalid-feedback">
-                        #
-                    </div>
+                    @error('genre_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
                 </div>
                 <div class="form-group">
-                    <label for="source">Source</label>
-                    <select class="form-control is-invalid" id="source">
-                        <option value="#">Choose A Source</option>
-                        <option>CNN</option>
-                        <option>Kompas</option>
-                        <option>New York Times</option>
-                        <option>Guardian</option>
-                        <option>CNBC</option>
-                        <option>Detik</option>
-                        <option>Trans 7</option>
+                    <label for="source_id">Source <span class="text-danger">*</span></label>
+                    <select class="form-control @error('source_id') is-invalid @enderror" id="source_id" name="source_id">
+                        <option value="#">Choose Source</option>
+                        @foreach($sources as $source) 
+                            <option value="{{ $source->id }}" {{ old('source_id', $blog->source_id) == $source->id ? 'selected' : '' }}>
+                                {{ $source->name }}
+                            </option>
+                        @endforeach 
                     </select>
-                    <div class="invalid-feedback">
-                        #
-                    </div>
+                    @error('source_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
                 </div>
 
+                <!-- Current Thumbnail Preview -->
+                 <div class="form-group">
+                    <label>Current Tumbnail</label>
+                    <div>
+                        <img src="{{ asset('storage/'.$blog->thumbnail) }}" alt="{{ $blog->title }}" class="img-thumbnail" width="200">
+                    </div>
+                 </div>
+
                 <div class="form-group">
-                    <label for="thumbnail">Thumbnail</label>
+                    <label for="thumbnail">Change Thumbnail (Optional)</label>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input is-invalid" id="thumbnail">
                         <label class="custom-file-label" for="thumbnail">Choose file...</label>
