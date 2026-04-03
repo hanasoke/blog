@@ -90,7 +90,11 @@ class BlogController extends Controller
                         ->with('success', 'Blog "' . $blog->title . '" has been successfully added!');
     }
 
-    public function edit_blog() {
-        return view('pages.admin.blog.edit_blog');
+    public function edit_blog($id) {
+        $blog = Blog::findOrFail($id);
+        $genres = Genre::orderBy('name')->get();
+        $sources = Source::orderBy('name')->get();
+
+        return view('pages.admin.blog.edit_blog', compact('blog', 'genres', 'sources'));
     }
 }
