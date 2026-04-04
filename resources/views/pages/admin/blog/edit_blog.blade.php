@@ -20,7 +20,7 @@
             <form action="{{ route('update_blog', $blog->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf 
                 @method('PUT')
-                
+
                 <div class="form-group">
                     <label for="title">Blog Title <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Edit Blog Title" value="{{ old('title', $blog->title) }}">
@@ -83,7 +83,6 @@
                         @enderror 
                     </div>
                     <small class="text-muted">Max: 2MB (JPG, JPEG, PNG). Leave empty to keep current thumbnail.</small>
-                    <img id="thumbnailPreview" src="#" alt="Preview" style="display: none; max-width: 200px; margin-top: 10px;" class="img-thumbnail">
                 </div>
 
                 <!-- Current Image 2 Preview -->
@@ -108,7 +107,6 @@
                         @enderror 
                     </div>
                     <small class="text-muted">Max: 2MB (JPG, JPEG, PNG). Leave empty to keep current image.</small>
-                    <img id="image2Preview" src="#" alt="Preview" style="display: none; max-width: 200px; margin-top: 10px;" class="img-thumbnail">
                 </div>
 
                 <!-- Current Image 2 Preview -->
@@ -133,7 +131,6 @@
                         @enderror 
                     </div>
                     <small class="text-muted">Max: 2MB (JPG, JPEG, PNG). Leave empty to keep current image.</small>
-                    <img id="image3Preview" src="#" alt="Preview" style="display: none; max-width: 200px; margin-top: 10px;" class="img-thumbnail">
                 </div>
 
                 <div class="form-group">
