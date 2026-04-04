@@ -43,6 +43,8 @@ Route::prefix('admin')
                         ->name('store_blog');
                 Route::get('/edit_blog/{id}', 'BlogController@edit_blog')
                         ->name('edit_blog');
+                Route::put('/update_blog/{id}', 'BlogController@update_blog')
+                        ->name('update_blog');
 
                 Route::get('/genre_lists', 'GenreController@genre_lists')
                         ->name('genre_lists');
