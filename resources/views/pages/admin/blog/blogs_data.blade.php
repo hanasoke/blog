@@ -72,13 +72,16 @@
                                     </div>
                                     <div class="modal-body">
                                         <p>
-                                            <b>Are you sure want to delete {blog_name} article ?</b>
+                                            <b>Are you sure want to delete "{{ $blog->title }}" article ?</b>
                                         </p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </div>
+                                        <form action="{{ route('delete_blog', $blog->id) }}" method="POST" style="display: inline;">
+                                            @csrf 
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
