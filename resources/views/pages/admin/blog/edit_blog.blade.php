@@ -61,54 +61,88 @@
                 </div>
 
                 <!-- Current Thumbnail Preview -->
-                 <div class="form-group">
-                    <label>Current Tumbnail</label>
+                <div class="form-group">
+                    <label>Current Thumbnail</label>
                     <div>
                         <img src="{{ asset('storage/'.$blog->thumbnail) }}" alt="{{ $blog->title }}" class="img-thumbnail" width="200">
                     </div>
-                 </div>
+                </div>
 
                 <div class="form-group">
                     <label for="thumbnail">Change Thumbnail (Optional)</label>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input is-invalid" id="thumbnail">
+                        <input type="file" class="custom-file-input @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail">
                         <label class="custom-file-label" for="thumbnail">Choose file...</label>
-                        <div class="invalid-feedback">
-                            #
-                        </div>
+                        @error('thumbnail')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror 
                     </div>
+                    <small class="text-muted">Max: 2MB (JPG, JPEG, PNG). Leave empty to keep current thumbnail.</small>
+                    <img id="thumbnailPreview" src="#" alt="Preview" style="display: none; max-width: 200px; margin-top: 10px;" class="img-thumbnail">
                 </div>
 
-                <div class="form-group">
-                    <label for="image_2">Image 2 (Optional)</label>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input is-invalid" id="image_2">
-                        <label class="custom-file-label" for="image_2">Choose file...</label>
-                        <div class="invalid-feedback">
-                            #
+                <!-- Current Image 2 Preview -->
+                @if($blog->image_2)
+                    <div class="form-group">
+                        <label>Current Image 2</label>
+                        <div>
+                            <img src="{{ asset('storage/'.$blog->image_2) }}" alt="{{ $blog->title }}" class="img-thumbnail" width="200">
                         </div>
                     </div>
+                @endif 
+
+                <div class="form-group">
+                    <label for="image_2">Change Image 2 (Optional)</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input @error('image_2') is-invalid @enderror" id="image_2" name="image_2">
+                        <label class="custom-file-label" for="image_2">Choose file...</label>
+                        @error('image_2')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror 
+                    </div>
+                    <small class="text-muted">Max: 2MB (JPG, JPEG, PNG). Leave empty to keep current image.</small>
+                    <img id="image2Preview" src="#" alt="Preview" style="display: none; max-width: 200px; margin-top: 10px;" class="img-thumbnail">
                 </div>
+
+                <!-- Current Image 2 Preview -->
+                @if($blog->image_3)
+                    <div class="form-group">
+                        <label>Current Image 3</label>
+                        <div>
+                            <img src="{{ asset('storage/'.$blog->image_3) }}" alt="{{ $blog->title }}" class="img-thumbnail" width="200">
+                        </div>
+                    </div>
+                @endif 
 
                 <div class="form-group">
                     <label for="image_3">Image 3 (Optional)</label>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input is-invalid" id="image_3">
+                        <input type="file" class="custom-file-input @error('image_3') is-invalid @enderror" id="image_3" name="image_3">
                         <label class="custom-file-label" for="image_3">Choose file...</label>
-                        <div class="invalid-feedback">
-                            #
-                        </div>
+                        @error('image_3')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror 
                     </div>
+                    <small class="text-muted">Max: 2MB (JPG, JPEG, PNG). Leave empty to keep current image.</small>
+                    <img id="image3Preview" src="#" alt="Preview" style="display: none; max-width: 200px; margin-top: 10px;" class="img-thumbnail">
                 </div>
 
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control is-invalid" id="description" rows="3"></textarea>
-                    <div class="invalid-feedback">
-                        #
-                    </div>
+                    <label for="description">Description  <span class="text-danger">*</span></label>
+                    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="5">{{ old('description', $blog->description) }}</textarea>
+                    @error('description')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
                 </div>
-                <button class="btn btn-success btn-lg btn-block">Submit</button>
+                <button type="submit" class="btn btn-success btn-lg btn-block"><i class="fas fa-save"></i> Update Blog</button>
             </form>
         </div>
     </div>
