@@ -17,7 +17,10 @@
             <h6 class="font-weight-bold text-primary m-0 float-left">Edit Blog</h6>
         </div>
         <div class="card-body">
-            <form>
+            <form action="{{ route('update_blog', $blog->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf 
+                @method('PUT')
+                
                 <div class="form-group">
                     <label for="title">Blog Title <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Edit Blog Title" value="{{ old('title', $blog->title) }}">
