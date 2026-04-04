@@ -46,6 +46,9 @@ Route::prefix('admin')
                 Route::put('/update_blog/{id}', 'BlogController@update_blog')
                         ->name('update_blog');
 
+                Route::delete('/delete_blog/{id}', 'BlogController@delete_blog')
+                        ->name('delete_blog');
+
                 Route::get('/genre_lists', 'GenreController@genre_lists')
                         ->name('genre_lists');
 

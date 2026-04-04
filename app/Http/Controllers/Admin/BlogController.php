@@ -188,7 +188,17 @@ class BlogController extends Controller
         if($blog->thumbnail && Storage::disk('public')->exists($blog->thumbnail)) {
             Storage::disk('public')->delete($blog->thumbnail);
         }
+        if($blog->image_2 && Storage::disk('public')->exists($blog->image_2)) {
+            Storage::disk('public')->delete($blog->image_2);
+        }
+        if($blog->image_3 && Storage::disk('public')->exists($blog->image_3)) {
+            Storage::disk('public')->delete($blog->image_3);
+        }
 
-        
+        // Delete blog from database 
+        $blog->delete();
+
+        return redirect()->route('blogs_data')
+                        ->with('success', 'Blog "' . $blogTitle . '" has been successfully deleted!');
     }
 }
