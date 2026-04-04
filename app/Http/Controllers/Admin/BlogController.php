@@ -97,4 +97,9 @@ class BlogController extends Controller
 
         return view('pages.admin.blog.edit_blog', compact('blog', 'genres', 'sources'));
     }
+
+    public function update_blog(Request $request, $id) 
+    {
+        $blog = Blog::findOrFail($id);
+    } 
 }
