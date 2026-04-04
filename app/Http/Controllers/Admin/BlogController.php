@@ -177,5 +177,18 @@ class BlogController extends Controller
         // Redirect with success message 
         return redirect()->route('blogs_data') 
                         ->with('success', 'Blog "' . $blog->title . '" has been successfully updated!');
-    } 
+    }
+    
+    public function delete_blog($id)
+    {
+        $blog = Blog::findOrFail($id);
+        $blogTitle = $blog->title;
+
+        // Delete files from storage 
+        if($blog->thumbnail && Storage::disk('public')->exists($blog->thumbnail)) {
+            Storage::disk('public')->delete($blog->thumbnail);
+        }
+
+        
+    }
 }
