@@ -14,7 +14,6 @@ class Blog extends Model
         'image_2',
         'image_3',
         'description',
-        'user_id',
     ];
 
     public function genre()
@@ -25,11 +24,6 @@ class Blog extends Model
     public function source()
     {
         return $this->belongsTo('App\Source');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo('App\User');
     }
 
 }
