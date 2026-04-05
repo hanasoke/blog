@@ -60,103 +60,6 @@
                                     </div>
                                 </td>
                             </tr>
-                            <!-- Delete Modal -->
-                            <div class="modal fade" id="deleteModal{{ $blog->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $blog->id }}" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel{{ $blog->id }}">Delete Blog</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>
-                                            <b>Are you sure want to delete "{{ $blog->title }}" article ?</b>
-                                        </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <form action="{{ route('delete_blog', $blog->id) }}" method="POST" style="display: inline;">
-                                            @csrf 
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Detail Modal -->
-                            <div class="modal fade" id="viewModal{{ $blog->id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ $blog->id }}" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="viewModalLabel{{ $blog->id }}">View Detail {{ $blog->title }} Article</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Blog Title</label>
-                                            <div class="col-sm-8">
-                                                <p class="form-control-plaintext" id="title">{{ $blog->title }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Published</label>
-                                            <div class="col-sm-8">
-                                                <p class="form-control-plaintext">{{ \Carbon\Carbon::parse($blog->created_at)->format('d F Y') }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="source" class="col-sm-4 col-form-label">Source</label>
-                                            <div class="col-sm-8">
-                                                <p class="form-control-plaintext">{{ $blog->source->name ?? '-' }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Tanggal Edit</label>
-                                            <div class="col-sm-8">
-                                                <p class="form-control-plaintext">
-                                                    {{ $blog->updated_at ? \Carbon\Carbon::parse($blog->updated_at)->format('d F Y H:i') : 'Belum di Edit' }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
-                                            <div class="col-sm-8">
-                                                <img src="{{ asset('storage/'.$blog->thumbnail) }}" class="img-thumbnail" alt="{{ $blog->title }}" width="200" id="thumbnail" >
-                                            </div>
-                                        </div>
-                                        @if($blog->image_2)
-                                            <div class="form-group row">
-                                                <label for="image_2" class="col-sm-4 col-form-label">Image 2</label>
-                                                <div class="col-sm-8">
-                                                    <img src="{{ asset('storage/'.$blog->image_2) }}" class="img-thumbnail" alt="{{ $blog->title }}" width="200" id="image_2">
-                                                </div>
-                                            </div>
-                                        @endif 
-                                        @if($blog->image_3) 
-                                            <div class="form-group row">
-                                                <label for="image_3" class="col-sm-4 col-form-label">Image 3</label>
-                                                <div class="col-sm-8">
-                                                    <img src="{{ asset('storage/'.$blog->image_3) }}" class="img-thumbnail" alt="{{ $blog->title }}" width="200" id="image_3">
-                                                </div>
-                                            </div>
-                                        @endif 
-                                        <div class="form-group row">
-                                            <div class="col-sm-4 col-form-label font-weight-bold">Description</div>
-                                            <div class="col-sm-8">
-                                                <p class="form-control-plaintext">{{$blog->description}}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
                         <div>
                         @endforeach
                     </tbody>
@@ -164,7 +67,109 @@
             </div>
         </div>
     </div>
-
 </div>
+
+@foreach($blogs as $blog)
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal{{ $blog->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $blog->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel{{ $blog->id }}">Delete Blog</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <b>Are you sure want to delete "{{ $blog->title }}" article ?</b>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action="{{ route('delete_blog', $blog->id) }}" method="POST" style="display: inline;">
+                    @csrf 
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal fade" id="viewModal{{ $blog->id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ $blog->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel{{ $blog->id }}">View Detail {{ $blog->title }} Article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Blog Title</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext" id="title">{{ $blog->title }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Published</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">{{ \Carbon\Carbon::parse($blog->created_at)->format('d F Y') }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="source" class="col-sm-4 col-form-label">Source</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">{{ $blog->source->name ?? '-' }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Tanggal Edit</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">
+                            {{ $blog->updated_at ? \Carbon\Carbon::parse($blog->updated_at)->format('d F Y H:i') : 'Belum di Edit' }}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
+                    <div class="col-sm-8">
+                        <img src="{{ asset('storage/'.$blog->thumbnail) }}" class="img-thumbnail" alt="{{ $blog->title }}" width="200" id="thumbnail" >
+                    </div>
+                </div>
+                @if($blog->image_2)
+                    <div class="form-group row">
+                        <label for="image_2" class="col-sm-4 col-form-label">Image 2</label>
+                        <div class="col-sm-8">
+                            <img src="{{ asset('storage/'.$blog->image_2) }}" class="img-thumbnail" alt="{{ $blog->title }}" width="200" id="image_2">
+                        </div>
+                    </div>
+                @endif 
+                @if($blog->image_3) 
+                    <div class="form-group row">
+                        <label for="image_3" class="col-sm-4 col-form-label">Image 3</label>
+                        <div class="col-sm-8">
+                            <img src="{{ asset('storage/'.$blog->image_3) }}" class="img-thumbnail" alt="{{ $blog->title }}" width="200" id="image_3">
+                        </div>
+                    </div>
+                @endif 
+                <div class="form-group row">
+                    <div class="col-sm-4 col-form-label font-weight-bold">Description</div>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">{{$blog->description}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
 <!-- /.container-fluid -->
 @endsection 
