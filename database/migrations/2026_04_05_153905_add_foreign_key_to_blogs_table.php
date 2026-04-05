@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddedWriterBlogs extends Migration
+class AddForeignKeyToBlogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,13 @@ class AddedWriterBlogs extends Migration
     public function up()
     {
         Schema::table('blogs', function (Blueprint $table) {
-            $table->integer('user_id');
+            // Add foreign key constraint
+            $table->integer('user_id')
+                ->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
@@ -26,7 +32,7 @@ class AddedWriterBlogs extends Migration
     public function down()
     {
         Schema::table('blogs', function (Blueprint $table) {
-            $table->dropColumn('user_id');
+            $table->dropColumn('user_id')->dropForeign(['user_id']);
         });
     }
 }
