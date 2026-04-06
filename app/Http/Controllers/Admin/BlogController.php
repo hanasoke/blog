@@ -8,11 +8,12 @@ use App\Blog;
 use App\Genre;
 use App\Source;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller 
 {
     public function blogs_data() {
-        $blogs = Blog::with(['genre', 'source'])->orderBy('created_at', 'desc')->get();
+        $blogs = Blog::with(['genre', 'source', 'user'])->orderBy('created_at', 'desc')->get();
 
         return view('pages.admin.blog.blogs_data', compact('blogs'));
     }
@@ -83,6 +84,7 @@ class BlogController extends Controller
             'image_2' => $image2Path,
             'image_3' => $image3Path,
             'description' => $request->description,
+            'user_id' => Auth::id(),
         ]);
 
         // Redirect with success message 

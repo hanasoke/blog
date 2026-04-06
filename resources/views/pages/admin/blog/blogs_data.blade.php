@@ -82,7 +82,7 @@
             </div>
             <div class="modal-body">
                 <p>
-                    <b>Are you sure want to delete "{{ $blog->title }}" article ?</b>
+                    <b>Are you sure want to delete <b>"{{ $blog->title }}"</b> article ?</b>
                 </p>
             </div>
             <div class="modal-footer">
@@ -102,7 +102,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="viewModalLabel{{ $blog->id }}">View Detail {{ $blog->title }} Article</h5>
+                <h5 class="modal-title" id="viewModalLabel{{ $blog->id }}">View Detail <b>{{ $blog->title }}</b> Article</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -160,6 +160,12 @@
                     <div class="col-sm-4 col-form-label font-weight-bold">Description</div>
                     <div class="col-sm-8">
                         <p class="form-control-plaintext">{{$blog->description}}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Author</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">{{ $blog->user->name ?? '-' }}</p>
                     </div>
                 </div>
             </div>
