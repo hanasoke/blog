@@ -30,25 +30,57 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th>NO</th>
+                            <th width="10">NO</th>
                             <th>Judul Blog</th>
                             <th>Access</th>
-                            <th>Action</th>
+                            <th width="30">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                            <tr>
-                                <td class="text-center">#</td>
-                                <td>#</td>
-                                <td>#</td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                        <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        <div>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>Langgeng Bareng Pasangan</td>
+                            <td>Free</td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                    <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td>Perempuan Jago Masak</td>
+                            <td>Basic</td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                    <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td>Perempuan Bisa Mengendarai Mobil</td>
+                            <td>Premium</td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                    <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">4</td>
+                            <td>Perempuan Mandiri Secara Finansial</td>
+                            <td>VIP</td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                    <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
