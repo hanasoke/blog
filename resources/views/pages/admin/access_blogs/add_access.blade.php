@@ -33,7 +33,6 @@
                     <label for="blog_access">Blog Access<span class="text-danger">*</span></label>
                     <select class="form-control" id="blog_access" name="blog_access">
                         <option value="#">Choose Blog Access</option>
-                            <option value="#">Free</option>
                             <option value="#">Basic</option>
                             <option value="#">Premium</option>
                             <option value="#">VIP</option>
