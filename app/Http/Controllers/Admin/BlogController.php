@@ -203,4 +203,9 @@ class BlogController extends Controller
         return redirect()->route('blogs_data')
                         ->with('success', 'Blog "' . $blogTitle . '" has been successfully deleted!');
     }
+
+    public function access_blogs() 
+    {
+        return view('pages.admin.access_blogs.index');
+    }
 }

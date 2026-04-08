@@ -5,14 +5,14 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">All Blogs</h1>
+        <h1 class="h3 mb-0 text-gray-800">All Access Blogs</h1>
         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-download fa-sm text-white-50"></i> 
             Generate Report
         </a>
     </div>
 
-    <!-- DataTales Example -->
+    <!-- DataTables Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h4 class="font-weight-bold text-primary m-0 float-left">Blogs Table View</h4>
@@ -32,10 +32,6 @@
                         <tr class="text-center">
                             <th>NO</th>
                             <th>Judul Blog</th>
-                            <th>Genre</th>
-                            <th>Tanggal Terbit</th>
-                            <th>Source</th>
-                            <th>Access</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -43,12 +39,6 @@
                             <tr>
                                 <td class="text-center">#</td>
                                 <td>#</td>
-                                <td>#</td>
-                                <td>#</td>
-                                <td>#</td>
-                                <td>
-                                    #
-                                </td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
@@ -65,11 +55,11 @@
 </div>
 
 <!-- Detail Modal -->
-<div class="modal fade" id="viewModal{{ $blog->id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ $blog->id }}" aria-hidden="true">
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="viewModalLabel{{ $blog->id }}">View Detail <b>{{ blog_title }}</b> Article</h5>
+                <h5 class="modal-title" id="viewModalLabel">View Detail <b></b> Article</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -89,3 +79,4 @@
     </div>
 </div>
 <!-- /.container-fluid -->
+@endsection 
