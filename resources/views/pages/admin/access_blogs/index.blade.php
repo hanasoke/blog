@@ -15,8 +15,8 @@
     <!-- DataTables Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h4 class="font-weight-bold text-primary m-0 float-left">Blogs Table View</h4>
-            <a href="#" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Blog</a>
+            <h4 class="font-weight-bold text-primary m-0 float-left">Access Blogs Table View</h4>
+            <a href="{{ route('add_access') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Access Blog</a>
         </div>
         <div class="card-body">
             <!-- Alert Success -->
@@ -32,12 +32,14 @@
                         <tr class="text-center">
                             <th>NO</th>
                             <th>Judul Blog</th>
+                            <th>Access</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                             <tr>
                                 <td class="text-center">#</td>
+                                <td>#</td>
                                 <td>#</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Basic example">

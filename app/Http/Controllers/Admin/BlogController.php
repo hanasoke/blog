@@ -208,4 +208,9 @@ class BlogController extends Controller
     {
         return view('pages.admin.access_blogs.index');
     }
+
+    public function add_access() 
+    {
+        return view('pages.admin.access_blogs.add_access');
+    }
 }
