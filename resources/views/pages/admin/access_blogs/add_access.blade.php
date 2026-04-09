@@ -18,15 +18,25 @@
         </div>
         <div class="card-body">
             <form action="#" method="POST" enctype="multipart/form-data">
-                
                 <div class="form-group">
-                    <label for="blog_title">Blog Title<span class="text-danger">*</span></label>
-                    <select class="form-control" id="blog_title" name="blog_title">
+                    <label for="blog_id">Blog Title<span class="text-danger">*</span></label>
+                    <select class="form-control @error('blog_id') is-invalid @enderror" id="blog_id" name="blog_id">
                         <option value="">Choose Blog</option>
-                        <option value="#">
-                            #
-                        </option>
+                        @foreach($blogs as $blog)
+                            <option value="{{ $blog->id }}" {{ old('blog_id') == $blog->id ? 'selected' : '' }}>
+                                {{ $blog->title }}
+                                @if($blog->access)
+                                    (Already has access: {{ $blog->access->access }})
+                                @endif 
+                            </option>
+                        @endforeach  
                     </select>
+                    @error('blog_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
+                    <small class="text-muted">Only blogs without access level will be shown.</small>
                 </div>
                 
                 <div class="form-group">
