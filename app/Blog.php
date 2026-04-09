@@ -32,4 +32,9 @@ class Blog extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function access()
+    {
+        return $this->hasOne('App\AccessBlog', 'blog_id');
+    }
+
 }
