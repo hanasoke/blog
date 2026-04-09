@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Blog;
 use App\Genre;
 use App\Source;
+use App\AccessBlog;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -206,11 +207,13 @@ class BlogController extends Controller
 
     public function access_blogs() 
     {
-        return view('pages.admin.access_blogs.index');
+        $accessBlogs = AccessBlog::with('blog')->orderBy('created_at', 'desc')->get();
+        return view('pages.admin.access_blogs.index', compact('accessBlogs'));
     }
 
     public function add_access() 
     {
-        return view('pages.admin.access_blogs.add_access');
+        $blogs = Blog::orderBy('title')->get();
+        return view('pages.admin.access_blogs.add_access', compact('blogs'));
     }
 }
