@@ -19,7 +19,7 @@
         <div class="card-body">
             <form action="#" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="blog_id">Blog Title<span class="text-danger">*</span></label>
+                    <label for="blog_id">Blog Title <span class="text-danger">*</span></label>
                     <select class="form-control @error('blog_id') is-invalid @enderror" id="blog_id" name="blog_id">
                         <option value="">Choose Blog</option>
                         @foreach($blogs as $blog)
@@ -40,13 +40,18 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="blog_access">Blog Access<span class="text-danger">*</span></label>
-                    <select class="form-control" id="blog_access" name="blog_access">
+                    <label for="access">Blog Access <span class="text-danger">*</span></label>
+                    <select class="form-control @error('access') is-invalid @enderror" id="access" name="access">
                         <option value="#">Choose Blog Access</option>
-                            <option value="#">Basic</option>
-                            <option value="#">Premium</option>
-                            <option value="#">VIP</option>
+                        <option value="BASIC" {{ old('access') == 'BASIC' ? 'selected' : '' }}>BASIC</option>
+                        <option value="PREMIUM" {{ old('access') == 'PREMIUM' ? 'selected' : '' }}>Premium</option>
+                        <option value="VIP" {{ old('access') == 'VIP' ? 'selected' : '' }}>VIP</option>
                     </select>
+                    @error('access')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
                 </div>
 
                 <button type="submit" class="btn btn-success btn-lg btn-block">
@@ -59,3 +64,17 @@
 </div>
 <!-- /.container-fluid -->
 @endsection 
+
+@push('addon-script')
+    <script>
+        $(document).ready(function() {
+            // Filter out blogs thhat already have access 
+            $('#blog_id option').each(function(){
+                if($(this).text().includes('Already has access:')) {
+                    $(this).attr('disabled', 'disabled');
+                    $(this).hide();
+                }
+            })
+        })
+    </script>
+@endpush 
