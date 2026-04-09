@@ -102,7 +102,31 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Blog Title</label>
                     <div class="col-sm-8">
-                        <p class="form-control-plaintext" id="title">#</p>
+                        <p class="form-control-plaintext">#</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
+                    <div class="col-sm-8">
+                        <img class="img-thumbnail" id="thumbnail">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Source</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">#</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Published</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">#</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Access</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">#</p>
                     </div>
                 </div>
             </div>
