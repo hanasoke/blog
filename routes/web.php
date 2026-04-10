@@ -45,25 +45,24 @@ Route::prefix('admin')
                         ->name('edit_blog');
                 Route::put('/update_blog/{id}', 'BlogController@update_blog')
                         ->name('update_blog');
+                Route::delete('/delete_blog/{id}', 'BlogController@delete_blog')
+                        ->name('delete_blog');
                         
 
                 Route::get('/access_blogs', 'BlogController@access_blogs')
                         ->name('access_blogs');
-
                 Route::get('/add_access', 'BlogController@add_access')
                         ->name('add_access');
-
                 Route::post('/store_access', 'BlogController@store_access')
                         ->name('store_access');
-
                 Route::get('/show_access/{id}', 'BlogController@show_access')
                         ->name('show_access');
-
                 Route::get('/edit_access/{id}', 'BlogController@edit_access')
                         ->name('edit_access');
-
-                Route::delete('/delete_blog/{id}', 'BlogController@delete_blog')
-                        ->name('delete_blog');
+                Route::put('/update_access/{id}', 'BlogController@update_access')
+                        ->name('update_access');
+                Route::delete('/delete_access/{id}', 'BlogCOntroller@delete_access')
+                        ->name('delete_access');
 
                 Route::get('/genre_lists', 'GenreController@genre_lists')
                         ->name('genre_lists');

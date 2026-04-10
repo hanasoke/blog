@@ -250,13 +250,26 @@ class BlogController extends Controller
         // Redirect with success message 
         return redirect()->route('access_blogs')
                         ->with('success', 'Access"' . $accessBlog->access . '" for blog "' . $blogTitle .  '" has been successfully added!');
-    } 
+    }  
+    
+    public function show_access($id)
+    {
+        $accessBlog = AccessBlog::with('blog')->findOrFail($id);
+        return respons()->json($accessBlog);
+    }
+
+    public function edit_access($id) 
+    {
+        $accessBlog = AccessBlog::findOrFail($id);
+        $blogs = Blog::orderBy('title')->get();
+        return view('pages.admin.access_blogs.edit_access', compact('accessBlog','blogs'));
+    }
 
     public function update_access(Request $request, $id)
     {
         $accessBlog = AccessBlog::findOrFail($id);
 
-            // Validation rules 
+        // Validation rules 
         $rules = [
             'blog_id' => 'required|exists:blogs,id|unique:access_blogs,blog_id,' . $id,
             'access' => 'required|in:BASIC,PREMIUM,VIP',
@@ -285,20 +298,19 @@ class BlogController extends Controller
 
         // Redirect with success message 
         return redirect()->route('access_blogs')
-                        ->with('success', 'Access for blog "' . $blogTitle . '" has been successfully updated to "' . $accessBlog->accessBlog->access . '"!');
-    } 
-    
-    public function show_access($id)
-    {
-        $accessBlog = AccessBlog::with('blog')->findOrFail($id);
-        return respons()->json($accessBlog);
+                        ->with('success', 'Access for blog "' . $blogTitle . '" has been successfully updated to "' . $accessBlog->access . '"!');
     }
 
-    public function edit_access($id) 
+    public function delete_access($id) 
     {
         $accessBlog = AccessBlog::findOrFail($id);
-        $blogs = Blog::orderBy('title')->get();
-        return view('pages.admin.access_blogs.edit_access', compact('accessBlog','blogs'));
+        $blogTitle = $accessBlog->blog->title;
+        $accessLevel = $accessBlog->access;
+
+        $accessBlog->delete();
+
+        return redirect()->route('access_blogs')
+                        ->with('success', 'Access "' . $accessLevel . '"for blog "' . $blogTitle . '" has been successfully deleted!');
     }
 
 }
