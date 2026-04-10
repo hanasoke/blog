@@ -28,61 +28,71 @@
                     </button>
                 </div>
             @endif 
+
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ session('error') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif 
+
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                        <tr class="text-center">
-                            <th width="10">NO</th>
+                        <tr>
+                            <th width="10" class="text-center">NO</th>
                             <th>Judul Blog</th>
-                            <th>Access</th>
-                            <th width="30">Action</th>
+                            <th class="text-center">Access</th>
+                            <th>Created At</th>
+                            <th width="30" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>Langgeng Bareng Pasangan</td>
-                            <td>Free</td>
-                            <td class="text-center">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                    <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td>Perempuan Jago Masak</td>
-                            <td>Basic</td>
-                            <td class="text-center">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                    <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">3</td>
-                            <td>Perempuan Bisa Mengendarai Mobil</td>
-                            <td>Premium</td>
-                            <td class="text-center">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                    <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">4</td>
-                            <td>Perempuan Mandiri Secara Finansial</td>
-                            <td>VIP</td>
-                            <td class="text-center">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                    <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
-                                </div>
-                            </td>
-                        </tr>
+                        @forelse($accessBlogs as $index => $access)
+                            <tr>
+                                <td class="text-center">
+                                    {{ $index + 1 }}
+                                </td>
+                                <td>
+                                    {{ $access->blog->title ?? '-' }}
+                                </td>
+                                <td class="text-center">
+                                    @php
+                                        $badgeClass = '';
+                                        switch($access->access) {
+                                            case 'BASIC':
+                                                $badgeClass = 'badge-success';
+                                                break;
+                                            case 'PREMIUM': 
+                                                $badgeClass = 'badge-warning';
+                                                break;
+                                            case 'VIP': 
+                                                $badgeClass = 'badge-primary';
+                                                break;
+                                            default: 
+                                                $badgeClass = 'badge-secondary';
+                                        }
+                                    @endphp 
+                                    <span class="badge {{ $badgeClass }} p-2">{{ $access->access }}</span>
+                                </td>
+                                <td>
+                                    {{ \Carbon\Carbon::parse($access->created_at)->format('d F Y H:i') }}
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                        <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            @empty 
+                            <tr>
+                                <td colspan="5" class="text-center">No access blogs found.</td>
+                            </tr>
+                        @endforelse 
                     </tbody>
                 </table>
             </div>
