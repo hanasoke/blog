@@ -45,6 +45,7 @@ Route::prefix('admin')
                         ->name('edit_blog');
                 Route::put('/update_blog/{id}', 'BlogController@update_blog')
                         ->name('update_blog');
+                        
 
                 Route::get('/access_blogs', 'BlogController@access_blogs')
                         ->name('access_blogs');
@@ -54,6 +55,12 @@ Route::prefix('admin')
 
                 Route::post('/store_access', 'BlogController@store_access')
                         ->name('store_access');
+
+                Route::get('/show_access/{id}', 'BlogController@show_access')
+                        ->name('show_access');
+
+                Route::get('/edit_access/{id}', 'BlogController@edit_access')
+                        ->name('edit_access');
 
                 Route::delete('/delete_blog/{id}', 'BlogController@delete_blog')
                         ->name('delete_blog');

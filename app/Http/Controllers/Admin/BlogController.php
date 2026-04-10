@@ -288,4 +288,10 @@ class BlogController extends Controller
                         ->with('success', 'Access for blog "' . $blogTitle . '" has been successfully updated to "' . $accessBlog->accessBlog->access . '"!');
     } 
     
+    public function show_access($id)
+    {
+        $accessBlog = AccessBlog::with('blog')->findOrFail($id);
+        return respons()->json($accessBlog);
+    }
+
 }
