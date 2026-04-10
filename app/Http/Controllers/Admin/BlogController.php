@@ -217,6 +217,41 @@ class BlogController extends Controller
         return view('pages.admin.access_blogs.add_access', compact('blogs'));
     }
 
+    public function store_access(Request $request)
+    {
+
+        // Validation rules 
+        $rules = [
+            'blog_id' => 'required|exists:blogs,id|unique:access_blogs,blog_id',
+            'access' => 'required|in:BASIC,PREMIUM,VIP',
+        ];
+
+        // Custom error messages 
+        $messages = [
+            'blog_id.required' => 'Please select a blog.',
+            'blog_id.exists' => 'Selected blog is invalid.',
+            'blog_id.unique' => 'This blog already has an access level set.',
+            'access.required' => 'Please select an access level.',
+            'access.in' => 'Selected access level is invalid.',
+        ];
+
+        // Validate request 
+        $this->validate($request, $rules, $messages);
+
+        // Update access blog 
+        $accessBlog = AccessBlog::create([
+            'blog_id' => $request->blog_id,
+            'access' => $request->access,
+        ]);
+
+        // Get blog title for success message 
+        $blogTitle = $accessBlog->blog->title;
+
+        // Redirect with success message 
+        return redirect()->route('access_blogs')
+                        ->with('success', 'Access"' . $accessBlog->access . '" for blog "' . $blogTitle .  '" has been successfully added!');
+    } 
+
     public function update_access(Request $request, $id)
     {
         $accessBlog = AccessBlog::findOrFail($id);
@@ -250,7 +285,7 @@ class BlogController extends Controller
 
         // Redirect with success message 
         return redirect()->route('access_blogs')
-                        ->with('success', 'Access for blog "' . $blogTitle . '" has been successfully updated to "' . $accessBlog->accessBlog->access . '"!');                        
+                        ->with('success', 'Access for blog "' . $blogTitle . '" has been successfully updated to "' . $accessBlog->accessBlog->access . '"!');
     } 
     
 }

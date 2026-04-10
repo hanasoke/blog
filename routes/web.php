@@ -52,6 +52,9 @@ Route::prefix('admin')
                 Route::get('/add_access', 'BlogController@add_access')
                         ->name('add_access');
 
+                Route::post('/store_access', 'BlogController@store_access')
+                        ->name('store_access');
+
                 Route::delete('/delete_blog/{id}', 'BlogController@delete_blog')
                         ->name('delete_blog');
 
