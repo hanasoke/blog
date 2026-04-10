@@ -61,7 +61,7 @@ Route::prefix('admin')
                         ->name('edit_access');
                 Route::put('/update_access/{id}', 'BlogController@update_access')
                         ->name('update_access');
-                Route::delete('/delete_access/{id}', 'BlogCOntroller@delete_access')
+                Route::delete('/delete_access/{id}', 'BlogController@delete_access')
                         ->name('delete_access');
 
                 Route::get('/genre_lists', 'GenreController@genre_lists')

@@ -18,10 +18,70 @@
         </div>
 
         <div class="card-body">
-            
+            <form action="{{ route('store_access') }}" method="POST" enctype="multipart/form-data">
+                @csrf 
+
+                <div class="form-group">
+                    <label for="blog_id">Blog Title <span class="text-danger">*</span></label>
+                    <select class="form-control @error('blog_id') is-invalid @enderror"
+                        id="blog_id"
+                        name="blog_id">
+                        <option value="">Choose Blog</option>
+                        @foreach($blogs as $blog) 
+                            <option value="{{ $blog->id }}" {{ old('blog_id') == $blog->id ? 'selected' : '' }}>
+                                {{ $blog->title }}
+                                @if($blog->access)
+                                    (Already has access: {{ $blog->access->access }})
+                                @endif 
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('blog_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
+                    <small class="text-muted">
+                        Only blogs without access level will be shown.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="access">Blog Access <span class="text-danger">*</span></label>
+                    <select class="form-control @error('access') is-invalid @enderror" id="access" name="access">
+                        <option value="">Choose Blog Access</option>
+                        <option value="BASIC" {{ old('access') == 'BASIC' ? 'selected' : '' }}>BASIC</option>
+                        <option value="PREMIUM" {{ old('access') == 'PREMIUM' ? 'selected' : '' }}>PREMIUM</option>
+                        <option value="VIP" {{ old('access') == 'VIP' ? 'selected' : '' }}>VIP</option>
+                    </select>
+                    @error('access')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
+                </div>
+
+                <button type="submit" class="btn btn-success btn-lg btn-block">
+                    <i class="fas fa-save"></i> Update
+                </button>
+            </form>
         </div>
     </div>
      
 </div>
-
+<!-- /.container-fluid -->
 @endsection 
+
+@push('addon-script')
+    <script>
+        $(document).ready(function() {
+            // Filter out blogs that already have access 
+            $('#blog_id option').each(function() {
+                if($(this).text().includes('Already has access:')) {
+                    $(this).attr('disabled', 'disabled');
+                    $(this).hide();
+                }
+            });
+        });
+    </script>
+@endpush 
