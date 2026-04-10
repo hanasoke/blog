@@ -249,7 +249,7 @@ class BlogController extends Controller
 
         // Redirect with success message 
         return redirect()->route('access_blogs')
-                        ->with('success', 'Access"' . $accessBlog->access . '" for blog "' . $blogTitle .  '" has been successfully added!');
+                        ->with('success', 'Access ' . $accessBlog->access . ' for blog ' . $blogTitle .  ' has been successfully added!');
     }  
     
     public function show_access($id)
@@ -269,17 +269,13 @@ class BlogController extends Controller
     {
         $accessBlog = AccessBlog::findOrFail($id);
 
-        // Validation rules 
+        // Validation rules - blog_id tidak perlu unique karena tidak berubah  
         $rules = [
-            'blog_id' => 'required|exists:blogs,id|unique:access_blogs,blog_id,' . $id,
             'access' => 'required|in:BASIC,PREMIUM,VIP',
         ];
 
         // Custom error messages 
         $messages = [
-            'blog_id.required' => 'Please select a blog.',
-            'blog_id.exists' => 'Selected blog is invalid.',
-            'blog_id.unique' => 'This blog already has an access level set.',
             'access.required' => 'Please select an access level.',
             'access.in' => 'Selected access level is invalid.',
         ];
@@ -289,7 +285,6 @@ class BlogController extends Controller
 
         // Update access blog 
         $accessBlog->update([
-            'blog_id' => $request->blog_id,
             'access' => $request->access,
         ]);
 
@@ -298,7 +293,7 @@ class BlogController extends Controller
 
         // Redirect with success message 
         return redirect()->route('access_blogs')
-                        ->with('success', 'Access for blog "' . $blogTitle . '" has been successfully updated to "' . $accessBlog->access . '"!');
+                        ->with('success', 'Access for blog ' . $blogTitle . ' has been successfully updated to ' . $accessBlog->access . '!');
     }
 
     public function delete_access($id) 
@@ -310,7 +305,7 @@ class BlogController extends Controller
         $accessBlog->delete();
 
         return redirect()->route('access_blogs')
-                        ->with('success', 'Access "' . $accessLevel . '"for blog "' . $blogTitle . '" has been successfully deleted!');
+                        ->with('success', 'Access ' . $accessLevel . ' for blog ' . $blogTitle . ' has been successfully deleted!');
     }
 
 }
