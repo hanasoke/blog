@@ -82,8 +82,13 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $access->id }}">
+                                            <i class="fas fa-trash fa-sm"></i>
+                                        </button>
                                         <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal{{ $access->id }}"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                        <a href="{{ route('edit_access', $access->id) }}" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
+                                        <a href="{{ route('edit_access', $access->id) }}" class="btn btn-success">
+                                            <i class="fas fa-edit fa-sm text-white-100"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
@@ -159,6 +164,34 @@
                                 </div>
                             </div>
 
+                            <!-- Delete Modal -->
+                            <div class="modal fade" id="deleteModal{{ $access->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $access->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel{{ $access->id }}">
+                                                Delete <b>{{ $access->blog->title ?? '-'  }}</b> Article
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>
+                                                Are you sure want to delete access <b>{{ $access->access }}</b> for blog <b>{{ $access->blog->title ?? '-'  }}</b>
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <form action="{{ route('delete_access', $access->id) }}" method="POST" style="display: inline;">
+                                                @csrf 
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @empty 
                             <tr>
                                 <td colspan="5" class="text-center">No access blogs found.</td>

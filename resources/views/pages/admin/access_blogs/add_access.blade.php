@@ -45,7 +45,7 @@
                     <select class="form-control @error('access') is-invalid @enderror" id="access" name="access">
                         <option value="#">Choose Blog Access</option>
                         <option value="BASIC" {{ old('access') == 'BASIC' ? 'selected' : '' }}>BASIC</option>
-                        <option value="PREMIUM" {{ old('access') == 'PREMIUM' ? 'selected' : '' }}>Premium</option>
+                        <option value="PREMIUM" {{ old('access') == 'PREMIUM' ? 'selected' : '' }}>PREMIUM</option>
                         <option value="VIP" {{ old('access') == 'VIP' ? 'selected' : '' }}>VIP</option>
                     </select>
                     @error('access')
