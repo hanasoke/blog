@@ -83,7 +83,7 @@
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" class="btn btn-info btn-sm"  data-toggle="modal" data-target="#viewModal{{ $access->id }}"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                        <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
+                                        <a href="{{ route('edit_access', $access->id) }}" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
                                     </div>
                                 </td>
                             </tr>

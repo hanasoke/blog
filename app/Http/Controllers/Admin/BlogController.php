@@ -294,4 +294,11 @@ class BlogController extends Controller
         return respons()->json($accessBlog);
     }
 
+    public function edit_access($id) 
+    {
+        $accessBlog = AccessBlog::findOrFail($id);
+        $blogs = Blog::orderBy('title')->get();
+        return view('pages.admin.access_blogs.edit_access', compact('accessBlog','blogs'));
+    }
+
 }
