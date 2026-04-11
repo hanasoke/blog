@@ -102,6 +102,9 @@ Route::prefix('admin')
                 Route::delete('/delete_source/{id}', 'SourceController@delete_source')
                         ->name('delete_source');
 
+                Route::get('/article_status', 'BlogController@article_status')
+                        ->name('article_status');
+
         });
 Route::prefix('home')
         ->namespace('User')
