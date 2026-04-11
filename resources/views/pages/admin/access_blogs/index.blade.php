@@ -141,18 +141,18 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Published</label>
-                                                <div class="col-sm-8">
-                                                    <p class="form-control-plaintext">
-                                                        {{ \Carbon\Carbon::parse($access->blog->created_at)->format('d F Y') }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
                                                 <label class="col-sm-4 col-form-label">Access</label>
                                                 <div class="col-sm-8">
                                                     <p class="form-control-plaintext">
                                                         {{ $access->access }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Published</label>
+                                                <div class="col-sm-8">
+                                                    <p class="form-control-plaintext">
+                                                        {{ \Carbon\Carbon::parse($access->blog->created_at)->format('d F Y') }}
                                                     </p>
                                                 </div>
                                             </div>

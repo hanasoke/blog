@@ -63,7 +63,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="viewModalLabel">
-                                            View Detail Article
+                                            View Article Detail
                                         </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
@@ -101,7 +101,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Published</label>
+                                            <label class="col-sm-4 col-form-label">Access</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-plaintext">
                                                     #
@@ -109,7 +109,15 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Access</label>
+                                            <label class="col-sm-4 col-form-label">Description</label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-plaintext">
+                                                    #
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Published</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-plaintext">
                                                     #
