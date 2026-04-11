@@ -16,25 +16,18 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h4 class="font-weight-bold text-primary m-0 float-left">Access Blogs Table View</h4>
-            <a href="#" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Access Blog</a>
         </div>
         <div class="card-body">
-            <!-- Alert Success -->
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>#</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th width="10" class="text-center">NO</th>
-                            <th>Judul Blog</th>
+                            <th width="10" class="text-center">No</th>
+                            <th>Blog Title</th>
+                            <th>Genre</th>
+                            <th>Source</th>
                             <th class="text-center">Access</th>
-                            <th>Created At</th>
                             <th width="30" class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -46,18 +39,20 @@
                             <td>
                                 #
                             </td>
-                            <td class="text-center">
-                                <span class="badge badge-success p-2">#</span>
+                            <td>
+                                #
                             </td>
                             <td>
                                 #
                             </td>
                             <td class="text-center">
+                                <span class="badge badge-success p-2">#</span>
+                            </td>
+                            <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                    <a href="#" class="btn btn-success">
-                                        <i class="fas fa-edit fa-sm text-white-100"></i>
-                                    </a>
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewModal">
+                                        <i class="fas fa-eye fa-sm text-white-100"></i>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
