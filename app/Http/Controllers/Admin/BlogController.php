@@ -308,4 +308,9 @@ class BlogController extends Controller
                         ->with('success', 'Access ' . $accessLevel . ' for blog ' . $blogTitle . ' has been successfully deleted!');
     }
 
+    public function article_status() 
+    {
+        return view('pages.admin.article_status.index');
+    }
+
 }
