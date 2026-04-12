@@ -92,7 +92,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="viewModalLabel{{ $blog->id }}">
-                                            View Article Detail
+                                            Article Detail : {{ Str::limit($blog->title, 50) }}
                                         </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
@@ -103,21 +103,7 @@
                                             <label class="col-sm-4 col-form-label">Blog Title</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-plaintext">
-                                                    #
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Thumbnail</label>
-                                            <div class="col-sm-8">
-                                                    <img src="#" class="img-thumbnail" alt="#" width="200"> 
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Source</label>
-                                            <div class="col-sm-8">
-                                                <p class="form-control-plaintext">
-                                                    #
+                                                    {{ $blog->title }}
                                                 </p>
                                             </div>
                                         </div>
@@ -125,23 +111,37 @@
                                             <label class="col-sm-4 col-form-label">Genre</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-plaintext">
-                                                    #
+                                                    {{ $blog->genre->name ?? '-' }}
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Access</label>
+                                            <label class="col-sm-4 col-form-label">Source</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-plaintext">
-                                                    #
+                                                    {{ $blog->source->name ?? '-' }}
                                                 </p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Access Level</label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-plaintext">
+                                                    {{ $blog->access->access ?? 'No Access Set' }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Thumbnail</label>
+                                            <div class="col-sm-8">
+                                                    <img src="{{ asset('storage/'.$blog->thumbnail) }}" class="img-thumbnail" alt="{{ $blog->title }}" width="100%"> 
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Description</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-plaintext">
-                                                    #
+                                                    {{ $blog->description }}
                                                 </p>
                                             </div>
                                         </div>
@@ -149,7 +149,7 @@
                                             <label class="col-sm-4 col-form-label">Published</label>
                                             <div class="col-sm-8">
                                                 <p class="form-control-plaintext">
-                                                    #
+                                                    {{ \Carbon\Carbon::parse($blog->created_at)->format('d F Y H:i') }}
                                                 </p>
                                             </div>
                                         </div>
