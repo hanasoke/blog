@@ -310,7 +310,11 @@ class BlogController extends Controller
 
     public function article_status() 
     {
-        return view('pages.admin.article_status.index');
+        // Ambil semua blog berserta relasi genre, source, user, dan access 
+        $blogs = Blog::with(['genre', 'source', 'user', 'access'])
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+        return view('pages.admin.article_status.index', compact('blogs'));
     }
 
 }
