@@ -132,11 +132,41 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Status</label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-plaintext">
+                                                    @if($blog->access)
+                                                        <span class="badge badge-success">Published</span>
+                                                    @else
+                                                        <span class="badge badge-warning">Draft</span>
+                                                    @endif
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Thumbnail</label>
                                             <div class="col-sm-8">
                                                     <img src="{{ asset('storage/'.$blog->thumbnail) }}" class="img-thumbnail" alt="{{ $blog->title }}" width="100%"> 
                                             </div>
                                         </div>
+                                        @if($blog->image_2)
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Image 2</label>
+                                                <div class="col-sm-8">
+                                                        <img src="{{ asset('storage/'.$blog->image_2) }}" class="img-thumbnail" alt="{{ $blog->title }}" width="100%"> 
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        @if($blog->image_3)
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Image 3</label>
+                                                <div class="col-sm-8">
+                                                        <img src="{{ asset('storage/'.$blog->image_3) }}" class="img-thumbnail" alt="{{ $blog->title }}" width="100%"> 
+                                                </div>
+                                            </div>
+                                        @endif
+
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Description</label>
                                             <div class="col-sm-8">
