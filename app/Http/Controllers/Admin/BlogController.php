@@ -187,6 +187,12 @@ class BlogController extends Controller
         $blog = Blog::findOrFail($id);
         $blogTitle = $blog->title;
 
+        // Cek apakah blog masih memiliki access 
+        if($blog->access) {
+            return redirect()->route('blogs_data')
+                            ->with('error', 'Blog "' . $blogTitle . '" cannot be deleted because it has an access level set. Please delete the access first!' );
+        }
+
         // Delete files from storage 
         if($blog->thumbnail && Storage::disk('public')->exists($blog->thumbnail)) {
             Storage::disk('public')->delete($blog->thumbnail);
