@@ -62,11 +62,20 @@ class GenreController extends Controller
     }
 
     public function delete_genre($id) {
-        Genre::findOrFail($id)->delete();
+        $genre = Genre::findOrFail($id);
+
+        // Cek apakah genre masih dipakai di blogs 
+        if ($genre->blogs()->count() > 0) {
+            return redirect()
+                ->route('genre_lists')
+                ->with('error', 'Genre "' . $genre->name . '" tidak dapat dihapus karena masih digunakan oleh ' . $genre->blogs()->count() . ' Blog(s)!');
+        }
+
+        $genre->delete();
 
         return redirect()
             ->route('genre_lists')
-            ->with('success', 'Genre berhasil dihapus');
+            ->with('success', 'Genre "' . $genre->name . '" berhasil dihapus');
     }
 }
 
