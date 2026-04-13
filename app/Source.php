@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Source extends Model 
 {
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+    ];
 
     public function blogs()
     {
-        return $this->hasMany('App\Blog');
+        return $this->hasMany('App\Blog'. 'source_id');
     }
 }
