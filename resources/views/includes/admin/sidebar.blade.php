@@ -37,9 +37,9 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Blogs Component</h6>
+                <a class="collapse-item" href="{{ route('sources_list') }}">Sources Data View</a>
                 <a class="collapse-item" href="{{ route('genre_lists') }}">Genre Data View</a>
                 <a class="collapse-item" href="{{ route('blogs_data') }}">Blogs Data View</a>
-                <a class="collapse-item" href="{{ route('sources_list') }}">Sources Data View</a>
                 <a class="collapse-item" href="{{ route('access_blogs') }}">Access Blogs</a>
             </div>
         </div>
