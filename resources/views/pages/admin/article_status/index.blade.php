@@ -28,7 +28,6 @@
                             <th>Genre</th>
                             <th>Source</th>
                             <th>Access Level</th>
-                            <th>Status</th>
                             <th>Published Date</th>
                             <th width="30">Action</th>
                         </tr>
@@ -67,13 +66,6 @@
                                     }
                                 @endphp 
                                 <span class="badge {{ $badgeClass }} p-2">{{ $accessLevel }}</span>
-                            </td>
-                            <td class="text-center">
-                                @if($blog->access)
-                                    <span class="badge badge-success p-2">Published</span>
-                                @else
-                                    <span class="badge badge-warning p-2">Draft (No Access)</span>
-                                @endif
                             </td>
                             <td class="text-center">
                                 {{ \Carbon\Carbon::parse($blog->created_at)->format('d F Y') }}
@@ -126,8 +118,25 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Access Level</label>
                                             <div class="col-sm-8">
+                                                @php 
+                                                    $badgeClass = '';
+                                                    $accessLevel = $blog->access->access ?? 'NO Access';
+                                                    switch($accessLevel) {
+                                                        case 'BASIC':
+                                                            $badgeClass = 'badge-success';
+                                                            break; 
+                                                        case 'PREMIUM':
+                                                            $badgeClass = 'badge-warning';
+                                                            break;
+                                                        case 'VIP': 
+                                                            $badgeClass = 'badge-primary';
+                                                            break;
+                                                        default:
+                                                            $badgeClass = 'badge-secondary';
+                                                    }
+                                                @endphp 
                                                 <p class="form-control-plaintext">
-                                                    {{ $blog->access->access ?? 'No Access Set' }}
+                                                    <span class="badge {{ $badgeClass }}">{{ $accessLevel }}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -149,6 +158,7 @@
                                                     <img src="{{ asset('storage/'.$blog->thumbnail) }}" class="img-thumbnail" alt="{{ $blog->title }}" width="100%"> 
                                             </div>
                                         </div>
+
                                         @if($blog->image_2)
                                             <div class="form-group row">
                                                 <label class="col-sm-4 col-form-label">Image 2</label>
