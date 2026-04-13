@@ -12,6 +12,6 @@ class Source extends Model
 
     public function blogs()
     {
-        return $this->hasMany('App\Blog'. 'source_id');
+        return $this->hasMany('App\Blog', 'source_id');
     }
 }

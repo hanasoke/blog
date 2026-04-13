@@ -62,10 +62,19 @@ class SourceController extends Controller
     }
 
     public function delete_source($id) {
-        Source::findOrFail($id)->delete();
+        $source = Source::findOrFail($id);
+
+        // Cek apakah source masih dipakai di blogs 
+        if($source->blogs()->count() > 0) {
+            return redirect()
+                ->route('sources_list')
+                ->with('error', 'Source "' . $source->name . '" cannot be deleted because it is still used by ' . $source->blogs()->count() . ' blog(s)!');
+        }
+
+        $source->delete();
 
         return redirect()
             ->route('sources_list')
-            ->with('success', 'Source has been deleted');
+            ->with('success', 'Source "' . $source->name . '" has been deleted');
     }
 }
