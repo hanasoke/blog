@@ -8,7 +8,7 @@
 
     <div class="collapse navbar-collapse" id="nav">
       <ul class="navbar-nav ms-auto gap-3">
-        <li class="nav-item"><a class="nav-link" href="url{{'/'}}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Products</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Solutions</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
