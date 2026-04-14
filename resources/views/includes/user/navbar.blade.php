@@ -30,7 +30,7 @@
 
             <ul class="dropdown-menu dropdown-menu-end">
               <li>
-                <a class="dropdown-item" href="{{ url('/home') }}">Dashboard</a>
+                <a class="dropdown-item" href="{{ route('profile') }}">Dashboard</a>
               </li>
               <li><hr class="dropdown-divider"></li>
               <li>

@@ -114,6 +114,6 @@ Route::prefix('home')
                         ->name('home');
                 Route::get('/detail', 'DashboardController@detail')
                         ->name('detail');
-                Route::get('/profile', 'DashboardController@detail')
-                        ->name('detail');
+                Route::get('/profile', 'ProfileController@detail')
+                        ->name('profile');
         });
