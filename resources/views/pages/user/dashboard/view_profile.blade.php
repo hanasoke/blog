@@ -7,8 +7,12 @@
       <div class="row g-4">
         <div class="card mb-3">
           <div class="row g-0">
-            <div class="col-md-4">
-              <img src="..." class="img-fluid rounded-start" alt="...">
+            <div class="col-md-4 text-center p-4">
+              @if($user->photo)
+                <img src="{{ asset('storage/'.$user->photo) }}" class="img-fluid rounded-circle" alt="{{ $user->name }}" style="object-fit: cover;">
+              @else 
+                <img src="{{ asset('storage/user.png') }}" class="img-fluid rounded-circle" alt="{{ $user->name }}" style="object-fit: cover;">
+              @endif 
             </div>
             <div class="col-md-8">
               <div class="card-body">
