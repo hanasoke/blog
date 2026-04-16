@@ -16,40 +16,86 @@
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">View Detail Profile</h5>
+                <div class="row mb-3">
+                  <div class="col">
+                    <h5 class="card-title">View Detail Profile</h5>
+                  </div>
+                  <div class="col text-end">
+                    <a href="{{ route('edit_profile') }}" class="btn btn-success">Edit Profile</a>
+                  </div>
+                </div>
+
+                 @if(session('success'))
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                @endif
+
+                @if(session('error'))
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                @endif
+
                 <div class="mb-3 row">
-                  <label for="full_name" class="col-sm-2 col-form-label">Full Name</label>
-                  <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="full_name" value="Hanas Bayu Pratama">
+                  <label class="col-sm-3 col-form-label">Full Name</label>
+                  <div class="col-sm-9">
+                    <p class="form-control-plaintext">{{ $user->name }}</p>
                   </div>
                 </div>
                 <div class="mb-3 row">
-                  <label for="username" class="col-sm-2 col-form-label">Username</label>
-                  <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="username" value="hanasoke">
+                  <label class="col-sm-3 col-form-label">Username</label>
+                  <div class="col-sm-9">
+                    <p class="form-control-plaintext">{{ $user->username }}</p>
                   </div>
                 </div>
                 <div class="mb-3 row">
-                  <label for="email" class="col-sm-2 col-form-label">Email</label>
-                  <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="email" value="hanasoke@gmail.com">
+                  <label class="col-sm-3 col-form-label">Email</label>
+                  <div class="col-sm-9">
+                    <p class="form-control-plaintext">{{ $user->email }}</p>
                   </div>
                 </div>
                 <div class="mb-3 row">
-                  <label for="phone" class="col-sm-2 col-form-label">Phone</label>
-                  <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="phone" value="085819536158">
+                  <label class="col-sm-3 col-form-label">Phone</label>
+                  <div class="col-sm-9">
+                    <p class="form-control-plaintext">{{ $user->phone }}</p>
                   </div>
                 </div>
                 <div class="mb-3 row">
-                  <label for="birthdate" class="col-sm-2 col-form-label">Birthdate</label>
-                  <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="birthdate" value="28 June 2021">
+                  <label class="col-sm-3 col-form-label">Birthdate</label>
+                  <div class="col-sm-9">
+                    <p class="form-control-plaintext">{{ \Carbon\Carbon::parse($user->birthdate)->format('d F Y') }}</p>
                   </div>
                 </div>
-                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
                 <div class="mb-3 row">
-                  <a href="{{ route('edit_profile') }}" class="btn btn-success">Edit Profile</a>
+                  <label class="col-sm-3 col-form-label">Age</label>
+                  <div class="col-sm-9">
+                    <p class="form-control-plaintext">{{ \Carbon\Carbon::parse($user->birthdate)->age }} years old</p>
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label class="col-sm-3 col-form-label">Access Level</label>
+                  <div class="col-sm-9">
+                    <p class="form-control-plaintext">
+                      <span class="badge bg-primary">{{ $user->access }}</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label class="col-sm-3 col-form-label">Member Since</label>
+                  <div class="col-sm-9">
+                    <p class="form-control-plaintext">{{ \Carbon\Carbon::parse($user->created_at)->format('d F Y') }}</p>
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label class="col-sm-3 col-form-label">Last Updated</label>
+                  <div class="col-sm-9">
+                    <p class="form-control-plaintext">
+                      <small class="text-muted">{{ \Carbon\Carbon::parse($user->updated_at)->diffForHumans() }}</small>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
