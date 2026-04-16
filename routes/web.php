@@ -116,4 +116,6 @@ Route::prefix('home')
                         ->name('detail');
                 Route::get('/profile', 'ProfileController@detail')
                         ->name('profile');
+                Route::get('/edit_profile', 'ProfileController@edit_profile')
+                        ->name('edit_profile');
         });

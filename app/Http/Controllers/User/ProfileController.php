@@ -11,5 +11,9 @@ class ProfileController extends Controller
         return view('pages.user.dashboard.view_profile');
     }
 
+    public function edit_profile() {
+        return view('pages.user.dashboard.edit_profile');
+    }
+
 
 }

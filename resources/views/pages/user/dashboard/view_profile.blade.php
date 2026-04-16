@@ -39,9 +39,8 @@
                 </div>
                 <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
                 <div class="mb-3 row">
-                  <button class="btn btn-success float-end">Edit Profile</button>
+                  <a href="{{ route('edit_profile') }}" class="btn btn-success float-end">Edit Profile</a>
                 </div>
-                
               </div>
             </div>
           </div>
