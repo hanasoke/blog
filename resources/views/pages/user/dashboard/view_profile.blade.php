@@ -12,7 +12,13 @@
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">Full Name</h5>
+                <h5 class="card-title">View Detail Profile</h5>
+                <div class="mb-3 row">
+                  <label for="full_name" class="col-sm-2 col-form-label">Full Name</label>
+                  <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="full_name" value="Hanas Bayu Pratama">
+                  </div>
+                </div>
                 <div class="mb-3 row">
                   <label for="username" class="col-sm-2 col-form-label">Username</label>
                   <div class="col-sm-10">
@@ -22,13 +28,13 @@
                 <div class="mb-3 row">
                   <label for="email" class="col-sm-2 col-form-label">Email</label>
                   <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="email" value="email@example.com">
+                    <input type="text" readonly class="form-control-plaintext" id="email" value="hanasoke@gmail.com">
                   </div>
                 </div>
                 <div class="mb-3 row">
                   <label for="phone" class="col-sm-2 col-form-label">Phone</label>
                   <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="phone" value="2321312312">
+                    <input type="text" readonly class="form-control-plaintext" id="phone" value="085819536158">
                   </div>
                 </div>
                 <div class="mb-3 row">

@@ -38,7 +38,7 @@
                 <div class="mb-3 row">
                   <label for="email" class="col-sm-2 col-form-label">Email</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="email" value="sukijan@gmail.com">
+                    <input type="text" class="form-control" id="email" value="hanasoke@gmail.com">
                   </div>
                 </div>
 
@@ -53,6 +53,13 @@
                   <label for="phone" class="col-sm-2 col-form-label">Birthdate</label>
                   <div class="col-sm-10">
                     <input type="date" class="form-control" id="phone" value="1 July 2026">
+                  </div>
+                </div>
+
+                <div class="mb-3 row">
+                  <label for="access" class="col-sm-2 col-form-label">Access</label>
+                  <div class="col-sm-10">
+                    <input type="date" class="form-control" id="access" value="FREE">
                   </div>
                 </div>
 
