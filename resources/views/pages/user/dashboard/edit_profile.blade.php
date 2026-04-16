@@ -73,14 +73,17 @@
                 </div>
 
                 <div class="mb-3 row">
-                  <label for="phone" class="col-sm-2 col-form-label">Birthdate <span class="text-danger">*</span></label>
-                  <div class="col-sm-10">
-                    <input type="date" class="form-control" id="phone" value="1 July 2026">
+                  <label for="birthdate" class="col-sm-3 col-form-label">Birthdate <span class="text-danger">*</span></label>
+                  <div class="col-sm-9">
+                    <input type="date" class="form-control @error('birthdate') is-invalid @enderror" id="birthdate" name="birthdate" value="{{ old('birthdate', $user->birthdate) }}">
+                    @error('birthdate')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror 
                   </div>
                 </div>
 
                 <div class="mb-3 row">
-                  <label for="access" class="col-sm-2 col-form-label">Access</label>
+                  <label for="access" class="col-sm-2 col-form-label">Access  <span class="text-danger">*</span></label>
                   <div class="col-sm-10">
                     <input type="date" class="form-control" id="access" value="FREE">
                   </div>
