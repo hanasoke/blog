@@ -11,7 +11,7 @@
               @if($user->photo)
                 <img src="{{ asset('storage/'.$user->photo) }}" class="img-fluid rounded-circle" alt="{{ $user->name }}" style="object-fit: cover;">
               @else 
-                <img src="{{ asset('storage/user.png') }}" class="img-fluid rounded-circle" alt="{{ $user->name }}" style="object-fit: cover;">
+                <img src="{{ asset('user_assets/icons/user.png') }}" class="img-fluid rounded-circle" alt="{{ $user->name }}" style="object-fit: cover;">
               @endif 
             </div>
             <div class="col-md-8">
@@ -21,7 +21,7 @@
                     <h5 class="card-title">View Detail Profile</h5>
                   </div>
                   <div class="col text-end">
-                    <a href="{{ route('edit_profile') }}" class="btn btn-success">Edit Profile</a>
+                    <a href="{{ route('edit_profile') }}" class="btn btn-outline-success"><img src="{{ asset('user_assets/icons/pencil-square.svg') }}" alt="Back"></a>
                   </div>
                 </div>
 
