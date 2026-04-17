@@ -9,7 +9,7 @@
           <div class="row g-0">
             <div class="col-md-4 text-center p-4">
               @if($user->photo)
-                <img src="{{ asset('storage/'.$user->photo) }}" class="img-fluid rounded-circle" alt="{{ $user->name }}" style="object-fit: cover;">
+                <img src="{{ asset('storage/'.$user->photo) }}" id="photoPreview" class="img-fluid rounded-circle" alt="{{ $user->name }}" style="width: 200px; height:200px; object-fit: cover;">
               @else 
                 <img src="{{ asset('user_assets/icons/user.png') }}" class="img-fluid rounded-circle" alt="{{ $user->name }}" style="object-fit: cover;">
               @endif 
@@ -32,66 +32,63 @@
                   </div>
                 @endif
 
-                <div class="mb-3 row">
-                  <label for="name" class="col-sm-3 col-form-label">Full Name <span class="text-danger">*</span></label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $user->name) }}">
-                    @error('name')
-                      <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror 
+                <form action="{{ route('update_profile') }}" method="POST" enctype="multipart/form-data">
+                  @csrf 
+                  <div class="mb-3 row">
+                    <label for="name" class="col-sm-3 col-form-label">Full Name <span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $user->name) }}">
+                      @error('name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror 
+                    </div>
                   </div>
-                </div>
                 
-                <div class="mb-3 row">
-                  <label for="username" class="col-sm-3 col-form-label">Username <span class="text-danger">*</span></label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username', $user->username) }}">
-                    @error('username')
-                      <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror 
+                  <div class="mb-3 row">
+                    <label for="username" class="col-sm-3 col-form-label">Username <span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username', $user->username) }}">
+                      @error('username')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror 
+                    </div>
                   </div>
-                </div>
 
-                <div class="mb-3 row">
-                  <label for="email" class="col-sm-3 col-form-label">Email <span class="text-danger">*</span></label>
-                  <div class="col-sm-9">
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $user->email) }}">
-                    @error('email')
-                      <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror 
+                  <div class="mb-3 row">
+                    <label for="email" class="col-sm-3 col-form-label">Email <span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $user->email) }}">
+                      @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror 
+                    </div>
                   </div>
-                </div>
 
-                <div class="mb-3 row">
-                  <label for="phone" class="col-sm-3 col-form-label">Phone <span class="text-danger">*</span></label>
-                  <div class="col-sm-9">
-                    <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone', $user->phone) }}">
-                    @error('phone')
-                      <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror 
+                  <div class="mb-3 row">
+                    <label for="phone" class="col-sm-3 col-form-label">Phone <span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone', $user->phone) }}">
+                      @error('phone')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror 
+                    </div>
                   </div>
-                </div>
 
-                <div class="mb-3 row">
-                  <label for="birthdate" class="col-sm-3 col-form-label">Birthdate <span class="text-danger">*</span></label>
-                  <div class="col-sm-9">
-                    <input type="date" class="form-control @error('birthdate') is-invalid @enderror" id="birthdate" name="birthdate" value="{{ old('birthdate', $user->birthdate) }}">
-                    @error('birthdate')
-                      <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror 
+                  <div class="mb-3 row">
+                    <label for="birthdate" class="col-sm-3 col-form-label">Birthdate <span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                      <input type="date" class="form-control @error('birthdate') is-invalid @enderror" id="birthdate" name="birthdate" value="{{ old('birthdate', $user->birthdate) }}">
+                      @error('birthdate')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror 
+                    </div>
                   </div>
-                </div>
 
-                <div class="mb-3 row">
-                  <label for="access" class="col-sm-2 col-form-label">Access  <span class="text-danger">*</span></label>
-                  <div class="col-sm-10">
-                    <input type="date" class="form-control" id="access" value="FREE">
+                  <div class="mb-3 row">
+                    <a href="{{ route('edit_profile') }}" class="btn btn-success">Update</a>
                   </div>
-                </div>
+                </form>
 
-                <div class="mb-3 row">
-                  <a href="{{ route('edit_profile') }}" class="btn btn-success">Update</a>
-                </div>
               </div>
             </div>
           </div>
