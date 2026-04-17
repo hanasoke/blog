@@ -85,7 +85,21 @@
                   </div>
 
                   <div class="mb-3 row">
-                    <a href="{{ route('edit_profile') }}" class="btn btn-success">Update</a>
+                    <label for="photo" class="col-sm-3 col-form-label">Photo</label>
+                    <div class="col-sm-9">
+                      <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo" accept="image/*">
+                      <small class="text-muted">Max: 2MB (JPG, JPEG, PNG)</small>
+                      @error('photo')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror 
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <div class="col-sm-9 offset-sm-3">
+                      <button type="submit" class="btn btn-success float-end">Update Profile</button>
+                      <a href="{{ route('profile') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
                   </div>
                 </form>
 
