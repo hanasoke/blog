@@ -35,7 +35,7 @@
                 <form action="{{ route('update_profile') }}" method="POST" enctype="multipart/form-data">
                   @csrf 
                   <div class="mb-3 row">
-                    <label for="name" class="col-sm-3 col-form-label">Full Name <span class="text-danger">*</span></label>
+                    <label for="name" class="col-sm-3 col-form-label">Full Name</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $user->name) }}">
                       @error('name')
@@ -45,7 +45,7 @@
                   </div>
                 
                   <div class="mb-3 row">
-                    <label for="username" class="col-sm-3 col-form-label">Username <span class="text-danger">*</span></label>
+                    <label for="username" class="col-sm-3 col-form-label">Username</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username', $user->username) }}">
                       @error('username')
@@ -55,7 +55,7 @@
                   </div>
 
                   <div class="mb-3 row">
-                    <label for="email" class="col-sm-3 col-form-label">Email <span class="text-danger">*</span></label>
+                    <label for="email" class="col-sm-3 col-form-label">Email</label>
                     <div class="col-sm-9">
                       <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $user->email) }}">
                       @error('email')
@@ -65,7 +65,7 @@
                   </div>
 
                   <div class="mb-3 row">
-                    <label for="phone" class="col-sm-3 col-form-label">Phone <span class="text-danger">*</span></label>
+                    <label for="phone" class="col-sm-3 col-form-label">Phone</label>
                     <div class="col-sm-9">
                       <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone', $user->phone) }}">
                       @error('phone')
@@ -75,7 +75,7 @@
                   </div>
 
                   <div class="mb-3 row">
-                    <label for="birthdate" class="col-sm-3 col-form-label">Birthdate <span class="text-danger">*</span></label>
+                    <label for="birthdate" class="col-sm-3 col-form-label">Birthdate</label>
                     <div class="col-sm-9">
                       <input type="date" class="form-control @error('birthdate') is-invalid @enderror" id="birthdate" name="birthdate" value="{{ old('birthdate', $user->birthdate) }}">
                       @error('birthdate')
