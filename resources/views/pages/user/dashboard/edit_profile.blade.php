@@ -95,6 +95,39 @@
                     </div>
                   </div>
 
+                  <hr class="my-4">
+
+                  <h6 class="mb-3">Change Password (Optional)</h6>
+
+                  <div class="mb-3 row">
+                    <label for="current_password" class="col-sm-3 col-form-label">Current Password</label>
+                    <div class="col-sm-9">
+                      <input type="password" class="form-control @error('current_password') is-invalid @enderror" id="current_password" name="current_password">
+
+                      @error('current_password')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror 
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label for="new_password" class="col-sm-3 col-form-label">New Password</label>
+                    <div class="col-sm-9">
+                      <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="new_password" name="new_password">
+
+                      @error('new_password')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror 
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label for="new_password_confirmation" class="col-sm-3 col-form-label">Confirm Password</label>
+                    <div class="col-sm-9">
+                      <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation">
+                    </div>
+                  </div>
+
                   <div class="mb-3 row">
                     <div class="col-sm-9 offset-sm-3">
                       <button type="submit" class="btn btn-success float-end">Update Profile</button>
@@ -111,3 +144,23 @@
     </div>
   </section>
 @endsection
+
+@push('addon-script')
+<script>
+  // Preview photo before upload 
+  document.getElementById('photo').addEventListener('change', function(e) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('photoPreview').src = e.target.result;
+    }
+    if(this.files && this.files[0]) {
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+
+  // Phone number validation (only numbers)
+  document.getElementById('phone').addEventListener('input', function(e){
+    this.value = this.value.replace(/\D/g, '');
+  })
+</script>
+@endpush 
