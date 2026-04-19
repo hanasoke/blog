@@ -84,9 +84,21 @@ class ProfileController extends Controller
         }
 
         // Update user data 
-        
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->birthdate = $request->birthdate;
 
+        // Update password if provided
+        if($request->filled('new_password')) {
+            $user->password = Hash::make($request->new_password);
+        }
 
+        $user->save();
+
+        return redirect()->route('profile')
+            ->with('success', 'Profile has been successfully updated!');
     }
 
 

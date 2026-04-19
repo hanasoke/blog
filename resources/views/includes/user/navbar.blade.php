@@ -34,7 +34,9 @@
               </li>
               <li><hr class="dropdown-divider"></li>
               <li>
-                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</a>
+                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                  <img src="{{ url('user_assets/icons/box-arrow-left.svg') }}" alt="Logout"> Logout 
+                </a>
               </li>
             </ul>
           </li>

@@ -118,4 +118,7 @@ Route::prefix('home')
                         ->name('profile');
                 Route::get('/edit_profile', 'ProfileController@edit_profile')
                         ->name('edit_profile');
+
+                Route::post('/update_profile', 'ProfileController@update_profile')
+                        ->name('update_profile');
         });
