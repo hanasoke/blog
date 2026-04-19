@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\User;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -35,7 +36,7 @@ class ProfileController extends Controller
             'username' => 'required|string|max:255|unique:users,username,' . $user->id,
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'phone' => 'required|digits_between:10,15|unique:users,phone,' . $user->id,
-            'birthdate' => 'required|date',
+            'birthdate' => 'required|date|before_or_equal:today',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'current_password' => 'nullable|required_with:new_password',
             'new_password' => 'nullable|min:8|confirmed',
@@ -75,12 +76,16 @@ class ProfileController extends Controller
 
         // Handle photo upload 
         if($request->hasFile('photo')) {
-            // Delete old photo if exists 
-            if($user->photo && Storage::disk('public')->exists($user->photo)) {
-                Storage::disk('public')->delete($user->photo);
+            // Validate file is actually an image 
+            $file = $request->file('photo');
+            if ($file->isValid()) {
+                // Delete old photo if exists 
+                if($user->photo && Storage::disk('public')->exists($user->photo)) {
+                    Storage::disk('public')->delete($user->photo);
+                }
+                $photoPath = $file->store('users', 'public');
+                $user->photo = $photoPath;
             }
-            $photoPath = $request->file('photo')->store('users', 'public');
-            $user->photo = $photoPath;
         }
 
         // Update user data 
@@ -88,7 +93,7 @@ class ProfileController extends Controller
         $user->username = $request->username;
         $user->email = $request->email;
         $user->phone = $request->phone;
-        $user->birthdate = $request->birthdate;
+        $user->birthdate = Carbon::parse($request->birthdate)->format('Y-m-d');
 
         // Update password if provided
         if($request->filled('new_password')) {
@@ -100,6 +105,4 @@ class ProfileController extends Controller
         return redirect()->route('profile')
             ->with('success', 'Profile has been successfully updated!');
     }
-
-
 }
