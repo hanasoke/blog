@@ -25,6 +25,13 @@
                   </div>
                 </div>
 
+                @if(session('success'))
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                @endif
+
                 @if(session('error'))
                   <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{ session('error') }}
@@ -77,7 +84,7 @@
                   <div class="mb-3 row">
                     <label for="birthdate" class="col-sm-3 col-form-label">Birthdate</label>
                     <div class="col-sm-9">
-                      <input type="date" class="form-control @error('birthdate') is-invalid @enderror" id="birthdate" name="birthdate" value="{{ old('birthdate', $user->birthdate) }}">
+                      <input type="date" class="form-control @error('birthdate') is-invalid @enderror" id="birthdate" name="birthdate" value="{{ old('birthdate', $user->birthdate ? \Carbon\Carbon::parse($user->birthdate)->format('Y-m-d') : '') }}">
                       @error('birthdate')
                         <div class="invalid-feedback">{{ $message }}</div>
                       @enderror 
@@ -161,6 +168,19 @@
   // Phone number validation (only numbers)
   document.getElementById('phone').addEventListener('input', function(e){
     this.value = this.value.replace(/\D/g, '');
-  })
+  });
+
+  // Format Birthdate display
+  const birthdateInput = document.getElementById('birthdate');
+  if(birthdateInput && birthdateInput.value) {
+    // Ensure date is in YYYY-MM-DD format
+    const date = new Date(birthdateInput.value);
+    if(!isNaN(date.getTime())) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      birthdateInput.value = `${year}-${month}-${day}`;
+    }
+  }
 </script>
 @endpush 
