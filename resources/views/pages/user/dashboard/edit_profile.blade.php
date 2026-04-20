@@ -138,7 +138,9 @@
                   <div class="mb-3 row">
                     <div class="col-sm-9 offset-sm-3">
                       <button type="submit" class="btn btn-success float-end">Update Profile</button>
-                      <a href="{{ route('profile') }}" class="btn btn-secondary">Cancel</a>
+                      <a href="{{ route('profile') }}" class="btn btn-outline-secondary">
+                        <img src="{{ asset('user_assets/icons/x-circle.svg') }}" alt="Cancel">
+                      </a>
                     </div>
                   </div>
                 </form>
