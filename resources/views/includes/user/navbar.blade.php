@@ -30,12 +30,16 @@
 
             <ul class="dropdown-menu dropdown-menu-end">
               <li>
-                <a class="dropdown-item" href="{{ route('profile') }}">Dashboard</a>
+                <a class="dropdown-item" href="{{ route('profile') }}">
+                  <img src="{{ url('user_assets/icons/user.png') }}" alt="Dashboard" width="25" class="float-end">
+                  <b>Dashboard</b>
+                </a>
               </li>
               <li><hr class="dropdown-divider"></li>
               <li>
                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                  <img src="{{ url('user_assets/icons/box-arrow-left.svg') }}" alt="Logout"> Logout 
+                  <img src="{{ url('user_assets/icons/box-arrow-left.svg') }}" alt="Logout" class="float-end">
+                  <b>Logout</b>
                 </a>
               </li>
             </ul>
