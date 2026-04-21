@@ -18,7 +18,7 @@
               <div class="card-body">
                 <div class="row mb-3">
                   <div class="col">
-                    <h5 class="card-title">Edit Profile</h5>
+                    <h2 class="card-title">Edit Profile</h2>
                   </div>
                   <div class="col text-end">
                     <a href="{{ route('profile') }}" class="btn btn-outline-secondary float-end"><img src="{{ asset('user_assets/icons/arrow-left.svg') }}" alt="Back"></a>
