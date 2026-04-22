@@ -110,7 +110,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="viewModalLabel{{ $blog->id }}">View Detail <b>{{ $blog->title }}</b> Article</h5>
+                <h5 class="modal-title" id="viewModalLabel{{ $blog->id }}"><b>{{ $blog->title }}</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
