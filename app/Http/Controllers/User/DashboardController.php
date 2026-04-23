@@ -4,11 +4,17 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Blog;
 
 class DashboardController extends Controller
 {
     public function index() {
-        return view('pages.user.home');
+        // Ambil semua blog dengan relasi genre, source, dan user 
+        $blogs = Blog::with(['genre', 'source', 'user'])
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
+        return view('pages.user.home', compact('blogs'));
     }
 
     public function detail() {
