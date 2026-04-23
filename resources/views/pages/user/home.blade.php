@@ -24,30 +24,48 @@
       @else 
         <div class="row g-4">
 
-          <!-- CARD 1 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="card blog-card h-100 border-0 shadow-sm">
-              <a href="{{ route('detail') }}" class="text-decoration-none">
-                <img src="https://picsum.photos/600/400?1" class="card-img-top" alt="">
-                <div class="card-body">
-                  <small class="text-muted">Olivia Rhye · 20 Jan 2024</small>
-                  <h5 class="mt-2 fw-semibold text-dark">
-                    Conversations with Our Favorite London Studio, Makr & Co.
-                  </h5>
-                  <p class="text-muted">
-                    We sat down with London’s fast-growing brand and product design studio...
-                  </p>
+          @foreach($blogs as $blog)
+            <div class="col-md-6 col-lg-4">
+              <div class="card blog-card h-100 border-0 shadow-sm">
+                <a href="{{ route('detail', $blog->id) }}" class="text-decoration-none">
+                  @if($blog->thumbnail)
+                    <img src="{{ asset('storage/' . $blog->thumbnail) }}" class="card-img-top" alt="{{ $blog->title }}">
+                  @else 
+                    <img src="{{ asset('user_assets/thumbnail/error_website.png') }}" alt="Error Website">
+                  @endif 
+                  <div class="card-body">
+                    <!-- Author & Date -->
+                    <small class="text-muted">{{ $blog->user->name ?? 'Unknown Author' }} · {{ $blog->created_at ? $blog->created_at->format('d M Y') : 'Date not set' }}</small>
 
-                  <div class="d-flex gap-2 flex-wrap">
-                    <span class="badge rounded-pill badge-tag">Design</span>
-                    <span class="badge rounded-pill badge-tag">Research</span>
-                    <span class="badge rounded-pill badge-tag">Interviews</span>
+                    <!-- Title -->
+                    <h5 class="mt-2 fw-semibold text-dark">
+                      {{ Str::limit($blog->title, 60) }}
+                    </h5>
+
+                    <!-- Description -->
+                    <p class="text-muted">
+                      {{ Str::limit(strip_tags($blog->description), 100) }}
+                    </p>
+
+                    <!-- Tags/Genres -->
+                    <div class="d-flex gap-2 flex-wrap">
+                      @if($blog->genre)
+                        <span class="badge rounded-pill badge-tag">
+                          {{ $blog->genre->name }}
+                        </span>
+                      @endif 
+
+                      @if($blog->source)
+                        <span class="badge rounded-pill badge-tag">
+                          {{ $blog->source->name }}
+                        </span>
+                      @endif 
+                    </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </div>
             </div>
-          </div>
-          
+          @endforeach
         </div>
 
       @endif 
