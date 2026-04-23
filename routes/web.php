@@ -112,7 +112,7 @@ Route::prefix('home')
         ->group(function() {
                 Route::get('/', 'DashboardController@index')
                         ->name('home');
-                Route::get('/detail', 'DashboardController@detail')
+                Route::get('/detail/{id}', 'DashboardController@detail')
                         ->name('detail');
                 Route::get('/profile', 'ProfileController@detail')
                         ->name('profile');
