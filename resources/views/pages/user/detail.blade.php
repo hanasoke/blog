@@ -13,147 +13,98 @@
                         <span>{{ $blog->created_at ? $blog->created_at->format('F d, Y') : 'Date not set' }}</span>
                         <span class="mx-3">•</span>
                         <i class="bi bi-clock"></i> &nbsp;
-                        <span>{{ $blog->reading_time ?? '5' }} min read</span>
+                        <span>{{ round(strlen(strip_tags($blog->description)) / 200) }} min read</span>
                         <span class="mx-3">•</span>
                         <i class="bi bi-eye"></i> &nbsp;
-                        <span>{{ $blog->views ?? '0' }} views</span>
+                        <span>{{ $blog->views ?? 0 }} views</span>
                     </div>
                     <h1 class="display-4 fw-bold mb-4">{{ $blog->title }}</h1>
                     <div class="d-flex align-items-center flex-wrap gap-3">
-                        <!-- Author Avatar -->
-                        
-                        <img src="{{ asset('img_detail_blogs/profile/miku_4.jpg') }}" class="rounded-circle" width="50" height="50" alt="Author">
+                        @if($blog->user && $blog->user->photo)
+                            <img src="{{ asset('storage/' . $blog->user->photo) }}" class="rounded-circle" width="50" height="50" alt="Author">
+                        @else 
+                            <img src="{{ url('user_assets/icons/user.png') }}" class="rounded-circle" width="50" height="50" alt="Author">
+                        @endif 
                         <div>
-                            <h6 class="fw-bold mb-0">Sarah Johnson</h6>
-                            <small class="text-muted">Senior Brand Strategist</small>
+                            <h6 class="fw-bold mb-0">{{ $blog->user->name ?? 'Unknown Author' }}</h6>
+                            <small class="text-muted">
+                                @if($blog->user) 
+                                    {{ $blog->user->roles ?? 'User' }}
+                                @else 
+                                    Author
+                                @endif 
+                            </small>
                         </div>
                         <div class="ms-auto">
-                            <a href="#" class="btn btn-outline-primary btn-sm me-2">
+                            <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareArticle()">
                                 <i class="bi bi-share"></i> Share
                             </a>
-                            <button class="btn btn-outline-secondary btn-sm">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="bookmarkArticle()">
                                 <i class="bi bi-bookmark"></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Thumbnail Image -->
+                @if($blog->thumbnail)
+                    <div class="mb-4">
+                        <img src="{{ asset('storage/' . $blog->thumbnail) }}" class="img-fluid rounded-3 w-100" alt="{{ $blog->title }}">
+                    </div>
+                @endif 
+
                 <!-- Article Content -->
                 <div class="article-content">
-                    <p>Branding is your identity that you use to differentiate yourself from other businesses. Your brand is what your customers say about you when you're not in the room.</p>
-
-                    <h2>Why Branding Matters to Your Business</h2>
-                    <p>Branding helps build trust, communicates your values, and creates emotional connections with your audience. It's the foundation of your business identity.</p>
-
-                    <div class="row g-4 mb-5">
-                        <div class="col-md-4">
-                            <div class="text-center p-4 border rounded-3">
-                                <i class="bi bi-shield-check display-4 text-primary mb-3"></i>
-                                <h5>Brand Identity</h5>
-                                <p>Visual elements that represent your business</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center p-4 border rounded-3">
-                                <i class="bi bi-chat-text display-4 text-primary mb-3"></i>
-                                <h5>Communication</h5>
-                                <p>Your brand voice and messaging</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center p-4 border rounded-3">
-                                <i class="bi bi-star display-4 text-primary mb-3"></i>
-                                <h5>Experience</h5>
-                                <p>Customer interactions and feelings</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h2>Rule 1: Be Authentic</h2>
-                    <p>Authenticity builds trust. Your brand should genuinely reflect your values, mission, and culture. Customers can spot inauthenticity from a mile away.</p>
-
-                    <h3>Rule 2: Stay Consistent</h3>
-                    <p>Consistency across all touchpoints creates recognition. From your logo to your social media posts, maintain visual and tonal consistency.</p>
-
-                    <h4>Visual Consistency Checklist:</h4>
-                    <ul class="list-group list-group-flush mb-4">
-                        <li class="list-group-item border-0 px-0 py-2">Logo usage guidelines</li>
-                        <li class="list-group-item border-0 px-0 py-2">Color palette (primary, secondary, accent)</li>
-                        <li class="list-group-item border-0 px-0 py-2">Typography standards</li>
-                        <li class="list-group-item border-0 px-0 py-2">Imagery style guide</li>
-                    </ul>
-
-                    <blockquote class="blockquote border-start border-4 border-primary ps-4 py-4 bg-light rounded-end">
-                        <p class="mb-0 fs-5">"Your brand is a living entity. It evolves, but it must remain true to its core values."</p>
-                        <footer class="blockquote-footer mt-3">Simon Sinek, Author</footer>
-                    </blockquote>
-
-                    <h2>Rule 3: Know Your Audience</h2>
-                    <p>Deeply understand your target customers. Create buyer personas and tailor your messaging to their needs, pain points, and aspirations.</p>
-
-                    <div class="content-divider"></div>
-
-                    <h2>Complete Branding Framework</h2>
-                    <p>Effective branding combines strategy, creativity, and consistency. Here's our proven 7-step framework:</p>
-                    
-                    <div class="row g-3 mb-5">
-                        <div class="col-md-6 col-lg-4">
-                            <div class="d-flex align-items-center p-3 border rounded-3">
-                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
-                                    1
-                                </div>
-                                <div>
-                                    <h6 class="fw-bold mb-0">Discovery</h6>
-                                    <small>Research & Analysis</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="d-flex align-items-center p-3 border rounded-3">
-                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
-                                    2
-                                </div>
-                                <div>
-                                    <h6 class="fw-bold mb-0">Strategy</h6>
-                                    <small>Positioning & Messaging</small>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Continue pattern for 7 steps -->
-                    </div>
-
-                    <h2>Conclusion: Branding is Your Competitive Advantage</h2>
-                    <p>Investing in strategic branding creates lasting value. It's not just about looking good—it's about building trust, recognition, and loyalty that translates to business growth.</p>
-
-                    <div class="alert alert-primary">
-                        <strong>Ready to elevate your brand?</strong> 
-                        <a href="#" class="alert-link fw-bold">Contact us today</a> for a free brand audit.
-                    </div>
+                    {{ $blog->description }}
                 </div>
 
+                <!-- Additional Images -->
+                @if($blog->image_2 || $blog->image_3)
+                <div class="row g-4 my-4">
+                    @if($blog->image_2) 
+                        <div class="col-md-6">
+                            <img src="{{ asset('storage/' . $blog->image_2) }}" class="img-fluid rounded-3 w-100" alt="Additional image 1">
+                        </div>
+                    @endif 
+                    @if($blog->image_3) 
+                        <div class="col-md-6">
+                            <img src="{{ asset('storage/' . $blog->image_3) }}" class="img-fluid rounded-3 w-100" alt="Additional image 2">
+                        </div>
+                    @endif 
+                </div>
+                @endif 
+
                 <!-- Social Share & Tags -->
-                <div class="social-share">
+                <div class="social-share mt-5">
                     <div class="row g-3">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold mb-2">Genre & Source:</h6>
+                            <div class="d-flex gap-2 flex-wrap">
+                                @if($blog->genre)
+                                    <span class="badge bg-primary">
+                                        <i class="bi bi-tag"></i> {{ $blog->genre->name }}
+                                    </span>
+                                @endif 
+                                @if($blog->source)
+                                    <span class="badge bg-primary">
+                                        <i class="bi bi-bookmark"></i> {{ $blog->source->name }}
+                                    </span>
+                                @endif 
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <h6 class="fw-bold mb-2">Share this article:</h6>
                             <div class="d-flex gap-2">
-                                <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2" onclick="shareToFacebook()">
                                     <i class="bi bi-facebook me-1"></i>Facebook
                                 </a>
-                                <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2" onclick="shareToTwitter()">
                                     <i class="bi bi-twitter me-1"></i>Twitter
                                 </a>
-                                <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2" onclick="shareToLinkedin()">
                                     <i class="bi bi-linkedin me-1"></i>LinkedIn
                                 </a>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <h6 class="fw-bold mb-2">Tags:</h6>
-                            <a href="#" class="badge bg-light text-dark me-2 mb-1">#Branding</a>
-                            <a href="#" class="badge bg-light text-dark me-2 mb-1">#Design</a>
-                            <a href="#" class="badge bg-light text-dark me-2 mb-1">#Strategy</a>
-                            <a href="#" class="badge bg-light text-dark">#Marketing</a>
                         </div>
                     </div>
                 </div>
@@ -167,13 +118,31 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-3 text-center text-md-start mb-4 mb-md-0">
-                <img src="{{ asset('img_detail_blogs/profile/miku_4.jpg') }}" class="rounded-circle shadow-lg" width="120" height="120" alt="Sarah Johnson">
+                @if($blog->user && $blog->user->photo)
+                    <img src="{{ asset('storage/' . $blog->user->photo) }}" class="rounded-circle shadow-lg" width="120" height="120" alt="{{ $blog->user->username }}">
+                @else 
+                    <img src="{{ url('user_assets/icons/user.png') }}" class="rounded-circle" width="120" height="120" alt="Author">
+                @endif 
             </div>
             <div class="col-md-9">
-                <h4 class="fw-bold mb-2">Sarah Johnson</h4>
-                <p class="text-muted mb-2">Senior Brand Strategist at Foundry</p>
-                <p>With 10+ years in branding, Sarah helps businesses create identities that resonate and convert.</p>
-                <a href="#" class="btn btn-primary-custom">View all posts</a>
+                <h4 class="fw-bold mb-2">
+                    {{ $blog->user->name ?? 'Unknown Author' }}
+                </h4>
+                <p class="text-muted mb-2">
+                    @if($blog->user && $blog->user->email)
+                        {{ $blog->user->email }}
+                    @else 
+                        Author 
+                    @endif 
+                </p>
+                <p>
+                    @if($blog->user && $blog->user->birthdate)
+                        Member Since {{ $blog->user->birthdate->format('Y') }}
+                    @else 
+                        Content Creator 
+                    @endif 
+                </p>
+                <a href="{{ route('home') }}?author={{ $blog->user_id ?? '' }}" class="btn btn-primary">View all posts</a>
             </div>
         </div>
     </div>
