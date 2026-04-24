@@ -149,6 +149,17 @@
 </section>
 
 <!-- Related Posts -->
+@php 
+    $relatedPosts = App\Blog::where('id', '!=', $blog->id)
+        ->when($blog->genre_id, function($query) use ($blog) {
+            return $query->where('genre_id', $blog->genre_id);
+        })
+        ->with(['genre', 'user'])
+        ->take(3)
+        ->get();
+@endphp 
+
+@if($relatedPosts->count() > 0)
 <section class="py-5">
     <div class="container">
         <h2 class="fw-bold mb-5 text-center">Related Posts</h2>
@@ -166,34 +177,9 @@
                     </div>
                 </article>
             </div>
-            <div class="col-md-6 col-lg-4">
-                <article class="related-post h-100 shadow-lg">
-                    <img src="{{ asset('img_detail_blogs/gallery/nusa_peninda.jpg') }}" class="w-100" style="height: 200px; object-fit: cover;" alt="Post">
-                    <div class="p-4">
-                        <div class="blog-meta mb-2">
-                            <i class="bi bi-calendar3"></i> Dec 28, 2023
-                        </div>
-                        <h5 class="fw-bold mb-3">Logo Design Trends for 2024</h5>
-                        <p class="text-muted mb-3">Minimalism, gradients, and experimental typography...</p>
-                        <a href="#" class="text-decoration-none">Read more <i class="bi bi-arrow-right ms-1"></i></a>
-                    </div>
-                </article>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <article class="related-post h-100 shadow-lg">
-                    <img src="{{ asset('img_detail_blogs/gallery/toba_lake.jpg') }}" class="w-100" style="height: 200px; object-fit: cover;" alt="Post">
-                    <div class="p-4">
-                        <div class="blog-meta mb-2">
-                            <i class="bi bi-calendar3"></i> Feb 5, 2024
-                        </div>
-                        <h5 class="fw-bold mb-3">Building Brand Loyalty</h5>
-                        <p class="text-muted mb-3">Strategies for creating lifelong customers...</p>
-                        <a href="#" class="text-decoration-none">Read more <i class="bi bi-arrow-right ms-1"></i></a>
-                    </div>
-                </article>
-            </div>
         </div>
     </div>
 </section>
+@endif 
 
 @endsection 
