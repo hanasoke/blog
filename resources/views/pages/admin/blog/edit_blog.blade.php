@@ -146,7 +146,39 @@
             </form>
         </div>
     </div>
-
 </div>
 <!-- /.container-fluid -->
+
+<script>
+    $(document).ready(function() {
+        // Update file input label when file is selected
+        $('.custom-file-input').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').html(fileName);
+            
+            // Preview image
+            var inputId = $(this).attr('id');
+            if (inputId === 'thumbnail') {
+                previewImage(this, '#thumbnailPreview');
+            } else if (inputId === 'image_2') {
+                previewImage(this, '#image2Preview');
+            } else if (inputId === 'image_3') {
+                previewImage(this, '#image3Preview');
+            }
+        });
+        
+        function previewImage(input, previewElement) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $(previewElement).attr('src', e.target.result).show();
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                $(previewElement).hide();
+            }
+        }
+    });
+</script>
+
 @endsection 

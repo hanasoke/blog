@@ -128,9 +128,6 @@
 
 </div>
 <!-- /.container-fluid -->
-@endsection 
-
-@push('addon-script')
 <script>
     $(document).ready(function() {
         // Update file input label when file is selected
@@ -162,4 +159,4 @@
         }
     });
 </script>
-@endpush
+@endsection 
