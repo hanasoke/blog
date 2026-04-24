@@ -9,17 +9,19 @@
                 <!-- Blog Header -->
                 <div class="mb-4">
                     <div class="blog-meta d-flex align-items-center mb-2">
-                        <i class="bi bi-calendar3"></i>
-                        <span>Published January 15, 2024</span>
+                        <i class="bi bi-calendar3"></i> &nbsp; 
+                        <span>{{ $blog->created_at ? $blog->created_at->format('F d, Y') : 'Date not set' }}</span>
                         <span class="mx-3">•</span>
-                        <i class="bi bi-clock"></i>
-                        <span>8 min read</span>
+                        <i class="bi bi-clock"></i> &nbsp;
+                        <span>{{ $blog->reading_time ?? '5' }} min read</span>
                         <span class="mx-3">•</span>
-                        <i class="bi bi-eye"></i>
-                        <span>2.5k views</span>
+                        <i class="bi bi-eye"></i> &nbsp;
+                        <span>{{ $blog->views ?? '0' }} views</span>
                     </div>
-                    <h1 class="display-4 fw-bold mb-4">7 Rules of Effective Branding</h1>
+                    <h1 class="display-4 fw-bold mb-4">{{ $blog->title }}</h1>
                     <div class="d-flex align-items-center flex-wrap gap-3">
+                        <!-- Author Avatar -->
+                        
                         <img src="{{ asset('img_detail_blogs/profile/miku_4.jpg') }}" class="rounded-circle" width="50" height="50" alt="Author">
                         <div>
                             <h6 class="fw-bold mb-0">Sarah Johnson</h6>
