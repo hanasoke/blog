@@ -101,7 +101,7 @@
                                 <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2" onclick="shareToTwitter()">
                                     <i class="bi bi-twitter me-1"></i>Twitter
                                 </a>
-                                <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2" onclick="shareToLinkedin()">
+                                <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2" onclick="shareToLinkedIn()">
                                     <i class="bi bi-linkedin me-1"></i>LinkedIn
                                 </a>
                             </div>
@@ -167,7 +167,11 @@
             @foreach($relatedPosts as $related)
                 <div class="col-md-6 col-lg-4">
                     <article class="related-post h-100 shadow-lg">
-                        <img src="{{ asset('img_detail_blogs/gallery/raja_ampat.jpg') }}" class="w-100" style="height: 200px; object-fit: cover;" alt="Post">
+                        @if($related->thumbnail)
+                            <img src="{{ asset('storage/' . $related->thumbnail) }}" class="w-100" style="height: 200px; object-fit: cover;" alt="{{ $related->title }}">
+                        @else 
+                            <img src="{{ url('user_assets/thumbnail/error_website.png') }}" class="w-100" style="height: 200px; object-fit: cover;" alt="{{ $related->title }}">
+                        @endif 
                         <div class="p-4">
                             <div class="blog-meta mb-2">
                                 <i class="bi bi-calendar3"></i> {{ $related->created_at ? $related->created_at->format('M d, Y') : 'Date not set' }}
@@ -183,5 +187,36 @@
     </div>
 </section>
 @endif 
+
+<script>
+function shareArticle() {
+    if (navigator.share) {
+        navigator.share({
+            title: '{{ addslashes($blog->title) }}',
+            text: 'Check out this article',
+            url: window.location.href
+        });
+    } else {
+        alert('Share feature is not supported in this browser');
+    }
+}
+
+function bookmarkArticle() {
+    // Implement bookmark functionality
+    alert('Bookmark feature coming soon');
+}
+
+function shareToFacebook() {
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href), '_blank');
+}
+
+function shareToTwitter() {
+    window.open('https://twitter.com/intent/tweet?text={{ addslashes($blog->title) }}&url=' + encodeURIComponent(window.location.href), '_blank');
+}
+
+function shareToLinkedIn() {
+    window.open('https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(window.location.href), '_blank');
+}
+</script>
 
 @endsection 
