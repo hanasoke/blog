@@ -164,19 +164,21 @@
     <div class="container">
         <h2 class="fw-bold mb-5 text-center">Related Posts</h2>
         <div class="row g-4">
-            <div class="col-md-6 col-lg-4">
-                <article class="related-post h-100 shadow-lg">
-                    <img src="{{ asset('img_detail_blogs/gallery/raja_ampat.jpg') }}" class="w-100" style="height: 200px; object-fit: cover;" alt="Post">
-                    <div class="p-4">
-                        <div class="blog-meta mb-2">
-                            <i class="bi bi-calendar3"></i> Jan 10, 2024
+            @foreach($relatedPosts as $related)
+                <div class="col-md-6 col-lg-4">
+                    <article class="related-post h-100 shadow-lg">
+                        <img src="{{ asset('img_detail_blogs/gallery/raja_ampat.jpg') }}" class="w-100" style="height: 200px; object-fit: cover;" alt="Post">
+                        <div class="p-4">
+                            <div class="blog-meta mb-2">
+                                <i class="bi bi-calendar3"></i> {{ $related->created_at ? $related->created_at->format('M d, Y') : 'Date not set' }}
+                            </div>
+                            <h5 class="fw-bold mb-3">{{ Str::limit($related->title, 60) }}</h5>
+                            <p class="text-muted mb-3">{{ Str::limit($related->description, 100) }}</p>
+                            <a href="{{ route('detail', $related->id) }}" class="text-decoration-none">Read more <i class="bi bi-arrow-right ms-1"></i></a>
                         </div>
-                        <h5 class="fw-bold mb-3">The Psychology of Color in Branding</h5>
-                        <p class="text-muted mb-3">Discover how colors influence customer perception...</p>
-                        <a href="#" class="text-decoration-none">Read more <i class="bi bi-arrow-right ms-1"></i></a>
-                    </div>
-                </article>
-            </div>
+                    </article>
+                </div>
+            @endforeach
         </div>
     </div>
 </section>
