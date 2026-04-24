@@ -17,8 +17,9 @@ class DashboardController extends Controller
         return view('pages.user.home', compact('blogs'));
     }
 
-    public function detail() {
-        return view('pages.user.detail');
+    public function detail($id) {
+        $blog = Blog::with(['genre', 'source', 'user'])->findOrFail($id);
+        return view('pages.user.detail', compact('blog'));
     }
 
 
