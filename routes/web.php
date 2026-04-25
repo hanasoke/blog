@@ -105,6 +105,9 @@ Route::prefix('admin')
                 Route::get('/article_status', 'BlogController@article_status')
                         ->name('article_status');
 
+                Route::get('/payment', 'PaymentController@index')
+                        ->name('payment');
+
         });
 Route::prefix('home')
         ->namespace('User')

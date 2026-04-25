@@ -29,12 +29,12 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#blogs"
+            aria-expanded="true" aria-controls="blogs">
             <i class="fas fa-fw fa-book"></i>
             <span>Blogs</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="blogs" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Blogs Component</h6>
                 <a class="collapse-item" href="{{ route('sources_list') }}">Sources Data View</a>
@@ -52,7 +52,20 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Payment View</h6>
                 <a class="collapse-item" href="#">Add Payment</a>
-                <a class="collapse-item" href="#">Payment List</a>
+                <a class="collapse-item" href="{{ route('payment') }}">Payment List</a>
+            </div>
+        </div>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#transaction"
+            aria-expanded="true" aria-controls="transaction">
+            <i class="fas fa-fw fa-shopping-cart"></i>
+            <span>Transaction</span>
+        </a>
+        <div id="transaction" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Transaction View</h6>
+                <a class="collapse-item" href="#">Pending Transaction</a>
+                <a class="collapse-item" href="#">Reject Transaction</a>
+                <a class="collapse-item" href="#">Accept Transaction</a>
             </div>
         </div>
     </li>
