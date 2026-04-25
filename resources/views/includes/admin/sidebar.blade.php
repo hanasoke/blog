@@ -31,7 +31,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-book"></i>
             <span>Blogs</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -41,6 +41,18 @@
                 <a class="collapse-item" href="{{ route('genre_lists') }}">Genre Data View</a>
                 <a class="collapse-item" href="{{ route('blogs_data') }}">Blogs Data View</a>
                 <a class="collapse-item" href="{{ route('access_blogs') }}">Access Blogs</a>
+            </div>
+        </div>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#payment"
+            aria-expanded="true" aria-controls="payment">
+            <i class="fas fa-fw fa-envelope"></i>
+            <span>Payment</span>
+        </a>
+        <div id="payment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Payment View</h6>
+                <a class="collapse-item" href="#">Add Payment</a>
+                <a class="collapse-item" href="#">Payment List</a>
             </div>
         </div>
     </li>

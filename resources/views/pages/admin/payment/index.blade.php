@@ -15,8 +15,8 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h4 class="font-weight-bold text-primary m-0 float-left">Genre Table View</h6>
-            <a href="{{ route('add_genre') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Genre</a>
+            <h4 class="font-weight-bold text-primary m-0 float-left">Payment Table</h6>
+            <a href="#" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Payment</a>
         </div>
         <div class="card-body">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -36,7 +36,7 @@
                     <thead class="text-center">
                         <tr>
                             <th width="20">No</th>
-                            <th>Genre Name</th>
+                            <th>Payment Name</th>
                             <th width="30">Action</th>
                         </tr>
                     </thead>
