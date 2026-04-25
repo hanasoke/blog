@@ -51,24 +51,23 @@
                     </thead>
                     <tbody>
                         @foreach($blogs as $index => $blog)
-                            <tr>
-                                <td class="text-center">{{ $index + 1 }}</td>
-                                <td>{{ $blog->title }}</td>
-                                <td>{{ $blog->genre->name ?? '-' }}</td>
-                                <td>{{ \Carbon\Carbon::parse($blog->created_at)->format('d F Y') }}</td>
-                                <td>{{ $blog->source->name ?? '-' }}</td>
-                                <td>
-                                    {{ $blog->description }}
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $blog->id }}"><i class="fas fa-trash fa-sm text-white-100"></i></button>
-                                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal{{ $blog->id }}"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                        <a href="{{ route('edit_blog', $blog->id) }}" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        <div>
+                        <tr>
+                            <td class="text-center">{{ $index + 1 }}</td>
+                            <td>{{ $blog->title }}</td>
+                            <td>{{ $blog->genre->name ?? '-' }}</td>
+                            <td>{{ \Carbon\Carbon::parse($blog->created_at)->format('d F Y') }}</td>
+                            <td>{{ $blog->source->name ?? '-' }}</td>
+                            <td>
+                                {{ $blog->description }}
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $blog->id }}"><i class="fas fa-trash fa-sm text-white-100"></i></button>
+                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal{{ $blog->id }}"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                    <a href="{{ route('edit_blog', $blog->id) }}" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
+                                </div>
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
