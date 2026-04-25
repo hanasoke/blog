@@ -12,4 +12,12 @@ class PaymentController extends Controller
     public function index() {
         return view('pages.admin.payment.index');
     }
+
+    public function add_payment() {
+        return view('pages.admin.payment.add_payment');
+    }
+
+    public function edit_payment() {
+        return view('pages.admin.payment.edit_payment');
+    }
 }

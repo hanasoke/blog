@@ -108,6 +108,12 @@ Route::prefix('admin')
                 Route::get('/payment', 'PaymentController@index')
                         ->name('payment');
 
+                Route::get('/add_payment', 'PaymentController@add_payment')
+                        ->name('add_payment');
+
+                Route::get('/edit_payment', 'PaymentController@edit_payment')
+                        ->name('edit_payment');
+
         });
 Route::prefix('home')
         ->namespace('User')

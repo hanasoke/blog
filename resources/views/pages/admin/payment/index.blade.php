@@ -16,7 +16,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h4 class="font-weight-bold text-primary m-0 float-left">Payment Table</h6>
-            <a href="#" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Payment</a>
+            <a href="{{ route('add_payment') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Payment</a>
         </div>
         <div class="card-body">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -49,7 +49,7 @@
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                                         <i class="fas fa-trash fa-sm text-white-100"></i>
                                     </button>
-                                    <a href="#" class="btn btn-info">
+                                    <a href="{{ route('edit_payment') }}" class="btn btn-info">
                                         <i class="fas fa-edit fa-sm text-white-100"></i>
                                     </a>
                                 </div>
@@ -61,7 +61,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel">Delete This Genre</h5>
+                                        <h5 class="modal-title" id="deleteModalLabel">Delete This Payment</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
