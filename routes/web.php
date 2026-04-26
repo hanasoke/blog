@@ -114,8 +114,11 @@ Route::prefix('admin')
                 Route::post('/save_payment', 'PaymentController@save_payment')
                         ->name('save_payment');
 
-                Route::get('/edit_payment', 'PaymentController@edit_payment')
+                Route::get('/edit_payment/{id}', 'PaymentController@edit_payment')
                         ->name('edit_payment');
+
+                Route::post('/update_payment/{id}', 'PaymentController@update_payment')
+                        ->name('update_payment');
 
                 Route::get('/pending_transaction', 'TransactionController@pending_transaction')
                         ->name('pending_transaction');
