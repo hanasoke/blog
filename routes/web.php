@@ -105,11 +105,14 @@ Route::prefix('admin')
                 Route::get('/article_status', 'BlogController@article_status')
                         ->name('article_status');
 
-                Route::get('/payment', 'PaymentController@index')
-                        ->name('payment');
+                Route::get('/payments', 'PaymentController@index')
+                        ->name('payments');
 
                 Route::get('/add_payment', 'PaymentController@add_payment')
                         ->name('add_payment');
+                
+                Route::post('/save_payment', 'PaymentController@save_payment')
+                        ->name('save_payment');
 
                 Route::get('/edit_payment', 'PaymentController@edit_payment')
                         ->name('edit_payment');
