@@ -35,7 +35,31 @@ class PaymentController extends Controller
             ->with('success', 'Dompet Pembayaran berhasil ditambahkan');
     }
 
-    public function edit_payment() {
-        return view('pages.admin.payment.edit_payment');
+    public function edit_payment($id) {
+        $payment = Payment::findOrFail($id);
+        return view('pages.admin.payment.edit_payment', compact('payment'));
     }
+
+    public function update_payment(Request $request ,$id) {
+        $request->validate([
+            'name' => [
+                'required',
+                Rule::unique('genres', 'name')->ignore($id)
+            ]
+            ], [
+                'name.required' => 'Nama Dompet Pembayaran wajib diisi',
+                'name.unique' => 'Nama Dompet Pembayaran sudah ada' 
+            ]);
+
+            $payment = Payment::findOrFail($id);
+            $payment->update([
+                'name' => $request->name 
+            ]);
+
+            return redirect()
+                ->route('payments')
+                ->with('success', 'Dompet pembayaran berhasil diupdate');
+    }
+
+
 }
