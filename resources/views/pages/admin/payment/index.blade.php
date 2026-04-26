@@ -19,18 +19,22 @@
             <a href="{{ route('add_payment') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Payment</a>
         </div>
         <div class="card-body">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>#</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>#</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif 
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ session('error') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-center">
@@ -41,42 +45,48 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td width="20" class="text-center">#</td>
-                            <td>#</td>
-                            <td width="30">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
-                                        <i class="fas fa-trash fa-sm text-white-100"></i>
-                                    </button>
-                                    <a href="{{ route('edit_payment') }}" class="btn btn-info">
-                                        <i class="fas fa-edit fa-sm text-white-100"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel">Delete This Payment</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
+                        @foreach($payments as $no => $payment)
+                            <tr>
+                                <td width="20" class="text-center">
+                                    {{ $no + 1 }}
+                                </td>
+                                <td>
+                                    {{ $payment->name }}
+                                </td>
+                                <td width="30">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                                            <i class="fas fa-trash fa-sm text-white-100"></i>
                                         </button>
+                                        <a href="{{ route('edit_payment') }}" class="btn btn-info">
+                                            <i class="fas fa-edit fa-sm text-white-100"></i>
+                                        </a>
                                     </div>
-                                    <div class="modal-body">
-                                        Are you sure want to delete ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button class="btn btn-danger" type="submit">Delete</button>
-                                        </form>
+                                </td>
+                            </tr>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">Delete This Payment</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure want to delete ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

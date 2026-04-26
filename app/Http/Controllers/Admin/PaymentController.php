@@ -26,7 +26,7 @@ class PaymentController extends Controller
             'nama.unique' => 'Nama Dompet Pembayaran sudah ada'
         ]);
 
-        Genre::create([
+        Payment::create([
             'name' => $request->name
         ]);
 
