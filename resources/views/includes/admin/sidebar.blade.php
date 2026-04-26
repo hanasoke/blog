@@ -63,9 +63,9 @@
         <div id="transaction" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Transaction View</h6>
-                <a class="collapse-item" href="#">Pending Transaction</a>
-                <a class="collapse-item" href="#">Reject Transaction</a>
-                <a class="collapse-item" href="#">Accept Transaction</a>
+                <a class="collapse-item" href="{{ route('pending_transaction') }}">Pending Transaction</a>
+                <a class="collapse-item" href="{{ route('cancel_transaction') }}">Reject Transaction</a>
+                <a class="collapse-item" href="{{ route('success_transaction') }}">Accept Transaction</a>
             </div>
         </div>
     </li>

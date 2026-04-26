@@ -114,6 +114,15 @@ Route::prefix('admin')
                 Route::get('/edit_payment', 'PaymentController@edit_payment')
                         ->name('edit_payment');
 
+                Route::get('/pending_transaction', 'TransactionController@pending_transaction')
+                        ->name('pending_transaction');
+
+                Route::get('/cancel_transaction', 'TransactionController@cancel_transaction')
+                        ->name('cancel_transaction');
+
+                Route::get('/success_transaction', 'TransactionController@success_transaction')
+                        ->name('success_transaction');
+
         });
 Route::prefix('home')
         ->namespace('User')
