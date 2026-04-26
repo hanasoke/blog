@@ -17,18 +17,21 @@
         </div>
         <div class="card-body">
             <form action="{{ route('save_payment') }}" method="POST">
+                @csrf 
                 <div class="form-group">
-                    <label for="payment_name">Payment Name</label>
+                    <label for="wallet_name">Wallet Name</label>
                     <input 
                         type="text"
                         name="name" 
-                        class="form-control is-invalid" 
-                        value="#" 
-                        id="payment_name" placeholder="Input Your Genre Name">
+                        class="form-control @error('name') is-invalid @enderror" 
+                        value="{{ old('name') }}" 
+                        id="wallet_name" placeholder="Input New Wallet">
 
-                    <div class="invalid-feedback">
-                        #
-                    </div>
+                    @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
                 </div>
                 <button type="submit" class="btn btn-success btn-lg btn-block">Submit</button>
             </form>
