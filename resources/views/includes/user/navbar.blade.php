@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="nav">
       <ul class="navbar-nav ms-auto gap-3">
         <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Article List</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('article_list') }}">Article List</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('upgrade_article') }}">Upgrade</a></li>
 
         {{-- 🔒 BELUM LOGIN --}}

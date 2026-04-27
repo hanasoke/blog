@@ -141,6 +141,9 @@ Route::prefix('home')
                         ->name('home');
                 Route::get('/detail/{id}', 'DashboardController@detail')
                         ->name('detail');
+                Route::get('/article_list', 'DashboardController@article_list')
+                        ->name('article_list');
+
                 Route::get('/profile', 'ProfileController@detail')
                         ->name('profile');
                 Route::get('/edit_profile', 'ProfileController@edit_profile')
