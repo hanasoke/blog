@@ -55,7 +55,7 @@
                                 </td>
                                 <td width="30">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $payment->id }}">
                                             <i class="fas fa-trash fa-sm text-white-100"></i>
                                         </button>
                                         <a href="{{ route('edit_payment', $payment->id) }}" class="btn btn-info">
@@ -66,21 +66,24 @@
                             </tr>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="deleteModal{{ $payment->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $payment->id }}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteModalLabel">Delete This Payment</h5>
+                                            <h5 class="modal-title" id="deleteModalLabel{{ $payment->id }}">Delete This Payment</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Are you sure want to delete ?
+                                            Are you sure want to delete <b>{{ $payment->name }}</b> Wallet ?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                            <form action="{{ route('delete_payment', $payment->id) }}" method="POST">
+                                                @csrf 
+                                                @method('DELETE')
+                                                <button class="btn btn-danger" type="submit">Delete</button>
                                             </form>
                                         </div>
                                     </div>

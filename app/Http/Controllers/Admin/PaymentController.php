@@ -61,5 +61,15 @@ class PaymentController extends Controller
                 ->with('success', 'Dompet pembayaran berhasil diupdate');
     }
 
+    public function delete_payment($id) {
+        $payment = Payment::findOrFail($id);
+
+        $payment->delete();
+
+        return redirect()
+            ->route('payments')
+            ->with('success', 'Payment "' . $payment->name . '" berhasil dihapus');
+    }
+
 
 }

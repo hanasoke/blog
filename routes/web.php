@@ -120,6 +120,9 @@ Route::prefix('admin')
                 Route::post('/update_payment/{id}', 'PaymentController@update_payment')
                         ->name('update_payment');
 
+                Route::delete('/delete_payment/{id}', 'PaymentController@delete_payment')
+                        ->name('delete_payment');
+
                 Route::get('/pending_transaction', 'TransactionController@pending_transaction')
                         ->name('pending_transaction');
 
