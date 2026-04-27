@@ -148,4 +148,7 @@ Route::prefix('home')
 
                 Route::post('/update_profile', 'ProfileController@update_profile')
                         ->name('update_profile');
+
+                Route::get('/upgrade_article', 'UpgradeController@index')
+                        ->name('upgrade_article');
         });
