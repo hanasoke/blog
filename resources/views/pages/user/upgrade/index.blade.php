@@ -36,21 +36,21 @@
                       Membersip Grade 
                     </label>
                     <div class="input-group mb-3">
-                      <label class="input-group-text" for="inputGroupSelect01">Options</label>
-                      <select class="form-select" id="inputGroupSelect01">
+                      <label class="input-group-text" for="options">Options</label>
+                      <select class="form-select" id="options">
                         <option selected>Choose...</option>
                         <option value="1">BASIC - Rp 10.000</option>
                         <option value="2">PREMIUM - Rp 15.000</option>
-                        <option value="3">VIP - Rp.20.000</option>
+                        <option value="3">VIP - Rp 20.000</option>
                       </select>
                     </div>
                   </div>
 
                   <div class="mb-3">
-                    <label for="Payment Proof" class="form-label">
-                        Account Number
+                    <label for="payment_proof" class="form-label">
+                        Payment Proof
                     </label>
-                    <input type="number" class="form-control" id="Account Number">
+                    <input type="file" class="form-control" id="payment_proof">
                   </div>
 
                   <div class="d-grid gap-2">
