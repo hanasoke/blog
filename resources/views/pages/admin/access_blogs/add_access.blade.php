@@ -44,9 +44,9 @@
                     <label for="access">Blog Access <span class="text-danger">*</span></label>
                     <select class="form-control @error('access') is-invalid @enderror" id="access" name="access">
                         <option value="#">Choose Blog Access</option>
-                        <option value="BASIC" {{ old('access') == 'BASIC' ? 'selected' : '' }}>BASIC</option>
-                        <option value="PREMIUM" {{ old('access') == 'PREMIUM' ? 'selected' : '' }}>PREMIUM</option>
-                        <option value="VIP" {{ old('access') == 'VIP' ? 'selected' : '' }}>VIP</option>
+                        <option value="BASIC" {{ old('access') == 'BASIC' ? 'selected' : '' }}>BASIC - Rp 10.000</option>
+                        <option value="PREMIUM" {{ old('access') == 'PREMIUM' ? 'selected' : '' }}>PREMIUM - Rp 15.000</option>
+                        <option value="VIP" {{ old('access') == 'VIP' ? 'selected' : '' }}>VIP - 20.000</option>
                     </select>
                     @error('access')
                         <div class="invalid-feedback">

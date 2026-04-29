@@ -248,6 +248,7 @@ class BlogController extends Controller
         $accessBlog = AccessBlog::create([
             'blog_id' => $request->blog_id,
             'access' => $request->access,
+            'price' => $request->price,
         ]);
 
         // Get blog title for success message 
