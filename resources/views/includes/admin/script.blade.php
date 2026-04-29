@@ -49,4 +49,31 @@
             }
         }
     });
+
+    $(document).ready(function() {
+        // Filter out blogs thhat already have access 
+        $('#blog_id option').each(function(){
+            if($(this).text().includes('Already has access:')) {
+                $(this).attr('disabled', 'disabled');
+                $(this).hide();
+            }
+        })
+    })
+
+    // Auto fill price based on access selection
+    $('#access').on('change', function() {
+        var selectedOption = $(this).find('option:selected');
+        var price = selectedOption.data('price');
+        
+        if(price) {
+            $('#price').val(price);
+        } else {
+            $('#price').val('');
+        }
+    });
+
+    // Trigger change on page load if there's old value
+    if($('#access').val()) {
+        $('#access').trigger('change');
+    }
 </script>

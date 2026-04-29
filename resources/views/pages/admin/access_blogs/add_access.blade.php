@@ -11,7 +11,7 @@
         </a>
     </div>
 
-    <!-- DataTales Example -->
+    <!-- DataTables Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="font-weight-bold text-primary m-0 float-left">Add Blog</h6>
@@ -44,15 +44,27 @@
                     <label for="access">Blog Access <span class="text-danger">*</span></label>
                     <select class="form-control @error('access') is-invalid @enderror" id="access" name="access">
                         <option value="#">Choose Blog Access</option>
-                        <option value="BASIC" {{ old('access') == 'BASIC' ? 'selected' : '' }}>BASIC - Rp 10.000</option>
-                        <option value="PREMIUM" {{ old('access') == 'PREMIUM' ? 'selected' : '' }}>PREMIUM - Rp 15.000</option>
-                        <option value="VIP" {{ old('access') == 'VIP' ? 'selected' : '' }}>VIP - 20.000</option>
+                        <option value="BASIC" {{ old('access') == 'BASIC' ? 'selected' : '' }} data-price="10000">BASIC - Rp 10.000</option>
+                        <option value="PREMIUM" {{ old('access') == 'PREMIUM' ? 'selected' : '' }}  data-price="15000">PREMIUM - Rp 15.000</option>
+                        <option value="VIP" {{ old('access') == 'VIP' ? 'selected' : '' }} data-price="20000">VIP - 20.000</option>
                     </select>
                     @error('access')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror 
+                </div>
+
+                <!-- Field Price (Hidden or Disabled) -->
+                <div class="form-group">
+                    <label for="price">Price <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') }}" placeholder="Price will be filled automatically based on access level" readonly>
+                        @error('price')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror 
+                    <small class="text-muted">Price is automatically set based on access level.</small>
                 </div>
 
                 <button type="submit" class="btn btn-success btn-lg btn-block">
@@ -68,14 +80,6 @@
 
 @push('addon-script')
     <script>
-        $(document).ready(function() {
-            // Filter out blogs thhat already have access 
-            $('#blog_id option').each(function(){
-                if($(this).text().includes('Already has access:')) {
-                    $(this).attr('disabled', 'disabled');
-                    $(this).hide();
-                }
-            })
-        })
+        
     </script>
 @endpush 

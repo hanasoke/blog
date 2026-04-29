@@ -225,11 +225,11 @@ class BlogController extends Controller
 
     public function store_access(Request $request)
     {
-
         // Validation rules 
         $rules = [
             'blog_id' => 'required|exists:blogs,id|unique:access_blogs,blog_id',
             'access' => 'required|in:BASIC,PREMIUM,VIP',
+            'price' => 'required'
         ];
 
         // Custom error messages 
