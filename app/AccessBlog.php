@@ -11,6 +11,7 @@ class AccessBlog extends Model
     protected $fillable = [
         'blog_id',
         'access',
+        'price',
     ];
 
     public function blog()

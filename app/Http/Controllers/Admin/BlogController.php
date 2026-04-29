@@ -225,11 +225,18 @@ class BlogController extends Controller
 
     public function store_access(Request $request)
     {
+        // Define price mapping
+        $priceMapping = [
+            'BASIC' => 10000,
+            'PREMIUM' => 15000,
+            'VIP' => 20000,
+        ];
+
         // Validation rules 
         $rules = [
             'blog_id' => 'required|exists:blogs,id|unique:access_blogs,blog_id',
             'access' => 'required|in:BASIC,PREMIUM,VIP',
-            'price' => 'required'
+            'price' => 'required|numeric|min:0'
         ];
 
         // Custom error messages 
@@ -238,25 +245,37 @@ class BlogController extends Controller
             'blog_id.exists' => 'Selected blog is invalid.',
             'blog_id.unique' => 'This blog already has an access level set.',
             'access.required' => 'Please select an access level.',
-            'access.in' => 'Selected access level is invalid.',
+            'access.in' => 'Selected access level is invalid',
+            'price.required' => 'Price is required.',
+            'price.numeric' => 'Price must be a number',
         ];
 
         // Validate request 
         $this->validate($request, $rules, $messages);
 
-        // Update access blog 
+        $price = $request->price;
+
+        // If price doesn't match the standard pricing, use the mapping
+        if(!isset($priceMapping[$request->access]) || $price != $priceMapping[$request->access]) {
+            $price = $priceMapping[$request->access];
+        }
+
+        // Create access blog 
         $accessBlog = AccessBlog::create([
             'blog_id' => $request->blog_id,
             'access' => $request->access,
-            'price' => $request->price,
+            'price' => $price,
         ]);
 
         // Get blog title for success message 
         $blogTitle = $accessBlog->blog->title;
 
+        // Format price for display 
+        $formattedPrice = 'Rp ' . number_format($price, 0, ',','.');
+
         // Redirect with success message 
         return redirect()->route('access_blogs')
-                        ->with('success', 'Access ' . $accessBlog->access . ' for blog ' . $blogTitle .  ' has been successfully added!');
+                        ->with('success', 'Access ' . $accessBlog->access . ' for blog ' . $blogTitle .  ' has been successfully added with price ' . $formattedPrice . '!');
     }  
     
     public function show_access($id)
