@@ -77,9 +77,3 @@
 </div>
 <!-- /.container-fluid -->
 @endsection 
-
-@push('addon-script')
-    <script>
-        
-    </script>
-@endpush 
