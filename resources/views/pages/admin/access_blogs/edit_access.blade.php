@@ -43,9 +43,9 @@
                     <label for="access">Blog Access <span class="text-danger">*</span></label>
                     <select class="form-control @error('access') is-invalid @enderror" id="access" name="access">
                         <option value="">Choose Blog Access</option>
-                        <option value="BASIC" {{ old('access', $accessBlog->access) == 'BASIC' ? 'selected' : '' }}>BASIC (Rp 10.000)</option>
-                        <option value="PREMIUM" {{ old('access', $accessBlog->access) == 'PREMIUM' ? 'selected' : '' }}>PREMIUM (Rp 15.000)</option>
-                        <option value="VIP" {{ old('access', $accessBlog->access) == 'VIP' ? 'selected' : '' }}>VIP (Rp 20.000)</option>
+                        <option value="BASIC" {{ old('access', $accessBlog->access) == 'BASIC' ? 'selected' : '' }} data-price="10000">BASIC (Rp 10.000)</option>
+                        <option value="PREMIUM" {{ old('access', $accessBlog->access) == 'PREMIUM' ? 'selected' : '' }} data-price="15000">PREMIUM (Rp 15.000)</option>
+                        <option value="VIP" {{ old('access', $accessBlog->access) == 'VIP' ? 'selected' : '' }} data-price="20000">VIP (Rp 20.000)</option>
                     </select>
                     @error('access')
                         <div class="invalid-feedback">
