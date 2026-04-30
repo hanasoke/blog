@@ -298,20 +298,28 @@ class BlogController extends Controller
         // Validation rules - blog_id tidak perlu unique karena tidak berubah  
         $rules = [
             'access' => 'required|in:BASIC,PREMIUM,VIP',
+            'price' => 'required|integer|min:0',
         ];
 
         // Custom error messages 
         $messages = [
             'access.required' => 'Please select an access level.',
             'access.in' => 'Selected access level is invalid.',
+            'price.required' => 'Price is required.',
+            'price.integer' => 'Price must be a number.',
+            'price.min' => 'Price cannot be negative',
         ];
 
         // Validate request 
         $this->validate($request, $rules, $messages);
 
+        // Determine price based on access level
+        $price = $this->getPriceByAccess($request->access);
+
         // Update access blog 
         $accessBlog->update([
             'access' => $request->access,
+            'price' => $price,
         ]);
 
         // Get blog title for success message 
@@ -319,7 +327,21 @@ class BlogController extends Controller
 
         // Redirect with success message 
         return redirect()->route('access_blogs')
-                        ->with('success', 'Access for blog ' . $blogTitle . ' has been successfully updated to ' . $accessBlog->access . '!');
+                        ->with('success', 'Access for blog ' . $blogTitle . ' has been successfully updated to ' . $accessBlog->access . ' with price Rp ' . number_format($price, 0, ',', '.') . '!');
+    }
+
+    private function getPriceByAccess($access)
+    {
+        switch($access) {
+            case 'BASIC': 
+                return 0;
+            case 'PREMIUM':
+                return 50000;
+            case 'VIP': 
+                return 150000;
+            default:
+                return 0;
+        }
     }
 
     public function delete_access($id) 
