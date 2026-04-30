@@ -334,11 +334,11 @@ class BlogController extends Controller
     {
         switch($access) {
             case 'BASIC': 
-                return 0;
+                return 10000;
             case 'PREMIUM':
-                return 50000;
+                return 15000;
             case 'VIP': 
-                return 150000;
+                return 20000;
             default:
                 return 0;
         }
