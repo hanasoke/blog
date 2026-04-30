@@ -49,6 +49,14 @@
             }
         }
 
+        // Filter out blogs thhat already have access 
+        $('#blog_id option').each(function(){
+            if($(this).text().includes('Already has access:')) {
+                $(this).attr('disabled', 'disabled');
+                $(this).hide();
+            }
+        });
+
         // Auto fill price based on access selection
         $('#access').on('change', function() {
             var selectedOption = $(this).find('option:selected');
@@ -65,14 +73,5 @@
         if($('#access').val()) {
             $('#access').trigger('change');
         }
-
-        // Filter out blogs thhat already have access 
-        $('#blog_id option').each(function(){
-            if($(this).text().includes('Already has access:')) {
-                $(this).attr('disabled', 'disabled');
-                $(this).hide();
-            }
-        })
     });
-    
 </script>
