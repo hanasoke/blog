@@ -64,17 +64,3 @@
 </div>
 <!-- /.container-fluid -->
 @endsection 
-
-@push('addon-script')
-    <script>
-        $(document).ready(function() {
-            // Filter out blogs that already have access 
-            $('#blog_id option').each(function() {
-                if($(this).text().includes('Already has access:')) {
-                    $(this).attr('disabled', 'disabled');
-                    $(this).hide();
-                }
-            });
-        });
-    </script>
-@endpush 
