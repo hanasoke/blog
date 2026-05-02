@@ -18,7 +18,7 @@ class MemberController extends Controller
         return view('pages.admin.members.add_member');
     }
 
-    public function save_member() {
+    public function save_member(Request $request) {
         $request->validate([
             'name' => 'required|unique:members,name',
             'price' => 'required|numeric|min:0'

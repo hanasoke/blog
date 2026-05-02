@@ -16,14 +16,15 @@
             <h6 class="font-weight-bold text-primary m-0 float-left">Add Member</h6>
         </div>
         <div class="card-body">
-            <form action="#" method="POST">
+            <form action="{{ route('save_member') }}" method="POST">
+                @csrf
                 <div class="form-group">
                     <label for="member_grade">Member Grade</label>
                     <input 
                         type="text"
                         name="name" 
                         class="form-control @error('name') is-invalid @enderror" 
-                        value="#" 
+                        value="{{ old('name') }}" 
                         id="member_grade" placeholder="Input Member Grade">
                         @error('name')
                             <div class="invalid-feedback">
@@ -34,12 +35,12 @@
                 <div class="form-group">
                     <label for="price">Price</label>
                     <input 
-                        type="text"
+                        type="number"
                         name="price" 
                         class="form-control @error('price') is-invalid @enderror" 
-                        value="#" 
+                        value="{{ old('price') }}" 
                         id="genre_title" placeholder="Input Your Genre Name">
-                        @error('name')
+                        @error('price')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
