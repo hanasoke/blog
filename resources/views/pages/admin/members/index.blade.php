@@ -46,10 +46,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($members as $no => $member)
                         <tr>
-                            <td width="20" class="text-center">1</td>
-                            <td>#</td>
-                            <td>#</td>
+                            <td width="20" class="text-center">{{ $no + 1 }}</td>
+                            <td>{{ $member->name }}</td>
+                            <td>{{ $member->price }}</td>
                             <td width="30">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
@@ -84,6 +85,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endforeach 
                     </tbody>
                 </table>
             </div>
