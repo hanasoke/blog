@@ -35,7 +35,7 @@ class MemberController extends Controller
         ]);
 
         return redirect()
-            ->route('genre_lists')
+            ->route('members')
             ->with('success', 'Membership Grade has been added');
 
     }
