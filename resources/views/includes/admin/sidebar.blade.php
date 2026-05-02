@@ -57,7 +57,7 @@
         </div>
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#members"
             aria-expanded="true" aria-controls="members">
-            <i class="fas fa-fw fa-envelope"></i>
+            <i class="fas fa-fw fa-level-up"></i>
             <span>Members</span>
         </a>
         <div id="members" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">

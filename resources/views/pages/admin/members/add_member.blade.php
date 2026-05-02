@@ -22,25 +22,28 @@
                     <input 
                         type="text"
                         name="name" 
-                        class="form-control is-invalid" 
+                        class="form-control @error('name') is-invalid @enderror" 
                         value="#" 
                         id="member_grade" placeholder="Input Member Grade">
-
-                        <div class="invalid-feedback">
-                            #
-                        </div>
+                        @error('name')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror 
                 </div>
                 <div class="form-group">
                     <label for="price">Price</label>
                     <input 
                         type="text"
                         name="price" 
-                        class="form-control is-invalid" 
+                        class="form-control @error('price') is-invalid @enderror" 
                         value="#" 
                         id="genre_title" placeholder="Input Your Genre Name">
-                        <div class="invalid-feedback">
-                            #
-                        </div>
+                        @error('name')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                 </div>
                 <button type="submit" class="btn btn-success btn-lg btn-block">Submit</button>
             </form>
