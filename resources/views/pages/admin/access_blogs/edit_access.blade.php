@@ -6,7 +6,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Edit Access Blog</h1>
-        <a href="{{ route('access_blogs') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
             <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Access 
         </a>
     </div>
@@ -14,13 +14,11 @@
     <!-- DataTables Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="font-weight-bold text-primary m-0 float-left">Edit Access: {{ $accessBlog->blog->title }}</h6>
+            <h6 class="font-weight-bold text-primary m-0 float-left">Edit Access: #</h6>
         </div>
 
         <div class="card-body">
-            <form action="{{ route('update_access', $accessBlog->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf 
-                @method('PUT')
+            <form action="#" method="POST" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label for="blog_title">Blog Title <span class="text-danger">*</span></label>
@@ -28,7 +26,7 @@
                         class="form-control"
                         id="blog_title"
                         name="blog_title"
-                        value="{{ $accessBlog->blog->title }}"
+                        value="#"
                         readonly
                         disabled>
                     <small class="text-muted">
@@ -36,22 +34,20 @@
                     </small>
                     
                     <!-- Hidden input untuk mengirim blog_id ke server -->
-                    <input type="hidden" name="blog_id" value="{{ $accessBlog->blog_id }}">
+                    <input type="hidden" name="blog_id" value="#">
                 </div>
 
                 <div class="form-group">
                     <label for="access">Blog Access <span class="text-danger">*</span></label>
-                    <select class="form-control @error('access') is-invalid @enderror" id="access" name="access">
+                    <select class="form-control is-invalid" id="access" name="access">
                         <option value="">Choose Blog Access</option>
-                        <option value="BASIC" {{ old('access', $accessBlog->access) == 'BASIC' ? 'selected' : '' }} data-price="10000">BASIC (Rp 10.000)</option>
-                        <option value="PREMIUM" {{ old('access', $accessBlog->access) == 'PREMIUM' ? 'selected' : '' }} data-price="15000">PREMIUM (Rp 15.000)</option>
-                        <option value="VIP" {{ old('access', $accessBlog->access) == 'VIP' ? 'selected' : '' }} data-price="20000">VIP (Rp 20.000)</option>
+                        <option value="BASIC">BASIC (Rp 10.000)</option>
+                        <option value="PREMIUM">PREMIUM (Rp 15.000)</option>
+                        <option value="VIP">VIP (Rp 20.000)</option>
                     </select>
-                    @error('access')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror 
+                    <div class="invalid-feedback">
+                        
+                    </div> 
                 </div>
 
                 <div class="form-group">
@@ -60,7 +56,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Rp</span>
                         </div>
-                        <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price', $accessBlog->price) }}" readonly>
+                        <input type="number" class="form-control is-invalid" id="price" name="price" value="#" readonly>
                         <div class="input-group-append">
                             <span class="input-group-text">.00</span>
                         </div>
@@ -68,11 +64,9 @@
                     <small class="text-muted">
                         Price is automatically set based on access level. 
                     </small>
-                    @error('price')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror 
+                    <div class="invalid-feedback">
+                        #
+                    </div>
                 </div>
 
                 <div class="form-group">

@@ -50,153 +50,127 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($accessBlogs as $index => $access)
-                            <tr>
-                                <td class="text-center">
-                                    {{ $index + 1 }}
-                                </td>
-                                <td>
-                                    {{ $access->blog->title ?? '-' }}
-                                </td>
-                                <td class="text-center">
-                                    @php
-                                        $badgeClass = '';
-                                        switch($access->access) {
-                                            case 'BASIC':
-                                                $badgeClass = 'badge-success';
-                                                break;
-                                            case 'PREMIUM': 
-                                                $badgeClass = 'badge-warning';
-                                                break;
-                                            case 'VIP': 
-                                                $badgeClass = 'badge-primary';
-                                                break;
-                                            default: 
-                                                $badgeClass = 'badge-secondary';
-                                        }
-                                    @endphp 
-                                    <span class="badge {{ $badgeClass }} p-2">{{ $access->access }}</span>
-                                </td>
-                                <td>
-                                    {{ \Carbon\Carbon::parse($access->created_at)->format('d F Y H:i') }}
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $access->id }}">
-                                            <i class="fas fa-trash fa-sm"></i>
+                        <tr>
+                            <td class="text-center">
+                                1
+                            </td>
+                            <td>
+                                #
+                            </td>
+                            <td class="text-center">
+                                <span class="badge p-2">#</span>
+                            </td>
+                            <td>
+                                #
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                                        <i class="fas fa-trash fa-sm"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                    <a href="#" class="btn btn-success">
+                                        <i class="fas fa-edit fa-sm text-white-100"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Detail Modal -->
+                        <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="viewModalLabel">
+                                            View Detail <b>Blog Title</b> Article
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
                                         </button>
-                                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal{{ $access->id }}"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                        <a href="{{ route('edit_access', $access->id) }}" class="btn btn-success">
-                                            <i class="fas fa-edit fa-sm text-white-100"></i>
-                                        </a>
                                     </div>
-                                </td>
-                            </tr>
-
-                            <!-- Detail Modal -->
-                            <div class="modal fade" id="viewModal{{ $access->id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ $access->id }}" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="viewModalLabel{{ $access->id }}">
-                                                View Detail <b>{{ $access->blog->title ?? '-'  }}</b> Article
-                                            </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Blog Title</label>
-                                                <div class="col-sm-8">
-                                                    <p class="form-control-plaintext">
-                                                        {{ $access->blog->title ?? '-' }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Thumbnail</label>
-                                                <div class="col-sm-8">
-                                                    @if($access->blog && $access->blog->thumbnail)
-                                                        <img src="{{ asset('storage/'.$access->blog->thumbnail) }}" class="img-thumbnail" alt="{{ $access->blog->title }}" width="200">
-                                                    @else 
-                                                        <p class="text-muted">No thumbnail available</p>
-                                                    @endif 
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Source</label>
-                                                <div class="col-sm-8">
-                                                    <p class="form-control-plaintext">
-                                                        {{ $access->blog->source->name ?? '-' }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Genre</label>
-                                                <div class="col-sm-8">
-                                                    <p class="form-control-plaintext">
-                                                        {{ $access->blog->genre->name ?? '-' }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Access</label>
-                                                <div class="col-sm-8">
-                                                    <p class="form-control-plaintext">
-                                                        {{ $access->access }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label">Published</label>
-                                                <div class="col-sm-8">
-                                                    <p class="form-control-plaintext">
-                                                        {{ \Carbon\Carbon::parse($access->blog->created_at)->format('d F Y') }}
-                                                    </p>
-                                                </div>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Blog Title</label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-plaintext">
+                                                    Blog Title
+                                                </p>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Thumbnail</label>
+                                            <div class="col-sm-8">
+                                                <img src="#" class="img-thumbnail" alt="#" width="200">
+                                            </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Source</label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-plaintext">
+                                                    #
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Genre</label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-plaintext">
+                                                    #
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Access</label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-plaintext">
+                                                    #
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Published</label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-plaintext">
+                                                    #
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <!-- Delete Modal -->
-                            <div class="modal fade" id="deleteModal{{ $access->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $access->id }}" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteModalLabel{{ $access->id }}">
-                                                Delete <b>{{ $access->blog->title ?? '-'  }}</b> Article
-                                            </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>
-                                                Are you sure want to delete access <b>{{ $access->access }}</b> for blog <b>{{ $access->blog->title ?? '-'  }}</b>
-                                            </p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <form action="{{ route('delete_access', $access->id) }}" method="POST" style="display: inline;">
-                                                @csrf 
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form>
-                                        </div>
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">
+                                            Delete <b>#</b> Article
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            Are you sure want to delete access <b>Access Name</b> for blog <b> Blog Title</b>
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger">Delete</button>
                                     </div>
                                 </div>
                             </div>
-                            @empty 
-                            <tr>
-                                <td colspan="5" class="text-center">No access blogs found.</td>
-                            </tr>
-                        @endforelse 
+                        </div>
+                        
+                        <tr>
+                            <td colspan="5" class="text-center">No access blogs found.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
