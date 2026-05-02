@@ -138,6 +138,9 @@ Route::prefix('admin')
                 Route::get('/add_member', 'MemberController@add_member')
                         ->name('add_member');
 
+                Route::post('/save_member', 'MemberController@save_member')
+                        ->name('save_member');
+
                 Route::get('/edit_member', 'MemberController@edit_member')
                         ->name('edit_member');
 

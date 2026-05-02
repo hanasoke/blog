@@ -23,9 +23,9 @@ class MemberController extends Controller
             'name' => 'required|unique:members,name',
             'price' => 'required|numeric|min:0'
         ], [
-            'name.required' => 'Nama Tingkatan Member wajib diisi',
-            'name.unique' => 'Tingkatan Member sudah ada',
-            'price.required' => 'Price is required.',
+            'name.required' => 'Membership Grade must be filled',
+            'name.unique' => 'Membership Grade has existed',
+            'price.required' => 'Price is required',
             'price.numeric' => 'Price must be a number'
         ]);
 
