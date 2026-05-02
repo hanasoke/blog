@@ -56,7 +56,7 @@
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                                         <i class="fas fa-trash fa-sm text-white-100"></i>
                                     </button>
-                                    <a href="{{ route('edit_member') }}" class="btn btn-info">
+                                    <a href="{{ route('edit_member', $member->id) }}" class="btn btn-info">
                                         <i class="fas fa-edit fa-sm text-white-100"></i>
                                     </a>
                                 </div>

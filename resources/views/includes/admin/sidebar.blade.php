@@ -57,7 +57,7 @@
         </div>
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#members"
             aria-expanded="true" aria-controls="members">
-            <i class="fas fa-fw fa-level-up"></i>
+            <i class="fas fa-fw fa-star"></i>
             <span>Members</span>
         </a>
         <div id="members" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -93,7 +93,7 @@
     <!-- Nav Item - Charts -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('users_list') }}">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-fw fa-users"></i>
             <span>Users Data</span>
         </a>
     </li>
@@ -101,7 +101,7 @@
     <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('article_status') }}">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-blog"></i>
             <span>Article Status</span>
         </a>
     </li>

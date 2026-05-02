@@ -141,7 +141,7 @@ Route::prefix('admin')
                 Route::post('/save_member', 'MemberController@save_member')
                         ->name('save_member');
 
-                Route::get('/edit_member', 'MemberController@edit_member')
+                Route::get('/edit_member/{id}', 'MemberController@edit_member')
                         ->name('edit_member');
 
         });

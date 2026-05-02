@@ -40,8 +40,9 @@ class MemberController extends Controller
 
     }
 
-    public function edit_member() {
-        return view('pages.admin.members.edit_member');
+    public function edit_member($id) {
+        $member = Member::findOrFail($id);
+        return view('pages.admin.members.edit_member', compact('member'));
     }
 
     public function delete_member() {
