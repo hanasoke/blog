@@ -16,31 +16,37 @@
             <h6 class="font-weight-bold text-primary m-0 float-left">Edit Member</h6>
         </div>
         <div class="card-body">
-            <form action="#" method="POST">
+            <form action="{{ route('update_member', $member->id) }}" method="POST">
+                @csrf 
                 <div class="form-group">
-                    <label for="member_grade">Member Grade</label>
+                    <label for="member_grade">Membership Grade</label>
                     <input 
                         type="text"
                         name="name" 
-                        class="form-control is-invalid" 
-                        value="#" 
-                        id="member_grade" placeholder="Input Member Grade">
+                        class="form-control @error('name') is-invalid @enderror" 
+                        value="{{ old('name', $member->name) }}" 
+                        id="member_grade">
 
-                        <div class="invalid-feedback">
-                            #
-                        </div>
+                        @error('name')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror 
                 </div>
                 <div class="form-group">
                     <label for="price">Price</label>
                     <input 
-                        type="text"
+                        type="number"
                         name="price" 
-                        class="form-control is-invalid" 
-                        value="#" 
-                        id="genre_title" placeholder="Input Your Genre Name">
-                        <div class="invalid-feedback">
-                            #
-                        </div>
+                        class="form-control @error('price') is-invalid @enderror" 
+                        value="{{ old('price', $member->price) }}" 
+                        id="price">
+                        
+                        @error('price')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror 
                 </div>
                 <button type="submit" class="btn btn-success btn-lg btn-block">Update</button>
             </form>

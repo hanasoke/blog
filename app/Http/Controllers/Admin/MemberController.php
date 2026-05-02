@@ -45,6 +45,31 @@ class MemberController extends Controller
         return view('pages.admin.members.edit_member', compact('member'));
     }
 
+    public function update_member(Request $request, $id) {
+        $request->validate([
+            'name' => [
+                'required',
+                Rule::unique('members', 'name')->ignore($id)
+            ],
+            'price' => 'required|integer|min:0',   
+        ], [
+            'name.required' => 'Membership Grade must be filled',
+            'name.unique' => 'Membership Grade has existed',
+            'price.required' => 'Price is required',
+            'price.numeric' => 'Price must be a number'
+        ]);
+
+        $member = Member::findOrFail($id);
+        $member->update([
+            'name' => $request->name,
+            'price' => $request->price
+        ]);
+
+        return redirect()
+            ->route('members')
+            ->with('success', 'Membership Grade has been updated');
+    }
+
     public function delete_member() {
 
         return redirect()

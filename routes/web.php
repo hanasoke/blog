@@ -144,6 +144,8 @@ Route::prefix('admin')
                 Route::get('/edit_member/{id}', 'MemberController@edit_member')
                         ->name('edit_member');
 
+                Route::post('/update_member/{id}', 'MemberController@update_member')
+                        ->name('update_member');
         });
 Route::prefix('home')
         ->namespace('User')
