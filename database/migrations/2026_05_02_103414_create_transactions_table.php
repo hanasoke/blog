@@ -16,10 +16,27 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('membership_id');
-            $table->string('payment_proof')->nullable(); 
+            $table->unsignedBigInteger('member_id');
+            $table->string('payment_proof');
             $table->string('account_number');
             $table->timestamps();
+
+            // Add foreign key constraints 
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('restrict')
+                  ->onUpdate('cascade');
+
+            $table->foreign('member_id')
+                  ->references('id')
+                  ->on('members')
+                  ->onDelete('restrict')
+                  ->onUpdate('cascade');
+
+            // Add indexes for better performance 
+            $table->index('user_id');
+            $table->index('member_id');
         });
     }
 
