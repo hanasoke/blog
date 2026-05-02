@@ -21,7 +21,7 @@ class MemberController extends Controller
     public function save_member(Request $request) {
         $request->validate([
             'name' => 'required|unique:members,name',
-            'price' => 'required|numeric|min:0'
+            'price' => 'required|numeric|min:1'
         ], [
             'name.required' => 'Membership Grade must be filled',
             'name.unique' => 'Membership Grade has existed',
@@ -70,10 +70,16 @@ class MemberController extends Controller
             ->with('success', 'Membership Grade has been updated');
     }
 
-    public function delete_member() {
+    public function delete_member($id) {
+        $member = Member::findOrFail($id);
+
+        // Cek apakah membership masih dipakai di access_blogs dan user access atau tidak 
+        
+
 
         return redirect()
-            ->route('index');
+            ->route('index')
+            ->with('success', $member->name . 'Member has been deleted');
     }
 }
 
