@@ -55,6 +55,18 @@
                 <a class="collapse-item" href="{{ route('payments') }}">Payment List</a>
             </div>
         </div>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#members"
+            aria-expanded="true" aria-controls="members">
+            <i class="fas fa-fw fa-envelope"></i>
+            <span>Members</span>
+        </a>
+        <div id="members" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Member View</h6>
+                <a class="collapse-item" href="{{ route('add_member') }}">Add Member</a>
+                <a class="collapse-item" href="{{ route('members') }}">Member List</a>
+            </div>
+        </div>
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#transaction"
             aria-expanded="true" aria-controls="transaction">
             <i class="fas fa-fw fa-shopping-cart"></i>

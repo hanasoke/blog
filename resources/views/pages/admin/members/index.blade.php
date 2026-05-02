@@ -16,7 +16,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h4 class="font-weight-bold text-primary m-0 float-left">Members Table View</h6>
-            <a href="#" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Member</a>
+            <a href="{{ route('add_member') }}" class="btn btn-success float-right"><i class="fas fa-plus fa-sm text-white-100"></i> Add Member</a>
         </div>
         <div class="card-body">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -51,7 +51,7 @@
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                                         <i class="fas fa-trash fa-sm text-white-100"></i>
                                     </button>
-                                    <a href="#" class="btn btn-info">
+                                    <a href="{{ route('edit_member') }}" class="btn btn-info">
                                         <i class="fas fa-edit fa-sm text-white-100"></i>
                                     </a>
                                 </div>

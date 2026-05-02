@@ -132,6 +132,15 @@ Route::prefix('admin')
                 Route::get('/success_transaction', 'TransactionController@success_transaction')
                         ->name('success_transaction');
 
+                Route::get('/members', 'MemberController@index')
+                        ->name('members');
+
+                Route::get('/add_member', 'MemberController@add_member')
+                        ->name('add_member');
+
+                Route::get('/edit_member', 'MemberController@edit_member')
+                        ->name('edit_member');
+
         });
 Route::prefix('home')
         ->namespace('User')
