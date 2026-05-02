@@ -26,6 +26,4 @@ class DashboardController extends Controller
 
         return view('pages.user.article_list.index');
     }
-
-
 }
