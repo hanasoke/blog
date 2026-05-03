@@ -71,15 +71,13 @@ class MemberController extends Controller
     }
 
     public function delete_member($id) {
-        $member = Member::findOrFail($id);
+        $member = Member::findOrFail($id); 
 
-        // Cek apakah membership masih dipakai di access_blogs dan user access atau tidak 
-        
-
+        $member->delete();
 
         return redirect()
-            ->route('index')
-            ->with('success', $member->name . 'Member has been deleted');
+            ->route('members')
+            ->with('success', $member->name . ' Member has been deleted');
     }
 }
 

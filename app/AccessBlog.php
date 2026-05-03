@@ -10,9 +10,13 @@ class AccessBlog extends Model
 
     protected $fillable = [
         'blog_id',
-        'access',
-        'price',
+        'member_id',
     ];
+
+    public function member()
+    {
+        return $this->belongsTo('App\Member');
+    }
 
     public function blog()
     {

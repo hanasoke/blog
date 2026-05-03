@@ -40,7 +40,7 @@
                     <thead class="text-center">
                         <tr>
                             <th width="20">No</th>
-                            <th>Member Grade</th>
+                            <th>Membership Grade</th>
                             <th>Price</th>
                             <th width="30">Action</th>
                         </tr>
@@ -53,7 +53,7 @@
                             <td>{{ $member->price }}</td>
                             <td width="30">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $member->id }}">
                                         <i class="fas fa-trash fa-sm text-white-100"></i>
                                     </button>
                                     <a href="{{ route('edit_member', $member->id) }}" class="btn btn-info">
@@ -64,21 +64,23 @@
                         </tr>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="deleteModal{{ $member->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $member->id }}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel">Delete This Genre</h5>
+                                        <h5 class="modal-title" id="deleteModalLabel{{ $member->id }}">Delete This Membership Grade</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        Are you sure want to delete this Grade ?
+                                        Are you sure want to delete {{ $member->name }} ?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <form action="#" method="POST">
+                                        <form action="{{ route('delete_member', $member->id) }}" method="POST">
+                                            @csrf 
+                                            @method('DELETE')
                                             <button class="btn btn-danger" type="submit">Delete</button>
                                         </form>
                                     </div>

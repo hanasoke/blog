@@ -146,6 +146,9 @@ Route::prefix('admin')
 
                 Route::post('/update_member/{id}', 'MemberController@update_member')
                         ->name('update_member');
+                
+                Route::delete('/delete_member/{id}', 'MemberController@delete_member')
+                        ->name('delete_member');
         });
 Route::prefix('home')
         ->namespace('User')
