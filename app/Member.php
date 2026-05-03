@@ -11,8 +11,8 @@ class Member extends Model
         'price',
     ];
 
-    public function blogs()
+    public function accessBlog()
     {
-        return $this->hasMany('App\Blog', 'genre_id');
+        return $this->hasMany('App\AccessBlog', 'member_id');
     }
 }

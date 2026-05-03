@@ -5,8 +5,8 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Add New Blog</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+        <h1 class="h3 mb-0 text-gray-800">Add New Access Blog</h1>
+        <a href="{{ route('access_blogs') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
             <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Access 
         </a>
     </div>
@@ -14,48 +14,70 @@
     <!-- DataTables Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="font-weight-bold text-primary m-0 float-left">Add Blog</h6>
+            <h6 class="font-weight-bold text-primary m-0 float-left">Add Blog Access</h6>
         </div>
         <div class="card-body">
             <form action="#" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="blog_id">Blog Title <span class="text-danger">*</span></label>
-                    <select class="form-control is-invalid" id="blog_id" name="blog_id">
+                    <select class="form-control @error('blog_id') is-invalid @enderror" id="blog_id" name="blog_id">
                         <option value="">Choose Blog</option>
-                        <option value="#"> 
-                            #
-                        </option>
-                        <option value="#"> 
-                            #
-                        </option>
+                        @foreach($blogs as $blog)
+                            <option value="{{ $blog->id }}" {{ old('blog_id') == $blog->id ? 'selected' : '' }}> 
+                                {{ $blog->title }} (by {{ $blog->user->name ?? 'Unknown' }})
+                            </option>
+                        @endforeach 
                     </select>
-                    <div class="invalid-feedback">
-                        #
-                    </div>
+                    @error('blog_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror 
                     <small class="text-muted">Only blogs without access level will be shown.</small>
                 </div>
                 
                 <div class="form-group">
-                    <label for="access">Blog Access <span class="text-danger">*</span></label>
-                    <select class="form-control is-invalid" id="access" name="access">
-                        <option value="#">Choose Blog Access</option>
-                        <option value="BASIC">BASIC - Rp 10.000</option>
-                        <option value="PREMIUM">PREMIUM - Rp 15.000</option>
-                        <option value="VIP">VIP - 20.000</option>
+                    <label for="member_id">Access Level <span class="text-danger">*</span></label>
+                    <select class="form-control @error('member_id') is-invalid @enderror" id="member_id" name="member_id">
+                        <option value="">Choose Access Level</option>
+                        @foreach($members as $member) 
+                            <option value="{{ $member->id }}" data-price="{{ $member->price }}" {{ old('member_id') == $member->id ? 'selected' : '' }}>
+                                {{ $member->name  }} - Rp {{ number_format($member->price, 0, ',','.') }}
+                            </option>
+                        @endforeach
                     </select>
-                    <div class="invalid-feedback">
-                        #
-                    </div> 
+                    @error('member_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div> 
+                    @enderror 
                 </div>
 
                 <!-- Field Price (Hidden or Disabled) -->
                 <div class="form-group">
                     <label for="price">Price <span class="text-danger">*</span></label>
-                    <input type="number" class="form-control invalid" id="price" name="price" value="#" placeholder="Price will be filled automatically based on access level" readonly>
-                    <div class="invalid-feedback">
-                        #
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Rp</span>
+                        </div>
+                        <input type="text" class="form-control" id="price_display" value="0" readonly>
+                        <div class="input-group-append">
+                            <div class="input-group-text">.00</div>
+                        </div>
                     </div>
-                    <small class="text-muted">Price is automatically set based on access level.</small>
+                    <small class="text-muted">Price is automatically set based on selected access level.</small>
+                </div>
+
+                <div class="form-group">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> 
+                        <strong>Access Level Details:</strong>
+                        <ul class="mb-0 mt-2">
+                            @foreach($members as $member)
+                                <li><strong>{{ $member->name }}:</strong> Rp {{ number_format($member->price, 0, ',', '.') }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-success btn-lg btn-block">

@@ -8,6 +8,7 @@ use App\Blog;
 use App\Genre;
 use App\Source;
 use App\AccessBlog;
+use App\Member;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -213,12 +214,24 @@ class BlogController extends Controller
 
     public function access_blogs() 
     {
-        return view('pages.admin.access_blogs.index');
+        $accessBlogs = AccessBlog::with(['blog', 'member'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('pages.admin.access_blogs.index', compact('accessBlogs'));
     }
 
     public function add_access() 
     {
-        return view('pages.admin.access_blogs.add_access');
+        // Get blogs that don't have access yet 
+        $blogs = Blog::whereDoesntHave('access')
+            ->orderBy('title')
+            ->get();
+        
+        // Get all members (access levels)
+        $members = Member::orderBy('price')->get();
+
+        return view('pages.admin.access_blogs.add_access', compact('blogs', 'members'));
     }
 
     public function store_access(Request $request)
