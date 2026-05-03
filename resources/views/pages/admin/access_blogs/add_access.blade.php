@@ -17,14 +17,15 @@
             <h6 class="font-weight-bold text-primary m-0 float-left">Add Blog Access</h6>
         </div>
         <div class="card-body">
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('store_access') }}" method="POST" enctype="multipart/form-data">
+                @csrf 
                 <div class="form-group">
                     <label for="blog_id">Blog Title <span class="text-danger">*</span></label>
                     <select class="form-control @error('blog_id') is-invalid @enderror" id="blog_id" name="blog_id">
                         <option value="">Choose Blog</option>
                         @foreach($blogs as $blog)
                             <option value="{{ $blog->id }}" {{ old('blog_id') == $blog->id ? 'selected' : '' }}> 
-                                {{ $blog->title }} (by {{ $blog->user->name ?? 'Unknown' }})
+                                {{ $blog->title }} 
                             </option>
                         @endforeach 
                     </select>

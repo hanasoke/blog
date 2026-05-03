@@ -11,6 +11,7 @@ use App\AccessBlog;
 use App\Member;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class BlogController extends Controller 
 {
@@ -236,7 +237,43 @@ class BlogController extends Controller
 
     public function store_access(Request $request)
     {
-        
+        // Validation rules 
+        $rules = [
+            'blog_id' => [
+                'required',
+                'exists:blogs,id',
+                Rule::unique('access_blogs', 'blog_id')->where(function ($query){
+                    return $query->whereNotNull('blog_id');
+                }),
+            ],
+            'member_id' => 'required|exists:members,id',
+        ];
+
+        // Custom error messages 
+        $messages = [
+            'blog_id.required' => 'Please select a blog.',
+            'blog_id.exists' => 'Selected blog is invalid.',
+            'blog_id.unique' => 'This blog already has an access level assigned.',
+            'member_id.required' => 'Please select a member/access level.',
+            'member_id.exists' => 'Selected member level is invalid.'
+        ];
+
+        // Validate request 
+        $this->validate($request, $rules, $messages);
+
+        // Get blog and member details 
+        $blog = Blog::findOrFail($request->blog_id);
+        $member = Member::findOrFail($request->member_id);
+
+        // Create access 
+        $accessBlog = AccessBlog::create([
+            'blog_id' => $request->blog_id,
+            'member_id' => $request->member_id,
+        ]);
+
+        // Redirect with success message 
+        return redirect()->route('access_blogs')
+            ->with('success', 'Access for blog "' . $blog->title . '" has been successfully set to ' . $member->name . ' level!');
     }  
     
     public function show_access($id)

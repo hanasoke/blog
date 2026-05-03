@@ -73,5 +73,29 @@
         if($('#access').val()) {
             $('#access').trigger('change');
         }
+
+        // Update price display when access level changes
+        $('#member_id').on('change', function() {
+            var selectedOption = $(this).find('option:selected');
+            var price = selectedOption.data('price');
+            
+            if(price !== undefined && price !== null) {
+                var formattedPrice = new Intl.NumberFormat('id-ID').format(price);
+                $('#price_display').val(formattedPrice);
+                
+                // Add visual feedback
+                $('#price_display').css('background-color', '#d4edda');
+                setTimeout(function() {
+                    $('#price_display').css('background-color', '');
+                }, 500);
+            } else {
+                $('#price_display').val('0');
+            }
+        });
+        
+        // Trigger on page load if there's old value
+        if($('#member_id').val()) {
+            $('#member_id').trigger('change');
+        }
     });
 </script>
