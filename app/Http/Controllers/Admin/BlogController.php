@@ -213,147 +213,37 @@ class BlogController extends Controller
 
     public function access_blogs() 
     {
-        $accessBlogs = AccessBlog::with('blog')->orderBy('created_at', 'desc')->get();
-        return view('pages.admin.access_blogs.index', compact('accessBlogs'));
+        return view('pages.admin.access_blogs.index');
     }
 
     public function add_access() 
     {
-        $blogs = Blog::orderBy('title')->get();
-        return view('pages.admin.access_blogs.add_access', compact('blogs'));
+        return view('pages.admin.access_blogs.add_access');
     }
 
     public function store_access(Request $request)
     {
-        // Define price mapping
-        $priceMapping = [
-            'BASIC' => 10000,
-            'PREMIUM' => 15000,
-            'VIP' => 20000,
-        ];
-
-        // Validation rules 
-        $rules = [
-            'blog_id' => 'required|exists:blogs,id|unique:access_blogs,blog_id',
-            'access' => 'required|in:BASIC,PREMIUM,VIP',
-            'price' => 'required|numeric|min:0'
-        ];
-
-        // Custom error messages 
-        $messages = [
-            'blog_id.required' => 'Please select a blog.',
-            'blog_id.exists' => 'Selected blog is invalid.',
-            'blog_id.unique' => 'This blog already has an access level set.',
-            'access.required' => 'Please select an access level.',
-            'access.in' => 'Selected access level is invalid',
-            'price.required' => 'Price is required.',
-            'price.numeric' => 'Price must be a number',
-        ];
-
-        // Validate request 
-        $this->validate($request, $rules, $messages);
-
-        $price = $request->price;
-
-        // If price doesn't match the standard pricing, use the mapping
-        if(!isset($priceMapping[$request->access]) || $price != $priceMapping[$request->access]) {
-            $price = $priceMapping[$request->access];
-        }
-
-        // Create access blog 
-        $accessBlog = AccessBlog::create([
-            'blog_id' => $request->blog_id,
-            'access' => $request->access,
-            'price' => $price,
-        ]);
-
-        // Get blog title for success message 
-        $blogTitle = $accessBlog->blog->title;
-
-        // Format price for display 
-        $formattedPrice = 'Rp ' . number_format($price, 0, ',','.');
-
-        // Redirect with success message 
-        return redirect()->route('access_blogs')
-                        ->with('success', 'Access ' . $accessBlog->access . ' for blog ' . $blogTitle .  ' has been successfully added with price ' . $formattedPrice . '!');
+        
     }  
     
     public function show_access($id)
     {
-        $accessBlog = AccessBlog::with('blog')->findOrFail($id);
-        return respons()->json($accessBlog);
+        
     }
 
     public function edit_access($id) 
     {
-        $accessBlog = AccessBlog::findOrFail($id);
-        $blogs = Blog::orderBy('title')->get();
-        return view('pages.admin.access_blogs.edit_access', compact('accessBlog','blogs'));
+        return view('pages.admin.access_blogs.edit_access');
     }
 
     public function update_access(Request $request, $id)
     {
-        $accessBlog = AccessBlog::findOrFail($id);
 
-        // Validation rules - blog_id tidak perlu unique karena tidak berubah  
-        $rules = [
-            'access' => 'required|in:BASIC,PREMIUM,VIP',
-            'price' => 'required|integer|min:0',
-        ];
-
-        // Custom error messages 
-        $messages = [
-            'access.required' => 'Please select an access level.',
-            'access.in' => 'Selected access level is invalid.',
-            'price.required' => 'Price is required.',
-            'price.integer' => 'Price must be a number.',
-            'price.min' => 'Price cannot be negative',
-        ];
-
-        // Validate request 
-        $this->validate($request, $rules, $messages);
-
-        // Determine price based on access level
-        $price = $this->getPriceByAccess($request->access);
-
-        // Update access blog 
-        $accessBlog->update([
-            'access' => $request->access,
-            'price' => $price,
-        ]);
-
-        // Get blog title for success message 
-        $blogTitle = $accessBlog->blog->title;
-
-        // Redirect with success message 
-        return redirect()->route('access_blogs')
-                        ->with('success', 'Access for blog ' . $blogTitle . ' has been successfully updated to ' . $accessBlog->access . ' with price Rp ' . number_format($price, 0, ',', '.') . '!');
-    }
-
-    private function getPriceByAccess($access)
-    {
-        switch($access) {
-            case 'BASIC': 
-                return 10000;
-            case 'PREMIUM':
-                return 15000;
-            case 'VIP': 
-                return 20000;
-            default:
-                return 0;
-        }
     }
 
     public function delete_access($id) 
     {
-        $accessBlog = AccessBlog::findOrFail($id);
-        $blogTitle = $accessBlog->blog->title;
-        $accessLevel = $accessBlog->access;
-
-        $accessBlog->delete();
-
-        return redirect()->route('access_blogs')
-                        ->with('success', 'Access ' . $accessLevel . ' for blog ' . $blogTitle . ' has been successfully deleted!');
+        return redirect()->route('access_blogs');
     }
 
     public function article_status() 
