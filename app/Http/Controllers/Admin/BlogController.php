@@ -275,17 +275,6 @@ class BlogController extends Controller
         return redirect()->route('access_blogs')
             ->with('success', 'Access for blog "' . $blog->title . '" has been successfully set to ' . $member->name . ' level!');
     }  
-    
-    public function show_access($id)
-    {
-        $accessBlog = AccessBlog::with(['blog', 'blog.genre', 'blog.source', 'blog.user', 'member'])
-            ->findOrFail($id);
-
-        return response()->json([
-            'success' => true,
-            'data' => $accessBlog
-        ]);
-    }
 
     public function edit_access($id) 
     {

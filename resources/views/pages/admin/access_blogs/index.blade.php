@@ -137,7 +137,7 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Thumbnail</label>
                     <div class="col-sm-8">
-                        <img src="#" class="img-thumbnail" alt="#" width="200">
+                        <img src="{{ asset('storage/'.$access->blog->thumbnail) }}" class="img-thumbnail" alt="{{ $access->blog->title ?? 'Unknown' }}" width="200">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -186,7 +186,7 @@
                     <label class="col-sm-4 col-form-label">Published</label>
                     <div class="col-sm-8">
                         <p class="form-control-plaintext">
-                            #
+                            {{ $access->created_at ? $access->created_at->format('d M Y H:i') : 'N/A' }}
                         </p>
                     </div>
                 </div>
