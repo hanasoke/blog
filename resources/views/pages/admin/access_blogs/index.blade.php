@@ -54,7 +54,7 @@
                         @forelse($accessBlogs as $index => $access)
                             <tr>
                                 <td class="text-center">
-                                    1
+                                    {{ $index + 1 }}
                                 </td>
                                 <td>
                                     <strong>{{ $access->blog->title ?? 'Unknown' }}</strong>
@@ -64,13 +64,13 @@
                                         $badgeClass = '';
                                         switch($access->member->name ?? '') {
                                             case 'BASIC': 
-                                                $badgeClass = 'badge-info';
+                                                $badgeClass = 'badge-success';
                                                 break;
                                             case 'PREMIUM': 
                                                 $badgeClass = 'badge-warning';
                                                 break;
                                             case 'VIP':
-                                                $badgeClass = 'badge-danger';
+                                                $badgeClass = 'badge-primary';
                                                 break;
                                             default:
                                                 $badgeClass = 'badge-secondary';
