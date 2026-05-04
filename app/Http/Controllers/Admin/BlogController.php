@@ -283,7 +283,12 @@ class BlogController extends Controller
 
     public function edit_access($id) 
     {
-        return view('pages.admin.access_blogs.edit_access');
+        $accessBlog = AccessBlog::with(['blog', 'member'])->findOrFail($id);
+
+        // Get all members (access levels)
+        $members = Member::orderBy('price')->get();
+
+        return view('pages.admin.access_blogs.edit_access', compact('accessBlog', 'members'));
     }
 
     public function update_access(Request $request, $id)

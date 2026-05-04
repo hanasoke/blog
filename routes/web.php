@@ -57,7 +57,7 @@ Route::prefix('admin')
                         ->name('store_access');
                 Route::get('/show_access', 'BlogController@show_access')
                         ->name('show_access');
-                Route::get('/edit_access', 'BlogController@edit_access')
+                Route::get('/edit_access/{id}', 'BlogController@edit_access')
                         ->name('edit_access');
                 Route::put('/update_access/{id}', 'BlogController@update_access')
                         ->name('update_access');

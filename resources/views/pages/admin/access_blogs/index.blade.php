@@ -92,7 +92,7 @@
                                             <i class="fas fa-trash fa-sm"></i>
                                         </button>
                                         <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                        <a href="#" class="btn btn-success">
+                                        <a href="{{ route('edit_access', $access->id) }}" class="btn btn-success">
                                             <i class="fas fa-edit fa-sm text-white-100"></i>
                                         </a>
                                     </div>
