@@ -293,7 +293,33 @@ class BlogController extends Controller
 
     public function update_access(Request $request, $id)
     {
+        $accessBlog = AccessBlog::findOrFail($id);
 
+        // Validation rules 
+        $rules = [
+            'member_id' => 'required|exists:members,id',
+        ];
+
+        // Custom error messages 
+        $messages = [
+            'member_id.required' => 'Please select a member/access level.',
+            'member_id.exists' => 'Selected member level is invalid.',
+        ];
+
+        // Validate request 
+        $this->validate($request, $rules, $messages);
+
+        $oldMember = $accessBlog->member;
+        $newMember = Member::findOrFail($request->member_id);
+
+        // Update access 
+        $accessBlog->update([
+            'member_id' => $request->member_id,
+        ]);
+
+        // Redirect with success message 
+        return redirect()->route('access_blogs')
+            ->with('success', 'Access for blog "' . $accessBlog->blog->title . '" has been updated from ' . $oldMember->name . ' to ' . $newMember->name . '!');
     }
 
     public function delete_access($id) 
