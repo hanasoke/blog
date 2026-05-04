@@ -278,7 +278,13 @@ class BlogController extends Controller
     
     public function show_access($id)
     {
-        
+        $accessBlog = AccessBlog::with(['blog', 'blog.genre', 'blog.source', 'blog.user', 'member'])
+            ->findOrFail($id);
+
+        return response()->json([
+            'success' => true,
+            'data' => $accessBlog
+        ]);
     }
 
     public function edit_access($id) 
@@ -324,7 +330,15 @@ class BlogController extends Controller
 
     public function delete_access($id) 
     {
-        return redirect()->route('access_blogs');
+        $accessBlog = AccessBlog::with(['blog', 'member'])->findOrFail($id);
+        $blogTitle = $accessBlog->blog->title;
+        $memberName = $accessBlog->member->name;
+
+        // Delete access 
+        $accessBlog->delete();
+
+        return redirect()->route('access_blogs')
+            ->with('success', 'Access for blog "' . $blogTitle . '" (' . $memberName . ') has been successfully deleted!');
     }
 
     public function article_status() 
