@@ -91,7 +91,7 @@
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                                             <i class="fas fa-trash fa-sm"></i>
                                         </button>
-                                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal{{ $access->id }}"><i class="fas fa-eye fa-sm text-white-100"></i></button>
                                         <a href="{{ route('edit_access', $access->id) }}" class="btn btn-success">
                                             <i class="fas fa-edit fa-sm text-white-100"></i>
                                         </a>
@@ -111,13 +111,15 @@
 </div>
 <!-- /.container-fluid -->
 
+@foreach($accessBlogs as $access)
+
 <!-- Detail Modal -->
-<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewModal{{ $access->id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ $access->id }}" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="viewModalLabel">
-                    View Detail <b>Blog Title</b> Article
+                <h5 class="modal-title" id="viewModalLabel{{ $access->id }}">
+                    Detail : <b>{{ $access->blog->title ?? 'Unknown' }}</b>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -128,7 +130,7 @@
                     <label class="col-sm-4 col-form-label">Blog Title</label>
                     <div class="col-sm-8">
                         <p class="form-control-plaintext">
-                            Blog Title
+                            {{ $access->blog->title ?? 'Unknown' }}
                         </p>
                     </div>
                 </div>
@@ -142,7 +144,7 @@
                     <label class="col-sm-4 col-form-label">Source</label>
                     <div class="col-sm-8">
                         <p class="form-control-plaintext">
-                            #
+                            {{ $access->blog->source->name ?? 'Unknown' }}
                         </p>
                     </div>
                 </div>
@@ -150,15 +152,33 @@
                     <label class="col-sm-4 col-form-label">Genre</label>
                     <div class="col-sm-8">
                         <p class="form-control-plaintext">
-                            #
+                            {{ $access->blog->genre->name ?? 'Unknown' }}
                         </p>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Access</label>
                     <div class="col-sm-8">
+                        @php 
+                            $badgeClass = '';
+                            switch($access->member->name ?? '') {
+                                case 'BASIC': 
+                                    $badgeClass = 'badge-success';
+                                    break;
+                                case 'PREMIUM': 
+                                    $badgeClass = 'badge-warning';
+                                    break;
+                                case 'VIP':
+                                    $badgeClass = 'badge-primary';
+                                    break;
+                                default:
+                                    $badgeClass = 'badge-secondary';
+                            }
+                        @endphp 
                         <p class="form-control-plaintext">
-                            #
+                            <span class="badge p-2 {{ $badgeClass }}">
+                                {{ $access->member->name ?? 'N/A' }}
+                            </span>
                         </p>
                     </div>
                 </div>
@@ -202,4 +222,6 @@
         </div>
     </div>
 </div>
+@endforeach 
+
 @endsection 
