@@ -90,6 +90,36 @@ class MemberController extends Controller
             ->route('members')
             ->with('success', $member->name . ' Member has been deleted');
     }
+
+    public function generateReport()
+    {
+        // Get all members data 
+        $members = Member::orderBy('name', 'ASC')->get();
+
+        // Get total members count 
+        $totalMembers = $members->count();
+
+        // Get total price sum 
+        $totalPrice = $members->sum('price');
+
+        // Prepare data for view 
+        $data = [
+            'members' => $members,
+            'totalMembers' => $totalMembers,
+            'totalPrice' => $totalPrice,
+            'generatedDate' => now()->format('d F Y H:i:s'),
+            'generatedBy' => auth()->user()->name ?? 'Admin',
+        ];
+
+        // Load view and convert to PDF 
+        $pdf = PDF::loadView('pages.admin.members.report_pdf', $data);
+
+        // Set paper size (A4, Landscape/Portrait)
+        $pdf->setPaper('A4', 'landscape');
+
+        // Download PDF with custom filename 
+        return $pdf->download('members_report_' . date('Y-m-d_His') . '.pdf');
+    }
 }
 
 ?>
