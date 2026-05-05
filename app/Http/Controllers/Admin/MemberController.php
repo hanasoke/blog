@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Member;
 use App\AccessBlog;
 use Illuminate\Validation\Rule;
+use PDF;
 
 class MemberController extends Controller 
 {

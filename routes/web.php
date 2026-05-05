@@ -134,6 +134,10 @@ Route::prefix('admin')
 
                 Route::get('/members', 'MemberController@index')
                         ->name('members');
+                
+                // Add route for generating PDF report
+                Route::get('/members/report', 'MemberController@generateReport')
+                        ->name('members_report');
 
                 Route::get('/add_member', 'MemberController@add_member')
                         ->name('add_member');
