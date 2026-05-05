@@ -119,7 +119,7 @@ class MemberController extends Controller
         $pdf->setPaper('A4', 'landscape');
 
         // Download PDF with custom filename 
-        return $pdf->download('members_report_' . date('Y-m-d_His') . '.pdf');
+        return $pdf->stream('members_report_' . date('Y-m-d_His') . '.pdf');
     }
 }
 
