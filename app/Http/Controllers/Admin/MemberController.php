@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Member;
+use App\AccessBlog;
 use Illuminate\Validation\Rule;
 
 class MemberController extends Controller 
@@ -72,6 +73,16 @@ class MemberController extends Controller
 
     public function delete_member($id) {
         $member = Member::findOrFail($id); 
+
+        // Cek apakah member masih memiliki relasi dengan access_blog 
+        $accessCount = AccessBlog::where('member_id', $id)->count();
+
+        if($accessCount > 0) {
+            // Jika masih ada relasi, tampilkan error dan batalkan penghapusan 
+            return redirect()
+                ->route('members')
+                ->with('error', 'Cannot delete "' . $member->name . '" member because it is still used by ' . $accessCount . ' blog(s). Please delete the blog access first!');
+        }
 
         $member->delete();
 
