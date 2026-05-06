@@ -26,12 +26,12 @@
         .header {
             text-align: center;
             margin-bottom: 30px;
-            border-bottom: 3px solid #36b9cc;
+            border-bottom: 2px solid #4e73df;
             padding-bottom: 20px;
         }
         
         .header h1 {
-            color: #36b9cc;
+            color: #4e73df;
             font-size: 28px;
             margin-bottom: 10px;
         }
@@ -39,12 +39,6 @@
         .header .subtitle {
             color: #666;
             font-size: 14px;
-        }
-        
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 10px;
         }
         
         /* Report Info */
@@ -67,7 +61,6 @@
         .report-info td.label {
             font-weight: bold;
             width: 180px;
-            color: #36b9cc;
         }
         
         /* Summary Cards */
@@ -79,10 +72,12 @@
         .summary-card {
             flex: 1;
             background: #fff;
+            border: 1px solid #e3e6f0;
             border-radius: 5px;
             padding: 15px;
-            text-align: center;
+            margin: 0 5px;
             color: dark;
+            text-align: center;
         }
         
         .summary-card h3 {
@@ -101,20 +96,19 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            font-size: 11px;
         }
         
         .data-table th {
-            background: linear-gradient(135deg, #36b9cc 0%, #258391 100%);
+            background-color: #4e73df;
             color: white;
-            padding: 10px;
+            padding: 12px;
             text-align: left;
             font-weight: bold;
             border: 1px solid #ddd;
         }
         
         .data-table td {
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ddd;
         }
         
@@ -130,13 +124,13 @@
         .badge {
             display: inline-block;
             padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 10px;
+            border-radius: 3px;
+            font-size: 11px;
             font-weight: bold;
         }
         
         .badge-primary {
-            background-color: #36b9cc;
+            background-color: #4e73df;
             color: white;
         }
         
@@ -161,7 +155,7 @@
             padding: 20px;
             background: #f8f9fc;
             border-radius: 10px;
-            border: 1px solid #e3e6f0;
+            border: 1px solid #8a8a8aff;
         }
         
         .top-sources h3 {
@@ -177,25 +171,12 @@
             padding: 8px;
             background: white;
             border-radius: 5px;
-        }
-        
-        .source-info {
-            flex: 1;
-        }
-        
-        .source-name {
-            font-weight: bold;
-            font-size: 14px;
-        }
-        
-        .blog-count {
-            font-size: 12px;
-            color: #666;
+            border: 1px solid #0077ffff;
         }
         
         /* Footer */
         .footer {
-            margin-top: 30px;
+            margin: 30px 0 10px 0;
             text-align: center;
             font-size: 10px;
             color: #999;
@@ -229,9 +210,6 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            @if(file_exists(public_path('img/logo.png')))
-                <img src="{{ public_path('img/logo.png') }}" class="logo" alt="Logo">
-            @endif
             <h1>Sources Report</h1>
             <p class="subtitle">Blog Management System - Source Analytics Report</p>
         </div>
@@ -272,12 +250,12 @@
             </div>
             <div class="summary-card">
                 <h3>{{ number_format($averageBlogsPerSource, 1, ',', '.') }}</h3>
-                <p>Avg Blogs/Source</p>
+                <p>Average Blogs/Source</p>
             </div>
         </div>
         
         <!-- Data Table -->
-        <table>
+        <table class="data-table">
             <thead>
                 <tr>
                     <th width="40" class="text-center">No</th>
@@ -295,10 +273,12 @@
                         <strong>{{ $source->name }}</strong>
                     </td>
                     <td class="text-center">
-                        @if($source->blogs_count > 0)
+                        @if($source->blogs_count == 1)
+                            <span class="badge badge-warning">{{ number_format($source->blogs_count, 0, ',', '.') }} Blog</span>
+                        @elseif($source->blogs_count > 1)
                             <span class="badge badge-success">{{ number_format($source->blogs_count, 0, ',', '.') }} Blogs</span>
                         @else
-                            <span class="badge badge-info">0 Blogs</span>
+                            <span class="badge badge-info">0 Blog</span>
                         @endif
                     </td>
                     <td class="text-center">{{ $source->created_at ? date('d M Y H:i', strtotime($source->created_at)) : 'N/A' }}</td>
@@ -315,7 +295,7 @@
         <!-- Top Sources Section -->
         @if($topSources->count() > 0)
         <div class="top-sources">
-            <h3>🏆 Top 5 Sources by Blog Count</h3>
+            <h3>Top 5 Sources by Blog Count</h3>
             @foreach($topSources as $index => $source)
             <div class="top-source-item">
                 <div class="source-info">
