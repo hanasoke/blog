@@ -6,7 +6,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">All Genre List</h1>
-        <button href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#reportModal">
             <i class="fas fa-download fa-sm text-white-50"></i> 
             Generate Report
         </button>
@@ -94,4 +94,55 @@
 
 </div>
 <!-- /.container-fluid -->
+
+<!-- Report Generation Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel">
+                    <i class="fas fa-download text-primary"></i> Generate Genre Report
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('generate_genre_report') }}" method="GET" target="_blank">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Report Type</label>
+                        <select class="form-control" name="report_type" id="report_type">
+                            <option value="all">All Genres</option>
+                            <option value="date_range">Date Range</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="date_range_fields" style="display: none;">
+                        <label>Start Date</label>
+                        <input type="date" name="start_date" class="form-control">
+                        <br>
+                        <label>End Date</label>
+                        <input type="date" name="end_date" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Page Orientation</label>
+                        <select class="form-control" name="orientation">
+                            <option value="portrait">Portrait</option>
+                            <option value="landscape" selected>Landscape</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-download"></i> Generate PDF
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection 

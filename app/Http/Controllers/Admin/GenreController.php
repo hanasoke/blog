@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Genre;
 use Illuminate\Validation\Rule;
+use PDF; // Import PDF facade
 
 class GenreController extends Controller 
 {
