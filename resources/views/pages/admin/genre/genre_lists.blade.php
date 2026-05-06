@@ -112,8 +112,7 @@
                     <div class="form-group">
                         <label>Report Type</label>
                         <select class="form-control" name="report_type" id="report_type">
-                            <option value="all">All Genres</option>
-                            <option value="date_range">Date Range</option>
+                            <option value="all" selected>All Genres</option>
                         </select>
                     </div>
                     
@@ -128,7 +127,6 @@
                     <div class="form-group">
                         <label>Page Orientation</label>
                         <select class="form-control" name="orientation">
-                            <option value="portrait">Portrait</option>
                             <option value="landscape" selected>Landscape</option>
                         </select>
                     </div>
