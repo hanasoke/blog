@@ -103,8 +103,15 @@ Route::prefix('admin')
 
                 Route::post('/update_source/{id}', 'SourceController@update_source')
                         ->name('update_source');
+
                 Route::delete('/delete_source/{id}', 'SourceController@delete_source')
                         ->name('delete_source');
+
+                // Add these routes for report generation 
+                Route::get('/generate_sources_report', 'SourceController@generate_report')
+                        ->name('generate_sources_report');
+
+                Route::get('/export_sources_csv', 'SourceController@export_csv')->name('export_sources_csv');
 
                 Route::get('/article_status', 'BlogController@article_status')
                         ->name('article_status');
