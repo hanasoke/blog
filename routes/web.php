@@ -79,6 +79,10 @@ Route::prefix('admin')
                 Route::delete('/delete_genre/{id}', 'GenreController@delete_genre')
                         ->name('delete_genre');
 
+                // Add this route for generating PDF report 
+                Route::get('/generate_genre_report', 'GenreController@generate_report')
+                        ->name('generate_genre_report');
+
                 Route::get('/users_list', 'UserController@index')
                         ->name('users_list');
 
