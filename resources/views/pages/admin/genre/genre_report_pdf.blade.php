@@ -155,7 +155,7 @@
         
         /* Text alignment */
         .text-center {
-            text-align: center;
+            text-align: center !important;
         }
         
         .text-right {
@@ -215,11 +215,11 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    <th width="50">No.</th>
-                    <th>Genre Name</th>
+                    <th width="50" class="text-center">No</th>
+                    <th class="text-center">Genre Name</th>
                     <th width="100" class="text-center">Total Blogs</th>
-                    <th width="150">Created At</th>
-                    <th width="150">Last Updated</th>
+                    <th width="150" class="text-center">Created At</th>
+                    <th width="150" class="text-center">Last Updated</th>
                 </tr>
             </thead>
             <tbody>
