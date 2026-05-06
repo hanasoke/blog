@@ -99,10 +99,11 @@
         }
 
         $('#report_type').on('change', function() {
-        if($(this).val() == 'date_range') {
-            $('#date_range_fields').slideDown();
-        } else {
-            $('#date_range_fields').slideUp();
-        }
+            if($(this).val() == 'date_range') {
+                $('#date_range_fields').slideDown();
+            } else {
+                $('#date_range_fields').slideUp();
+            }
+        });
     });
 </script>
