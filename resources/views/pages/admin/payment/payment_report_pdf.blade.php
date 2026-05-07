@@ -170,43 +170,6 @@
             color: white;
         }
         
-        /* Payment Info Section */
-        .payment-stats {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fc;
-            border-radius: 10px;
-            border: 1px solid #e3e6f0;
-        }
-        
-        .payment-stats h3 {
-            color: #1cc88a;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-        
-        .stat-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-            background: white;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            border-left: 4px solid #1cc88a;
-        }
-        
-        .stat-label {
-            font-weight: bold;
-            font-size: 13px;
-        }
-        
-        .stat-value {
-            color: #1cc88a;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        
         /* Footer */
         .footer {
             margin-top: 30px;
@@ -358,46 +321,10 @@
             </tbody>
         </table>
         
-        <!-- Payment Statistics Section -->
-        @if($payments->count() > 0)
-        <div class="payment-stats">
-            <h3>📊 Payment Statistics</h3>
-            <div class="stat-item">
-                <span class="stat-label">Total Active Payment Methods</span>
-                <span class="stat-value">{{ $totalPayments }}</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Average Payment Age</span>
-                <span class="stat-value">
-                    @php
-                        $avgAge = 0;
-                        if($totalPayments > 0) {
-                            $totalDays = 0;
-                            foreach($payments as $payment) {
-                                if($payment->created_at) {
-                                    $totalDays += $payment->created_at->diffInDays(now());
-                                }
-                            }
-                            $avgAge = round($totalDays / $totalPayments);
-                        }
-                    @endphp
-                    {{ $avgAge }} days
-                </span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Payment Methods Added (Last 30 Days)</span>
-                <span class="stat-value">
-                    {{ Payment::where('created_at', '>=', now()->subDays(30))->count() }}
-                </span>
-            </div>
-        </div>
-        @endif
-        
         <!-- Footer -->
         <div class="footer">
             <p>This report is system-generated at {{ $generated_date }}. For inquiries, please contact system administrator.</p>
             <p>&copy; {{ date('Y') }} Blog Management System. All rights reserved.</p>
-            <p>Page {PAGE_NUM} of {PAGE_COUNT}</p>
         </div>
     </div>
 </body>
