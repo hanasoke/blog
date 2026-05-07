@@ -23,7 +23,8 @@ class PaymentController extends Controller
             'name' => 'required|unique:payments,name'
         ], [
             'name.required' => 'Nama Dompet Pembayaran wajib diisi',
-            'nama.unique' => 'Nama Dompet Pembayaran sudah ada'
+            'name.unique' => 'Nama Dompet Pembayaran sudah ada',
+            'name.max' => 'Payment name cannot exceed 255 characters.',
         ]);
 
         Payment::create([
