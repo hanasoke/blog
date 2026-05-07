@@ -134,6 +134,11 @@ Route::prefix('admin')
                 Route::delete('/delete_payment/{id}', 'PaymentController@delete_payment')
                         ->name('delete_payment');
 
+                Route::get('/generate_payments_report', 'PaymentController@generate_report')
+                        ->name('generate_payments_report');
+
+                Route::get('/export_payments_csv', 'PaymentController@export_csv')->name('export_payments_csv');
+
                 Route::get('/pending_transaction', 'TransactionController@pending_transaction')
                         ->name('pending_transaction');
 

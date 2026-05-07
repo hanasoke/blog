@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Payment;
 use Illuminate\Validation\Rule;
+use PDF; // Import PDF facade
 
 class PaymentController extends Controller 
 {
@@ -164,5 +165,5 @@ class PaymentController extends Controller
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ]);
     }
-    
+
 }
