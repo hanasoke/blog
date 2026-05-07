@@ -28,7 +28,6 @@
             margin-bottom: 30px;
             border-bottom: 3px solid #1cc88a;
             padding-bottom: 20px;
-            position: relative;
         }
         
         .header h1 {
@@ -75,39 +74,27 @@
         .summary {
             display: flex;
             margin-bottom: 25px;
-            gap: 15px;
         }
         
         .summary-card {
             flex: 1;
-            background: linear-gradient(135deg, #1cc88a 0%, #13855e 100%);
-            border-radius: 10px;
+            background: #fff;
+            border: 1px solid #e3e6f0;
+            border-radius: 5px;
             padding: 15px;
+            margin: 0 5px;
+            color: dark;
             text-align: center;
-            color: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .summary-card:nth-child(2) {
-            background: linear-gradient(135deg, #36b9cc 0%, #258391 100%);
-        }
-        
-        .summary-card:nth-child(3) {
-            background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%);
-        }
-        
-        .summary-card:nth-child(4) {
-            background: linear-gradient(135deg, #e74a3b 0%, #be2617 100%);
         }
         
         .summary-card h3 {
             font-size: 32px;
-            margin-bottom: 8px;
-            font-weight: bold;
+            color: #00ff40ff;
+            margin-bottom: 5px;
         }
         
         .summary-card p {
-            font-size: 12px;
+            color: #666;
             opacity: 0.9;
         }
         
@@ -120,16 +107,16 @@
         }
         
         .data-table th {
-            background: linear-gradient(135deg, #1cc88a 0%, #13855e 100%);
+            background-color: #54ec68ff;
             color: white;
-            padding: 10px;
+            padding: 12px;
             text-align: left;
             font-weight: bold;
             border: 1px solid #ddd;
         }
         
         .data-table td {
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ddd;
         }
         
@@ -151,12 +138,12 @@
         }
         
         .badge-primary {
-            background-color: #1cc88a;
+            background-color: #006effff;
             color: white;
         }
         
         .badge-success {
-            background-color: #36b9cc;
+            background-color: #2bb40fff;
             color: white;
         }
         
@@ -185,7 +172,7 @@
         
         /* Text alignment */
         .text-center {
-            text-align: center;
+            text-align: center !important;
         }
         
         .text-right {
@@ -201,29 +188,12 @@
             page-break-before: always;
         }
         
-        /* Bank/EWallet Icon */
-        .payment-icon {
-            width: 32px;
-            height: 32px;
-            background-color: #1cc88a;
-            border-radius: 8px;
-            display: inline-block;
-            text-align: center;
-            line-height: 32px;
-            color: white;
-            font-weight: bold;
-            margin-right: 10px;
-        }
         
         .payment-name {
             font-weight: bold;
             font-size: 13px;
         }
         
-        .payment-meta {
-            font-size: 10px;
-            color: #666;
-        }
     </style>
 </head>
 <body>
@@ -265,7 +235,7 @@
         <div class="summary">
             <div class="summary-card">
                 <h3>{{ $totalPayments }}</h3>
-                <p>Total Payment Methods</p>
+                <p>Total Wallet Name</p>
             </div>
             <div class="summary-card">
                 <h3>{{ $newThisMonth }}</h3>
@@ -273,11 +243,11 @@
             </div>
             <div class="summary-card">
                 <h3>{{ $oldestPayment ? date('d M Y', strtotime($oldestPayment->created_at)) : 'N/A' }}</h3>
-                <p>Oldest Payment</p>
+                <p>Oldest Wallet Name</p>
             </div>
             <div class="summary-card">
                 <h3>{{ $newestPayment ? date('d M Y', strtotime($newestPayment->created_at)) : 'N/A' }}</h3>
-                <p>Newest Payment</p>
+                <p>Newest Wallet Name</p>
             </div>
         </div>
         
@@ -285,8 +255,8 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    <th width="40" class="text-center">No.</th>
-                    <th>Payment Method</th>
+                    <th width="40" class="text-center">No</th>
+                    <th class="text-center">Payment Method</th>
                     <th width="150" class="text-center">Status</th>
                     <th width="150">Created At</th>
                     <th width="150">Last Updated</th>
@@ -298,12 +268,8 @@
                     <td class="text-center">{{ $index + 1 }}</td>
                     <td>
                         <div style="display: flex; align-items: center;">
-                            <div class="payment-icon">
-                                {{ substr($payment->name, 0, 1) }}
-                            </div>
                             <div>
                                 <div class="payment-name">{{ $payment->name }}</div>
-                                <div class="payment-meta">ID: #{{ $payment->id }}</div>
                             </div>
                         </div>
                     </td>
