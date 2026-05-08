@@ -98,36 +98,6 @@
             font-size: 12px;
         }
         
-        /* Table Styles */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 10px;
-        }
-        
-        .data-table th {
-            background-color: #4e73df;
-            color: white;
-            padding: 10px;
-            text-align: left;
-            font-weight: bold;
-            border: 1px solid #ddd;
-        }
-        
-        .data-table td {
-            padding: 8px;
-            border: 1px solid #ddd;
-        }
-        
-        .data-table tr:nth-child(even) {
-            background-color: #f8f9fc;
-        }
-        
-        .data-table tr:hover {
-            background-color: #f5f5f5;
-        }
-        
         /* Badge */
         .badge {
             display: inline-block;
@@ -217,6 +187,34 @@
             height: 100%;
             border-radius: 10px;
         }
+
+        /* Table Styles */
+        .table-container {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th {
+            background-color: #4e73df;
+            color: white;
+            padding: 10px 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 11px;
+            border: 1px solid #3a5ccc;
+        }
+        
+        td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 11px;
+        }
         
         /* Footer */
         .footer {
@@ -242,18 +240,6 @@
         
         .text-left {
             text-align: left;
-        }
-        
-        /* Blog title link */
-        .blog-title {
-            font-weight: bold;
-            font-size: 11px;
-            color: #4e73df;
-        }
-        
-        .blog-meta {
-            font-size: 9px;
-            color: #666;
         }
         
         /* Page break */
@@ -318,61 +304,62 @@
         </div>
         
         <!-- Data Table -->
-        <table>
-            <thead>
-                <tr>
-                    <th width="30" class="text-center">No</th>
-                    <th width="200">Blog Title</th>
-                    <th width="80">Genre</th>
-                    <th width="80">Source</th>
-                    <th width="80">Access</th>
-                    <th width="100">Author</th>
-                    <th width="100">Created At</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($blogs as $index => $blog)
-                <tr>
-                    <td class="text-center">{{ $index + 1 }}</td>
-                    <td>
-                        <div class="blog-title">{{ Str::limit($blog->title, 50) }}</div>
-                        <div class="blog-meta">ID: #{{ $blog->id }}</div>
-                    </td>
-                    <td>{{ $blog->genre->name ?? '-' }}</td>
-                    <td>{{ $blog->source->name ?? '-' }}</td>
-                    <td class="text-center">
-                        @if($blog->access && $blog->access->member)
-                            @php
-                                $accessClass = '';
-                                switch($blog->access->member->name) {
-                                    case 'BASIC':
-                                        $accessClass = 'badge-success';
-                                        break;
-                                    case 'PREMIUM':
-                                        $accessClass = 'badge-warning';
-                                        break;
-                                    case 'VIP':
-                                        $accessClass = 'badge-danger';
-                                        break;
-                                    default:
-                                        $accessClass = 'badge-secondary';
-                                }
-                            @endphp
-                            <span class="badge {{ $accessClass }}">{{ $blog->access->member->name }}</span>
-                        @else
-                            <span class="badge badge-secondary">No Access</span>
-                        @endif
-                    </td>
-                    <td>{{ $blog->user->name ?? '-' }}</td>
-                    <td>{{ $blog->created_at ? date('d M Y', strtotime($blog->created_at)) : 'N/A' }}</td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="7" class="text-center">No blogs found.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="5%" class="text-center">No</th>
+                        <th width="20%">Blog Title</th>
+                        <th width="15%">Genre</th>
+                        <th width="15%">Source</th>
+                        <th width="15%">Access</th>
+                        <th width="15%">Author</th>
+                        <th width="15%">Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($blogs as $index => $blog)
+                    <tr>
+                        <td class="text-center">{{ $index + 1 }}</td>
+                        <td>
+                            <div>{{ Str::limit($blog->title, 50) }}</div>
+                        </td>
+                        <td>{{ $blog->genre->name ?? '-' }}</td>
+                        <td>{{ $blog->source->name ?? '-' }}</td>
+                        <td class="text-center">
+                            @if($blog->access && $blog->access->member)
+                                @php
+                                    $accessClass = '';
+                                    switch($blog->access->member->name) {
+                                        case 'BASIC':
+                                            $accessClass = 'badge-success';
+                                            break;
+                                        case 'PREMIUM':
+                                            $accessClass = 'badge-warning';
+                                            break;
+                                        case 'VIP':
+                                            $accessClass = 'badge-primary';
+                                            break;
+                                        default:
+                                            $accessClass = 'badge-secondary';
+                                    }
+                                @endphp
+                                <span class="badge {{ $accessClass }}">{{ $blog->access->member->name }}</span>
+                            @else
+                                <span class="badge badge-secondary">No Access</span>
+                            @endif
+                        </td>
+                        <td>{{ $blog->user->name ?? '-' }}</td>
+                        <td>{{ $blog->created_at ? date('d M Y', strtotime($blog->created_at)) : 'N/A' }}</td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="7" class="text-center">No blogs found.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
         
         <!-- Blog Statistics Section -->
         @if($blogs->count() > 0)
