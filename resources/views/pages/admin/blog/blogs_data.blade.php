@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <!-- DataTales Example -->
+    <!-- DataTables Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h4 class="font-weight-bold text-primary m-0 float-left">Blogs Table View</h4>

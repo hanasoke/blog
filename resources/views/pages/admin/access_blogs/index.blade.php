@@ -6,10 +6,10 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">All Access Blogs</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#reportModal">
             <i class="fas fa-download fa-sm text-white-50"></i> 
             Generate Report
-        </a>
+        </button>
     </div>
 
     <!-- DataTables Example -->
@@ -223,6 +223,63 @@
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Report Generation Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel">
+                    <i class="fas fa-download text-primary"></i> Generate Blog Report
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('generate_blogs_report') }}" method="GET" target="_blank">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Report Type <span class="text-danger">*</span></label>
+                        <select class="form-control" name="report_type" id="report_type" required>
+                            <option value="all">All Blogs</option>
+                            <option value="date_range">By Date Range</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="date_range_fields" style="display: none;">
+                        <label>Start Date <span class="text-danger">*</span></label>
+                        <input type="date" name="start_date" class="form-control">
+                        <br>
+                        <label>End Date <span class="text-danger">*</span></label>
+                        <input type="date" name="end_date" class="form-control">
+                        <small class="text-muted">Filter blogs by creation date</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Page Orientation <span class="text-danger">*</span></label>
+                        <select class="form-control" name="orientation" required>
+                            <option value="portrait">Portrait</option>
+                            <option value="landscape" selected>Landscape (Recommended)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Info:</strong> The report will include all blog posts with their genre, source, author, and access level information.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-download"></i> Generate PDF
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
