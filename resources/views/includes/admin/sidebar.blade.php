@@ -46,13 +46,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#payment"
             aria-expanded="true" aria-controls="payment">
             <i class="fas fa-fw fa-envelope"></i>
-            <span>Payment</span>
+            <span>Wallets</span>
         </a>
         <div id="payment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Payment View</h6>
                 <a class="collapse-item" href="{{ route('add_payment') }}">Add Payment</a>
-                <a class="collapse-item" href="{{ route('payments') }}">Payment List</a>
+                <a class="collapse-item" href="{{ route('payments') }}">Wallet List</a>
             </div>
         </div>
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#members"
@@ -70,7 +70,7 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#transaction"
             aria-expanded="true" aria-controls="transaction">
             <i class="fas fa-fw fa-shopping-cart"></i>
-            <span>Transaction</span>
+            <span>Transactions</span>
         </a>
         <div id="transaction" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
