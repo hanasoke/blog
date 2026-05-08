@@ -70,7 +70,7 @@ class PaymentController extends Controller
 
         return redirect()
             ->route('payments')
-            ->with('success', 'Payment "' . $payment->name . '" berhasil dihapus');
+            ->with('success', 'Dompet "' . $payment->name . '" berhasil dihapus');
     }
 
     public function generate_report(Request $request)

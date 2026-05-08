@@ -339,4 +339,170 @@ class BlogController extends Controller
         return view('pages.admin.article_status.index', compact('blogs'));
     }
 
+    /**
+     * Generate PDF report for blogs
+     */
+    public function generate_report(Request $request)
+    {
+        // Validate request 
+        $request->validate([
+            'report_type' => 'required|in:all,date_range',
+            'start_date' => 'required_if:report_type,date_range|nullable|date',
+            'end_date' => 'required_if:report_type,date_range|nullable|date|after_or_equal:start_date',
+            'orientation' => 'required|in:portrait,landscape',
+        ]);
+
+        // Get blogs with relationships
+        $query = Blog::with(['genre', 'source', 'user', 'access.member']);
+
+        // Filter by date range if provided
+        if ($request->report_type == 'date_range' && $request->start_date && $request->end_date) {
+            $query->whereBetween('created_at', [
+                $request->start_date . ' 00:00:00', 
+                $request->end_date . ' 23:59:59'
+            ]);
+        }
+
+        $blogs = $query->orderBy('created_at', 'desc')->get();  
+        
+        // Get total statistics
+        $totalBlogs = $blogs->count();
+        $totalGenres = $blogs->unique('genre_id')->count();
+        $totalSources = $blogs->unique('source_id')->count();
+        $totalAuthors = $blogs->unique('user_id')->count();
+
+        // Count blogs by access level 
+        $basisCount = 0;
+        $premiumCount = 0;
+        $vipCount = 0;
+        $noAccessCount = 0;
+
+        foreach ($blogs as $blog) {
+            if($blog->access && $blog->access->member) {
+                switch($blog->access->member->name) {
+                    case 'BASIC':
+                        $basicCount++;
+                        break;
+                    case 'PREMIUM':
+                        $premiumCount++;
+                        break;
+                    case 'VIP':
+                        $vipCount++;
+                        break;
+                    default:
+                        $noAccessCount++;
+                } 
+            }
+            else {
+                $noAccessCount++;
+            }
+        }
+
+        // Get blogs by genre 
+        $genreStats = [];
+        foreach($blogs as $blog) {
+            if($blog->genre) {
+                $genreName = $blog->genre->name;
+                if(!isset($genreStats[$genreName])) {
+                    $genreStats[$genreName] = 0;
+                }
+                $genreStats[$genreName]++;
+            }
+        }
+        arsort($genreStats);
+        $topGenres = array_slice($genreStats, 0, 5);
+
+        // Get newest and oldest blog 
+        $newestBlog = $blog->first();
+        $oldestBlog = $blog->last();
+
+        // Prepare data for PDF
+        $data = [
+            'blogs' => $blogs,
+            'totalBlogs' => $totalBlogs,
+            'totalGenres' => $totalGenres,
+            'totalSources' => $totalSources,
+            'totalAuthors' => $totalAuthors,
+            'basicCount' => $basicCount,
+            'premiumCount' => $premiumCount,
+            'vipCount' => $vipCount,
+            'noAccessCount' => $noAccessCount,
+            'topGenres' => $topGenres,
+            'newestBlog' => $newestBlog,
+            'oldestBlog' => $oldestBlog,
+            'generated_date' => now()->format('d F Y H:i:s'),
+            'generated_by' => auth()->user()->name ?? 'System Administrator',
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'report_type' => $request->report_type,
+            'orientation' => $request->orientation,
+        ];
+
+        // Load view and generate PDF
+        $pdf = PDF::loadView('pages.admin.blog.blog_report_pdf', $data);
+        
+        // Set paper size and orientation
+        $paperSize = 'A4';
+        $orientation = $request->orientation == 'landscape' ? 'landscape' : 'portrait';
+        $pdf->setPaper($paperSize, $orientation);
+        
+        // Download PDF with custom filename
+        $filename = 'blog_report_' . date('Y-m-d_His') . '.pdf';
+        
+        return $pdf->download($filename);
+    }
+
+    /**
+     * Export blogs to CSV
+     */
+    public function export_csv(Request $request)
+    {
+        $query = Blog::with(['genre', 'source', 'user', 'access.member']);
+        
+        if($request->start_date && $request->end_date) {
+            $query->whereBetween('created_at', [$request->start_date . ' 00:00:00', $request->end_date . ' 23:59:59']);
+        }
+        
+        $blogs = $query->orderBy('created_at', 'desc')->get();
+        
+        $filename = 'blogs_export_' . date('Y-m-d_His') . '.csv';
+        
+        return response()->stream(function() use ($blogs) {
+            $output = fopen('php://output', 'w');
+            
+            // Add UTF-8 BOM for Excel compatibility
+            fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
+            
+            // Add CSV headers
+            fputcsv($output, [
+                'ID', 
+                'Title', 
+                'Genre', 
+                'Source', 
+                'Author', 
+                'Access Level',
+                'Created At', 
+                'Last Updated'
+            ]);
+            
+            // Add data rows
+            foreach($blogs as $blog) {
+                fputcsv($output, [
+                    $blog->id,
+                    $blog->title,
+                    $blog->genre->name ?? 'N/A',
+                    $blog->source->name ?? 'N/A',
+                    $blog->user->name ?? 'N/A',
+                    $blog->access && $blog->access->member ? $blog->access->member->name : 'No Access',
+                    $blog->created_at ? $blog->created_at->format('Y-m-d H:i:s') : 'N/A',
+                    $blog->updated_at ? $blog->updated_at->format('Y-m-d H:i:s') : 'N/A',
+                ]);
+            }
+            
+            fclose($output);
+        }, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
+    }
 }
