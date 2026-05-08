@@ -373,7 +373,7 @@ class BlogController extends Controller
         $totalAuthors = $blogs->unique('user_id')->count();
 
         // Count blogs by access level 
-        $basisCount = 0;
+        $basicCount = 0;
         $premiumCount = 0;
         $vipCount = 0;
         $noAccessCount = 0;
@@ -414,8 +414,8 @@ class BlogController extends Controller
         $topGenres = array_slice($genreStats, 0, 5);
 
         // Get newest and oldest blog 
-        $newestBlog = $blog->first();
-        $oldestBlog = $blog->last();
+        $newestBlog = $blogs->first();
+        $oldestBlog = $blogs->last();
 
         // Prepare data for PDF
         $data = [
