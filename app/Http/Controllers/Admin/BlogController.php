@@ -12,6 +12,7 @@ use App\Member;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use PDF; // Import PDF facade
 
 class BlogController extends Controller 
 {
@@ -344,7 +345,7 @@ class BlogController extends Controller
      */
     public function generate_report(Request $request)
     {
-        // Validate request 
+        // Validate request
         $request->validate([
             'report_type' => 'required|in:all,date_range',
             'start_date' => 'required_if:report_type,date_range|nullable|date',
@@ -354,7 +355,7 @@ class BlogController extends Controller
 
         // Get blogs with relationships
         $query = Blog::with(['genre', 'source', 'user', 'access.member']);
-
+        
         // Filter by date range if provided
         if ($request->report_type == 'date_range' && $request->start_date && $request->end_date) {
             $query->whereBetween('created_at', [
@@ -362,22 +363,22 @@ class BlogController extends Controller
                 $request->end_date . ' 23:59:59'
             ]);
         }
-
-        $blogs = $query->orderBy('created_at', 'desc')->get();  
+        
+        $blogs = $query->orderBy('created_at', 'desc')->get();
         
         // Get total statistics
         $totalBlogs = $blogs->count();
         $totalGenres = $blogs->unique('genre_id')->count();
         $totalSources = $blogs->unique('source_id')->count();
         $totalAuthors = $blogs->unique('user_id')->count();
-
-        // Count blogs by access level 
-        $basisCount = 0;
+        
+        // Count blogs by access level
+        $basicCount = 0;
         $premiumCount = 0;
         $vipCount = 0;
         $noAccessCount = 0;
-
-        foreach ($blogs as $blog) {
+        
+        foreach($blogs as $blog) {
             if($blog->access && $blog->access->member) {
                 switch($blog->access->member->name) {
                     case 'BASIC':
@@ -391,14 +392,13 @@ class BlogController extends Controller
                         break;
                     default:
                         $noAccessCount++;
-                } 
-            }
-            else {
+                }
+            } else {
                 $noAccessCount++;
             }
         }
-
-        // Get blogs by genre 
+        
+        // Get blogs by genre
         $genreStats = [];
         foreach($blogs as $blog) {
             if($blog->genre) {
@@ -411,11 +411,11 @@ class BlogController extends Controller
         }
         arsort($genreStats);
         $topGenres = array_slice($genreStats, 0, 5);
-
-        // Get newest and oldest blog 
-        $newestBlog = $blog->first();
-        $oldestBlog = $blog->last();
-
+        
+        // Get newest and oldest blog
+        $newestBlog = $blogs->first();
+        $oldestBlog = $blogs->last();
+        
         // Prepare data for PDF
         $data = [
             'blogs' => $blogs,
@@ -437,7 +437,7 @@ class BlogController extends Controller
             'report_type' => $request->report_type,
             'orientation' => $request->orientation,
         ];
-
+        
         // Load view and generate PDF
         $pdf = PDF::loadView('pages.admin.blog.blog_report_pdf', $data);
         

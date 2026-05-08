@@ -220,7 +220,7 @@
         
         /* Footer */
         .footer {
-            margin-top: 30px;
+            margin: 30px 0;
             text-align: center;
             font-size: 10px;
             color: #999;
@@ -377,7 +377,7 @@
         <!-- Blog Statistics Section -->
         @if($blogs->count() > 0)
         <div class="stats-section">
-            <h3>📊 Blog Statistics</h3>
+            <h3>Blog Statistics</h3>
             <div class="stat-item">
                 <span class="stat-label">Total Blogs by Access Level:</span>
                 <span class="stat-value">Basic: {{ $basicCount }} | Premium: {{ $premiumCount }} | VIP: {{ $vipCount }} | No Access: {{ $noAccessCount }}</span>
@@ -414,7 +414,6 @@
         <div class="footer">
             <p>This report is system-generated at {{ $generated_date }}. For inquiries, please contact system administrator.</p>
             <p>&copy; {{ date('Y') }} Blog Management System. All rights reserved.</p>
-            <p>Page {PAGE_NUM} of {PAGE_COUNT}</p>
         </div>
     </div>
 </body>

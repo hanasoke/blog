@@ -47,7 +47,13 @@ Route::prefix('admin')
                         ->name('update_blog');
                 Route::delete('/delete_blog/{id}', 'BlogController@delete_blog')
                         ->name('delete_blog');
-                        
+
+                // Add these routes for report generation
+                Route::get('/generate_blogs_report', 'BlogController@generate_report')
+                        ->name('generate_blogs_report');
+
+                Route::get('/export_blogs_csv',  'BlogController@export_csv')
+                        ->name('export_blogs_csv');
 
                 Route::get('/access_blogs', 'BlogController@access_blogs')
                         ->name('access_blogs');
