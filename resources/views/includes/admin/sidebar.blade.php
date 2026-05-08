@@ -50,8 +50,8 @@
         </a>
         <div id="payment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Payment View</h6>
-                <a class="collapse-item" href="{{ route('add_payment') }}">Add Payment</a>
+                <h6 class="collapse-header">Wallet View</h6>
+                <a class="collapse-item" href="{{ route('add_payment') }}">Add Wallet</a>
                 <a class="collapse-item" href="{{ route('payments') }}">Wallet List</a>
             </div>
         </div>
