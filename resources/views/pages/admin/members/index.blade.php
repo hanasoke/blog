@@ -50,7 +50,7 @@
                         <tr>
                             <td width="20" class="text-center">{{ $no + 1 }}</td>
                             <td>{{ $member->name }}</td>
-                            <td>{{ $member->price }}</td>
+                            <td>Rp {{ number_format($member->price ?? 0, 0, ',', '.') }}</td>
                             <td width="30">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $member->id }}">
