@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <!-- DataTales Example -->
+    <!-- DataTables Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h4 class="font-weight-bold text-primary m-0">Users Table View</h6>
@@ -29,6 +29,14 @@
             @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>{{ session('success') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong><i class="fas fa-exclamation-circle"></i> {{ session('error') }}</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -49,26 +57,42 @@
                     </thead>
                     <tbody>
                         @foreach($users as $index => $user) 
+                            @php 
+                                $badgeClass = '';
+                                switch($user->access) {
+                                    case 'BASIC': $badgeClass = 'badge-success'; 
+                                    break;
+                                    case 'PREMIUM': $badgeClass = 'badge-warning'; 
+                                    break; 
+                                    case 'VIP': $badgeClass = 'badge-primary'; 
+                                    break; 
+                                    default: $badgeClass = 'badge-secondary';
+                                }
+                            @endphp 
                             <tr>
                                 <td class="text-center">
                                     {{ $index + 1 }}
                                 </td>
-                                <td>{{ $user->name }}</td>
+                                <td>
+                                    {{ $user->name }} 
+                                    <br>    
+                                    (<small>{{ $user->username }}</small>)
+                                </td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    {{ \Carbon\Carbon::parse($user->birthdate)->age }} tahun
+                                    {{ $user->birthdate ? \Carbon\Carbon::parse($user->birthdate)->age . ' tahun' : 'N/A' }} 
                                 </td>
-                                <td>
-                                    {{ $user->access }}
+                                <td class="text-center">
+                                    <span class="badge {{ $badgeClass }}">{{ $user->access }}</span>
                                 </td>
                                 <td class="text-center">
                                     @if($user->photo)
-                                        <img src="{{ asset('storage/'.$user->photo) }}" width="100" class="rounded" alt="{{ $user->username }}">
+                                        <img src="{{ asset('storage/'.$user->photo) }}" width="50" height="50" class="rounded" alt="{{ $user->username }}">
                                     @else 
-                                        -
+                                        <i class="fas fa-user-circle fa-2x text-secondary"></i>
                                     @endif 
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" 
                                             class="btn btn-success btn-view" 
@@ -178,11 +202,27 @@
                                                 <div class="form-group">
                                                     <label for="access{{ $user->id }}">Access Level</label>
                                                     <select class="form-control" id="access{{ $user->id }}" name="access">
-                                                        <option value="FREE" {{ $user->access == 'FREE' ? 'selected' : '' }}>FREE</option>
-                                                        <option value="BASIC" {{ $user->access == 'BASIC' ? 'selected' : '' }}>BASIC</option>
-                                                        <option value="PREMIUM" {{ $user->access == 'PREMIUM' ? 'selected' : '' }}>PREMIUM</option>
-                                                        <option value="VIP" {{ $user->access == 'VIP' ? 'selected' : '' }}>VIP</option>
+                                                        <option value="">Select Access Level</option>
+                                                        @foreach($members as $member)
+                                                            <option value="{{ $member->name }}" {{ $user->access == $member->name ? 'selected' : '' }} >
+                                                                {{ $member->name }} - Rp {{ number_format($member->price, 0, ',', '.') }}
+                                                            </option>
+                                                        @endforeach 
                                                     </select>
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-info-circle"></i> Access levels are managed in Members table.
+                                                    </small>
+                                                </div>
+
+                                                <!-- Display current user info -->
+                                                <div class="alert alert-info mt-3">
+                                                    <i class="fas fa-user"></i>
+                                                    <strong>Current User Info:</strong>
+                                                    Name: {{ $user->name }}
+                                                    <br>
+                                                    Email: {{ $user->email }}
+                                                    <br>
+                                                    Current Access: <strong>{{ $user->access }}</strong>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

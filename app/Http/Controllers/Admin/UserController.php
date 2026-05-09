@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Member;
 use PDF; // Import PDF facade
 
 class UserController extends Controller 
@@ -12,16 +13,25 @@ class UserController extends Controller
     public function index()
     {
         $users = User::where('roles', 'USER')->get();
-        return view('pages.admin.users_data.index', compact('users'));
+        $members = Member::orderBy('price')->get(); // Get all members for access levels
+        return view('pages.admin.users_data.index', compact('users', 'members'));
     }
 
     public function updateAccess(Request $request, $id)
     {
         $user = User::findOrFail($id);
+
+        // Validate that access level exists in members table
+        $request->validate([
+            'access' => 'required|exists:members,name',
+        ], [
+            'access.exists' => 'Selected access level is invalid.',
+        ]);
+
         $user->access = $request->access;
         $user->save();
 
-        return redirect()->route('users_list')->with('success', 'User access updated successfully!');
+        return redirect()->route('users_list')->with('success', 'User access updated successfully to ' . $user->access . '!');
     }
 
     /**
@@ -49,19 +59,18 @@ class UserController extends Controller
         }
         
         $users = $query->orderBy('created_at', 'desc')->get();
+        $members = Member::orderBy('price')->get(); // Get members for statistics 
         
         // Get total statistics
         $totalUsers = $users->count();
         $verifiedUsers = $users->whereNotNull('email_verified_at')->count();
         $unverifiedUsers = $totalUsers - $verifiedUsers;
         
-        // Count users by access level
-        $accessStats = [
-            'FREE' => 0,
-            'BASIC' => 0,
-            'PREMIUM' => 0,
-            'VIP' => 0,
-        ];
+        // Count users by access level (based on members table)
+        $accessStats = [];
+        foreach($members as $member) {
+            $accessStats[$member->name] = 0;
+        }
         
         foreach($users as $user) {
             if(isset($accessStats[$user->access])) {
@@ -119,6 +128,7 @@ class UserController extends Controller
         // Prepare data for PDF
         $data = [
             'users' => $users,
+            'members' => $members,
             'totalUsers' => $totalUsers,
             'verifiedUsers' => $verifiedUsers,
             'unverifiedUsers' => $unverifiedUsers,
