@@ -113,19 +113,7 @@
                                                 <label>Report Type <span class="text-danger">*</span></label>
                                                 <select class="form-control" name="report_type" id="report_type" required>
                                                     <option value="all">All Sources</option>
-                                                    <option value="date_range">By Date Range</option>
                                                 </select>
-                                            </div>
-
-                                            <div class="form-group" id="date_range_fields" style="display: none;">
-                                                <label>Start Date <span class="text-danger">*</span></label>
-                                                <input type="date" name="start_date" class="form-control">
-                                                
-                                                <br>
-                                                
-                                                <label>End Date <span class="text-danger">*</span></label>
-                                                <input type="date" name="end_date" class="form-control">
-                                                <small class="text-muted">Filter sources based on blog creation date</small>
                                             </div>
                                             
                                             <div class="form-group">

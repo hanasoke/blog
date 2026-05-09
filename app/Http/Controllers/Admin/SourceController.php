@@ -11,7 +11,7 @@ use PDF;
 class SourceController extends Controller 
 {
     public function sources_list() {
-        $sources = Source::orderBy('id', 'DESC')->get();
+        $sources = Source::withCount('blogs')->orderBy('id', 'DESC')->get();
         return view('pages.admin.source.sources_list', compact('sources'));
     }
 
