@@ -171,9 +171,9 @@
                                                     <label for="access{{ $user->id }}">Access Level</label>
                                                     <select class="form-control" id="access{{ $user->id }}" name="access">
                                                         <option value="FREE" {{ $user->access == 'FREE' ? 'selected' : '' }}>FREE</option>
-                                                        <option value="STANDARD" {{ $user->access == 'STANDARD' ? 'selected' : '' }}>STANDARD</option>
+                                                        <option value="BASIC" {{ $user->access == 'BASIC' ? 'selected' : '' }}>BASIC</option>
                                                         <option value="PREMIUM" {{ $user->access == 'PREMIUM' ? 'selected' : '' }}>PREMIUM</option>
-                                                        <option value="PROFESSIONAL" {{ $user->access == 'PROFESSIONAL' ? 'selected' : '' }}>PROFESSIONAL</option>
+                                                        <option value="VIP" {{ $user->access == 'VIP' ? 'selected' : '' }}>VIP</option>
                                                     </select>
                                                 </div>
                                             </div>
