@@ -116,14 +116,6 @@
                         </select>
                     </div>
                     
-                    <div class="form-group" id="date_range_fields" style="display: none;">
-                        <label>Start Date</label>
-                        <input type="date" name="start_date" class="form-control">
-                        <br>
-                        <label>End Date</label>
-                        <input type="date" name="end_date" class="form-control">
-                    </div>
-                    
                     <div class="form-group">
                         <label>Page Orientation</label>
                         <select class="form-control" name="orientation">
