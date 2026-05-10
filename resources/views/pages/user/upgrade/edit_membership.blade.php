@@ -22,7 +22,7 @@
               <h5 class="card-title mb-2">
                 Upgrade to Membership
               </h5>
-              <h6 class="card-subtitle mb-2 text-body-secondary">
+              <div class="card-subtitle mb-2 text-body-secondary">
                 <form>
                   <div class="mb-3">
                     <label for="Account Number" class="form-label">
@@ -31,7 +31,7 @@
                     <input type="number" class="form-control" id="Account Number">
                   </div>
 
-                  <div class="mb-3">
+                  <div class="my-3">
                     <label for="Account Number" class="form-label">
                       Membersip Grade 
                     </label>
@@ -57,7 +57,7 @@
                     <button type="submit" class="btn btn-primary" type="button">Submit</button>
                   </div>
                 </form>
-              </h6>
+              </div>
             </div>
           </div>
         </div>

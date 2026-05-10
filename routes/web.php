@@ -200,11 +200,8 @@ Route::prefix('home')
                 Route::post('/update_profile', 'ProfileController@update_profile')
                         ->name('update_profile');
 
-                Route::get('/upgrade_article', 'UpgradeController@index')
-                        ->name('upgrade_article');
-
-                Route::get('/main_page', 'MembershipController@main_page')
-                        ->name('main_page');
+                Route::get('/update_membership', 'MembershipController@main_page')
+                        ->name('update_membership');
 
                 Route::get('/edit_membership', 'MembershipController@edit_membership')
                         ->name('edit_membership');

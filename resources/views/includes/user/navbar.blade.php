@@ -10,7 +10,7 @@
       <ul class="navbar-nav ms-auto gap-3">
         <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('article_list') }}">Article List</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('upgrade_article') }}">Upgrade</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('update_membership') }}">Upgrade</a></li>
 
         {{-- 🔒 BELUM LOGIN --}}
         @guest 
@@ -44,7 +44,7 @@
             </ul>
           </li>
           <!-- Modal -->
-            <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+          <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">

@@ -19,13 +19,13 @@
         <div class="col">
           <div class="card">
             <div class="card-header">
-              <h5 class="card-title mb-2">
+              <h5 class="card-title my-2">
                 Membership Status
               </h5>
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
-                <div class="mb-3 row">
+                <div class="my-2 row">
                   <label class="col-sm-2">Name</label>
                   <div class="col-sm-10">
                     <h6>Hanas Bayu Pratama</h6>
@@ -33,7 +33,7 @@
                 </div>
               </li>
               <li class="list-group-item">
-                <div class="mb-3 row">
+                <div class="my-2 row">
                   <label class="col-sm-2">Username</label>
                   <div class="col-sm-10">
                     <h6>hanasbp</h6>
@@ -41,7 +41,7 @@
                 </div>
               </li>
               <li class="list-group-item">
-                <div class="mb-3 row">
+                <div class="my-2 row">
                   <label class="col-sm-2">Email</label>
                   <div class="col-sm-10">
                     <h6>hanasoke@gmail.com</h6>
@@ -49,7 +49,7 @@
                 </div>
               </li>
               <li class="list-group-item">
-                <div class="mb-3 row">
+                <div class="my-2 row">
                   <label class="col-sm-2">Access</label>
                   <div class="col-sm-10">
                     <h6>FREE</h6>
