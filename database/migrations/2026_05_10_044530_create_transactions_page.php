@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransactionsTable extends Migration
+class CreateTransactionsPage extends Migration
 {
     /**
      * Run the migrations.
@@ -17,16 +17,17 @@ class CreateTransactionsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('member_id');
+            $table->unsignedBigInteger('payment_id');
             $table->string('payment_proof');
             $table->string('account_number');
             $table->timestamps();
 
-            // Add foreign key constraints 
+            // Add foreign key constraint 
             $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('restrict')
-                  ->onUpdate('cascade');
+                ->references('id')
+                ->on('users')
+                ->onDeleter('restrict')
+                ->onUpdate('cascade');
 
             $table->foreign('member_id')
                   ->references('id')
@@ -34,9 +35,16 @@ class CreateTransactionsTable extends Migration
                   ->onDelete('restrict')
                   ->onUpdate('cascade');
 
+            $table->foreign('payment_id')
+                  ->references('id')
+                  ->on('payments')
+                  ->onDelete('restrict')
+                  ->onUpdate('cascade');
+
             // Add indexes for better performance 
             $table->index('user_id');
             $table->index('member_id');
+            $table->index('payment_id');
         });
     }
 
