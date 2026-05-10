@@ -57,7 +57,7 @@
                 </div>
               </li>
               <li class="list-group-item">
-                <a href="#" class="btn btn-success float-end">Upgrade Membership</a>
+                <a href="{{ route('edit_membership') }}" class="btn btn-success float-end">Upgrade Membership</a>
               </li>
             </ul>
           </div>

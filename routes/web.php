@@ -202,4 +202,10 @@ Route::prefix('home')
 
                 Route::get('/upgrade_article', 'UpgradeController@index')
                         ->name('upgrade_article');
+
+                Route::get('/main_page', 'MembershipController@main_page')
+                        ->name('main_page');
+
+                Route::get('/edit_membership', 'MembershipController@edit_membership')
+                        ->name('edit_membership');
         });
