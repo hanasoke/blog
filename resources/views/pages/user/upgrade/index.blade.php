@@ -6,7 +6,7 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-7">
-          <h1 class="text-uppercase fw-semibold">Upgrade</span>
+          <h1 class="text-uppercase fw-semibold">Membership</span>
         </div>
       </div>
     </div>
@@ -18,47 +18,48 @@
       <div class="row">
         <div class="col">
           <div class="card">
-            <div class="card-body">
+            <div class="card-header">
               <h5 class="card-title mb-2">
-                Upgrade to Membership
+                Membership Status
               </h5>
-              <h6 class="card-subtitle mb-2 text-body-secondary">
-                <form>
-                  <div class="mb-3">
-                    <label for="Account Number" class="form-label">
-                        Account Number
-                    </label>
-                    <input type="number" class="form-control" id="Account Number">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="Account Number" class="form-label">
-                      Membersip Grade 
-                    </label>
-                    <div class="input-group mb-3">
-                      <label class="input-group-text" for="options">Options</label>
-                      <select class="form-select" id="options">
-                        <option selected>Choose...</option>
-                        <option value="1">BASIC - Rp 10.000</option>
-                        <option value="2">PREMIUM - Rp 15.000</option>
-                        <option value="3">VIP - Rp 20.000</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="payment_proof" class="form-label">
-                        Payment Proof
-                    </label>
-                    <input type="file" class="form-control" id="payment_proof">
-                  </div>
-
-                  <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary" type="button">Submit</button>
-                  </div>
-                </form>
-              </h6>
             </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="mb-3 row">
+                  <label class="col-sm-2">Name</label>
+                  <div class="col-sm-10">
+                    <h6>Hanas Bayu Pratama</h6>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="mb-3 row">
+                  <label class="col-sm-2">Username</label>
+                  <div class="col-sm-10">
+                    <h6>hanasbp</h6>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="mb-3 row">
+                  <label class="col-sm-2">Email</label>
+                  <div class="col-sm-10">
+                    <h6>hanasoke@gmail.com</h6>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="mb-3 row">
+                  <label class="col-sm-2">Access</label>
+                  <div class="col-sm-10">
+                    <h6>FREE</h6>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <a href="#" class="btn btn-success float-end">Upgrade Membership</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
