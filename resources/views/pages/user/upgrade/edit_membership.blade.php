@@ -28,7 +28,7 @@
                     <label for="Account Number" class="form-label">
                         Account Number
                     </label>
-                    <input type="number" class="form-control" id="Account Number">
+                    <input type="number" class="form-control" id="Account Number" placeholder="Input Your Account Number">
                   </div>
 
                   <div class="my-3">
@@ -42,6 +42,21 @@
                         <option value="1">BASIC - Rp 10.000</option>
                         <option value="2">PREMIUM - Rp 15.000</option>
                         <option value="3">VIP - Rp 20.000</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="my-3">
+                    <label for="wallet" class="form-label">
+                      Wallet 
+                    </label>
+                    <div class="input-group mb-3">
+                      <label class="input-group-text" for="options">Options</label>
+                      <select class="form-select" id="options">
+                        <option selected>Choose...</option>
+                        <option value="dana">DANA</option>
+                        <option value="ovo">OVO</option>
+                        <option value="jenius">Jenius</option>
                       </select>
                     </div>
                   </div>
