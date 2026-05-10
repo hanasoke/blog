@@ -75,6 +75,22 @@
               </div>
             </div>
           </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title mb-2">
+                Waiting for Admin Decision
+              </h5>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title mb-2">
+                You must fix the problem
+              </h5>
+            </div>
+          </div>
         </div>
       </div>
     </div>
