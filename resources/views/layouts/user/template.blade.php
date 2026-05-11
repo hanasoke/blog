@@ -17,6 +17,6 @@
 
     @stack('prepend-style')
     @include('includes.user.script')
-    @stack('addon-style')
+    @stack('addon-script')
   </body>
 </html>
