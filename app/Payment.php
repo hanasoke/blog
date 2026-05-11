@@ -12,9 +12,9 @@ class Payment extends Model
         'name',
     ];
 
-    // public function transactions()
-    // {
-    //     return $this->hasMany('App\Transaction', 'payment_id');
-    // }
+    public function transactions()
+    {
+        return $this->hasMany('App\Transaction', 'payment_id');
+    }
 
 }
