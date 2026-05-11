@@ -205,4 +205,7 @@ Route::prefix('home')
 
                 Route::get('/edit_membership', 'MembershipController@edit_membership')
                         ->name('edit_membership');
+
+                Route::post('/submit_upgrade', 'MembershipController@submit_upgrade')
+                        ->name('submit_upgrade');
         });
