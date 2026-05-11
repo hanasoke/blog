@@ -52,7 +52,9 @@
                 <div class="my-2 row">
                   <label class="col-sm-2">Access</label>
                   <div class="col-sm-10">
-                    <h6>FREE</h6>
+                    <span class="badge text-bg-secondary">
+                      FREE
+                    </span>
                   </div>
                 </div>
               </li>
