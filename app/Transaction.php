@@ -45,4 +45,34 @@ class Transaction extends Model
     }
 
     // Helper methods 
+    public function isPending()
+    {
+        return $this->status === self::STATUS_PENDING;
+    }
+
+    public function isApproved()
+    {
+        return $this->status === self::STATUS_APPROVED;
+    }
+
+    public function isRejected()
+    {
+        return $this->status === self::STATUS_REJECTED;
+    }
+
+    public function getStatusBadgeClass()
+    {
+        switch($this->status) {
+            case self::STATUS_PENDING:
+                return 'badge-warning';
+            case self::STATUS_APPROVED:
+                return 'badge-success';
+            case self::STATUS_REJECTED:
+                return 'badge-danger';
+            case self::STATUS_CANCELLED:
+                return 'badge-secondary';
+            default:
+                return 'badge-secondary';
+        }
+    }
 }
