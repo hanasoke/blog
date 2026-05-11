@@ -238,44 +238,6 @@
         $('#imagePreview').hide();
       }
     });
-    
-    // Form validation before submit
-    $('#upgradeForm').on('submit', function(e) {
-      const selectedMember = $('input[name="member_id"]:checked');
-      if(selectedMember.length === 0) {
-        e.preventDefault();
-        alert('Please select a membership package.');
-        return false;
-      }
-      
-      const selectedPayment = $('select[name="payment_id"]').val();
-      if(!selectedPayment) {
-        e.preventDefault();
-        alert('Please select a payment method.');
-        return false;
-      }
-      
-      const accountNumber = $('input[name="account_number"]').val();
-      if(!accountNumber.trim()) {
-        e.preventDefault();
-        alert('Please enter your account number.');
-        return false;
-      }
-      
-      const paymentProof = $('input[name="payment_proof"]')[0].files[0];
-      if(!paymentProof) {
-        e.preventDefault();
-        alert('Please upload your payment proof.');
-        return false;
-      }
-      
-      // Confirm submission
-      const memberName = selectedMember.closest('.card').find('.form-check-label').text();
-      if(!confirm(`Are you sure you want to upgrade to ${memberName} membership?\n\nThis request will be reviewed by admin.`)) {
-        e.preventDefault();
-        return false;
-      }
-    });
   });
 </script>
 @endpush
