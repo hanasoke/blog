@@ -39,11 +39,12 @@
                     <thead>
                         <tr class="text-center">
                             <th>NO</th>
-                            <th>Judul Blog</th>
-                            <th>Genre</th>
-                            <th>Tanggal Terbit</th>
-                            <th>Source</th>
-                            <th>Description</th>
+                            <th>Username</th>
+                            <th>Wallet Name</th>
+                            <th>Payment Proof</th>
+                            <th>Payment Number</th>
+                            <th>Payment Status</th>
+                            <th>Requested Member</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -54,6 +55,9 @@
                             <td>#</td>
                             <td>#</td>
                             <td>#</td>
+                            <td>
+                                #
+                            </td>
                             <td>
                                 #
                             </td>
