@@ -60,7 +60,7 @@
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                    <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit fa-sm text-white-100"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -136,6 +136,61 @@
                     <label class="col-sm-4 col-form-label">Author</label>
                     <div class="col-sm-8">
                         <p class="form-control-plaintext">#</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel"><b>Edit Transaction</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">username</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">#</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">email</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">#</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-4 col-form-label">Wallet Name</div>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">#</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Payment Proof</label>
+                    <div class="col-sm-8">
+                        <img src="#" class="img-thumbnail" alt="#" width="200" id="thumbnail">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-4 col-form-label">Account Number</div>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">#</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="message" class="col-sm-4 col-form-label">Message</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" id="message">
                     </div>
                 </div>
             </div>
