@@ -113,7 +113,7 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="viewModalLabel{{ $user->id }}">Detail {{ $user->username }}</h5>
+                                            <h5 class="modal-title" id="viewModalLabel{{ $user->id }}">Detail <b>{{ $user->username }}</b></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -190,7 +190,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="editModalLabel{{ $user->id }}">Edit User: {{ $user->name }}</h5>
+                                            <h5 class="modal-title" id="editModalLabel{{ $user->id }}">Edit User: <b>{{ $user->name }}</b></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -216,8 +216,9 @@
 
                                                 <!-- Display current user info -->
                                                 <div class="alert alert-info mt-3">
-                                                    <i class="fas fa-user"></i>
-                                                    <strong>Current User Info:</strong>
+                                                    <i class="fas fa-user"></i> 
+                                                    <strong>Current User Info</strong>
+                                                    <br>
                                                     Name: {{ $user->name }}
                                                     <br>
                                                     Email: {{ $user->email }}
