@@ -25,7 +25,7 @@ class Transaction extends Model
     // Status constant 
     const STATUS_PENDING = 'PENDING';
     const STATUS_APPROVED = 'APPROVED';
-    const STATUS_REJECT = 'REJECTED';
+    const STATUS_REJECTED = 'REJECTED';
     const STATUS_CANCELLED = 'CANCELLED';
 
     // Relationships 
