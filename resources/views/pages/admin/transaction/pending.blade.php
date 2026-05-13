@@ -194,7 +194,7 @@
                 <div class="form-group row">
                     <label class="col-sm-5 col-form-label" for="source_id">Transaction Status</label>
                     <div class="col-sm-7">
-                        <select class="form-control @error('source_id') is-invalid @enderror" id="source_id" name="source_id">
+                        <select class="form-control is-invalid" id="source_id" name="source_id">
                             <option value="#">Status</option> 
                             <option value="#">REJECT</option>
                             <option value="#">ACCEPT</option>
