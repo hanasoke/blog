@@ -160,47 +160,57 @@
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">username</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-5 col-form-label">username</label>
+                    <div class="col-sm-7">
                         <p class="form-control-plaintext">#</p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">email</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-5 col-form-label">Wallet Name</div>
+                    <div class="col-sm-7">
                         <p class="form-control-plaintext">#</p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-4 col-form-label">Wallet Name</div>
-                    <div class="col-sm-8">
-                        <p class="form-control-plaintext">#</p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Payment Proof</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-5 col-form-label">Payment Proof</label>
+                    <div class="col-sm-7">
                         <img src="#" class="img-thumbnail" alt="#" width="200" id="thumbnail">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-4 col-form-label">Account Number</div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-5 col-form-label">Account Number</div>
+                    <div class="col-sm-7">
                         <p class="form-control-plaintext">#</p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Requested Member</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-5 col-form-label">Requested Member</label>
+                    <div class="col-sm-7">
                         <p class="form-control-plaintext">
                             #
                         </p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="message" class="col-sm-4 col-form-label">Message</label>
-                    <div class="col-sm-8">
-                        <input type="password" class="form-control" id="message">
+                    <label class="col-sm-5 col-form-label" for="source_id">Transaction Status</label>
+                    <div class="col-sm-7">
+                        <select class="form-control @error('source_id') is-invalid @enderror" id="source_id" name="source_id">
+                            <option value="#">Status</option> 
+                            <option value="#">REJECT</option>
+                            <option value="#">ACCEPT</option>
+                        </select>
+                    </div>
+                    <div class="invalid-feedback">
+                        #
+                    </div> 
+                </div>
+                <div class="form-group row">
+                    <label for="message" class="col-sm-5 col-form-label">Message</label>
+                    <div class="col-sm-7">
+                        <textarea class="form-control"></textarea>
+                    </div>
+                    <div class="invalid-feedback">
+                        #
                     </div>
                 </div>
             </div>
