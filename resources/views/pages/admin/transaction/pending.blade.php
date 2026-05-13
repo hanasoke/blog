@@ -19,47 +19,60 @@
         </div>
         <div class="card-body">
             <!-- Alert Success -->
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success!</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle"></i> <strong>{{ session('success') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif 
 
             <!-- Alert Error -->
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error!</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-circle"></i> <strong>{{ session('error') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif 
 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th>NO</th>
-                            <th>Username</th>
+                            <th width="50">No</th>
+                            <th>Name</th>
                             <th>Wallet Name</th>
-                            <th>Payment Proof</th>
-                            <th>Payment Number</th>
-                            <th>Payment Status</th>
+                            <th>Account NUmber</th>
                             <th>Requested Member</th>
-                            <th>Action</th>
+                            <th>Price</th>
+                            <th>Transaction Date</th>
+                            <th width="150">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">#</td>
-                            <td>#</td>
-                            <td>#</td>
-                            <td>#</td>
-                            <td>#</td>
-                            <td>
-                                #
+                        @forelse($transactions as $index => $transaction)
+                        <tr class="text-center">
+                            <td>{{ $index + 1 }}</td>
+                            <td class="text-left">
+                                <strong>{{ $transaction->user->name ?? 'N/A' }}</strong>
+                                <br>
+                                <small class="text-muted">@ {{ $transaction->user->username ?? 'N/A' }}</small>
                             </td>
                             <td>
-                                #
+                                {{ $transaction->payment->name ?? 'N/A' }}
+                            </td>
+                            <td>{{ $transaction->account_number ?? 'N/A' }}</td>
+                            <td>
+                                <span class="badge badge-info">{{ $transaction->member->name ?? 'N/A' }}</span>
+                            </td>
+                            <td>
+                                Rp {{ number_format($transaction->member->price ?? 0,0, ',', '.' ) }}
+                            </td>
+                            <td>
+                                {{ $transaction->created_at ? $transaction->created_at->format('d M Y H:i') : 'N/A' }}
                             </td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
@@ -68,6 +81,16 @@
                                 </div>
                             </td>
                         </tr>
+                        @empty 
+                        <tr>
+                            <td colspan="8" class="text-center">
+                                <div class="py-5">
+                                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                                    <p class="text-muted">No pending transactions found.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforelse 
                     </tbody>
                 </table>
             </div>
