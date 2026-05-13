@@ -54,42 +54,52 @@
                     </thead>
                     <tbody>
                         @forelse($transactions as $index => $transaction)
-                        <tr class="text-center">
-                            <td>{{ $index + 1 }}</td>
-                            <td class="text-left">
-                                <strong>{{ $transaction->user->name ?? 'N/A' }}</strong>
-                                <br>
-                                <small class="text-muted">@ {{ $transaction->user->username ?? 'N/A' }}</small>
-                            </td>
-                            <td>
-                                {{ $transaction->payment->name ?? 'N/A' }}
-                            </td>
-                            <td>{{ $transaction->account_number ?? 'N/A' }}</td>
-                            <td>
-                                <span class="badge badge-info">{{ $transaction->member->name ?? 'N/A' }}</span>
-                            </td>
-                            <td>
-                                Rp {{ number_format($transaction->member->price ?? 0,0, ',', '.' ) }}
-                            </td>
-                            <td>
-                                {{ $transaction->created_at ? $transaction->created_at->format('d M Y H:i') : 'N/A' }}
-                            </td>
-                            <td class="text-center">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit fa-sm text-white-100"></i></button>
-                                </div>
-                            </td>
-                        </tr>
+                            <tr class="text-center">
+                                <td>{{ $index + 1 }}</td>
+                                <td class="text-left">
+                                    <strong>{{ $transaction->user->name ?? 'N/A' }}</strong>
+                                    <br>
+                                    <small class="text-muted">@ {{ $transaction->user->username ?? 'N/A' }}</small>
+                                </td>
+                                <td>
+                                    {{ $transaction->payment->name ?? 'N/A' }}
+                                </td>
+                                <td>{{ $transaction->account_number ?? 'N/A' }}</td>
+                                <td>
+                                    <span class="badge badge-info">{{ $transaction->member->name ?? 'N/A' }}</span>
+                                </td>
+                                <td>
+                                    Rp {{ number_format($transaction->member->price ?? 0,0, ',', '.' ) }}
+                                </td>
+                                <td>
+                                    {{ $transaction->created_at ? $transaction->created_at->format('d M Y H:i') : 'N/A' }}
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-info btn-sm"  data-toggle="modal" data-target="#viewModal">
+                                            <i class="fas fa-eye fa-sm text-white-100"></i>
+                                        </button>
+                                        <!-- Approve Button -->
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approveModal">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <!-- Reject Button -->
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#rejectModal">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
                         @empty 
-                        <tr>
-                            <td colspan="8" class="text-center">
-                                <div class="py-5">
-                                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                                    <p class="text-muted">No pending transactions found.</p>
-                                </div>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td colspan="8" class="text-center">
+                                    <div class="py-5">
+                                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                                        <p class="text-muted">No pending transactions found.</p>
+                                    </div>
+                                </td>
+                            </tr>
                         @endforelse 
                     </tbody>
                 </table>
@@ -171,74 +181,40 @@
     </div>
 </div>
 
-<!-- Edit Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+<!-- Delete Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel"><b>Edit Transaction</b></h5>
+                <h5 class="modal-title" id="rejectModalLabel">
+                    <b class="text-danger">Canceled Transaction</b>
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group row">
-                    <label class="col-sm-5 col-form-label">username</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-plaintext">#</p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-5 col-form-label">Wallet Name</div>
-                    <div class="col-sm-7">
-                        <p class="form-control-plaintext">#</p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-5 col-form-label">Payment Proof</label>
-                    <div class="col-sm-7">
-                        <img src="#" class="img-thumbnail" alt="#" width="200" id="thumbnail">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-5 col-form-label">Account Number</div>
-                    <div class="col-sm-7">
-                        <p class="form-control-plaintext">#</p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-5 col-form-label">Requested Member</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-plaintext">
-                            #
-                        </p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-5 col-form-label" for="source_id">Transaction Status</label>
-                    <div class="col-sm-7">
-                        <select class="form-control is-invalid" id="source_id" name="source_id">
-                            <option value="#">Status</option> 
-                            <option value="#">REJECT</option>
-                            <option value="#">ACCEPT</option>
-                        </select>
-                    </div>
-                    <div class="invalid-feedback">
-                        #
-                    </div> 
-                </div>
-                <div class="form-group row">
-                    <label for="message" class="col-sm-5 col-form-label">Message</label>
-                    <div class="col-sm-7">
-                        <textarea class="form-control"></textarea>
-                    </div>
+                <p>
+                    <b>Tell to the user why this transaction is canceled</b>
+                </p>
+                <div class="mb-3">
+                    <label for="message" class="col-form-label">
+                        <b>User</b>
+                    </label>
+                    <p>N / A</p>
+                </div> 
+                <div class="mb-3">
+                    <label for="message" class="col-form-label">
+                        <b>Message</b>
+                    </label>
+                    <textarea id="message" class="form-control"></textarea>
                     <div class="invalid-feedback">
                         #
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
