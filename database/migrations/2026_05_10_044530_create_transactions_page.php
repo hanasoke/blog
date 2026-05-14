@@ -26,7 +26,7 @@ class CreateTransactionsPage extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->onDeleter('restrict')
+                ->onDelete('restrict')
                 ->onUpdate('cascade');
 
             $table->foreign('member_id')

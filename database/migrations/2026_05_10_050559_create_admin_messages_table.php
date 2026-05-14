@@ -24,14 +24,14 @@ class CreateAdminMessagesTable extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->onDeleter('restrict')
+                ->onDelete('restrict')
                 ->onUpdate('cascade');
 
             // Add foreign key constraint 
             $table->foreign('transaction_id')
                 ->references('id')
                 ->on('transactions')
-                ->onDeleter('restrict')
+                ->onDelete('restrict')
                 ->onUpdate('cascade');
         });
     }
