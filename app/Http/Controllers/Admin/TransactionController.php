@@ -9,7 +9,9 @@ use App\Transaction;
 use App\User;
 use App\Member;
 use App\Payment;
+use App\AdminMessage;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller 
 {
@@ -64,7 +66,7 @@ class TransactionController extends Controller
             return redirect()->route('pending_transaction')
                 ->with('success', "Transaction #{$transaction->id} has been approved. User {$user->name} is now {$transaction->member->name} member.");
 
-        } catch (\Throwable $th) {
+        } catch (\Throwable $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to approve transaction: ' . $e->getMessage());
         }

@@ -82,12 +82,12 @@
                                         </button>
 
                                         <!-- Approve Button -->
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approveModal">
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approveModal{{ $transaction->id }}">
                                             <i class="fas fa-check"></i>
                                         </button>
 
                                         <!-- Reject Button -->
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#rejectModal">
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#rejectModal{{ $transaction->id }}">
                                             <i class="fas fa-times"></i>
                                         </button>
                                         
@@ -194,11 +194,11 @@
 </div>
 
 <!-- Delete Modal -->
-<div class="modal fade" id="rejectModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="rejectModal{{ $transaction->id }}" tabindex="-1" aria-labelledby="rejectModalLabel{{ $transaction->id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="rejectModalLabel">
+                <h5 class="modal-title" id="rejectModalLabel{{ $transaction->id }}">
                     <b class="text-danger">Canceled Transaction</b>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -233,34 +233,49 @@
 </div>
 
 <!-- Approve Modal -->
-<div class="modal fade" id="approveModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="approveModal{{ $transaction->id }}" tabindex="-1" aria-labelledby="approveModalLabel{{ $transaction->id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="rejectModalLabel">
+                <h5 class="modal-title" id="approveModalLabel{{ $transaction->id }}">
                     <b class="text-success">Approve Transaction</b>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="message" class="col-form-label">
-                        <b>User</b>
-                    </label>
-                    <p>{{ $transaction->user->name }}</p>
-                </div> 
-                <div class="mb-3">
-                    <label for="message" class="col-form-label">
-                        <b>Message</b>
-                    </label>
-                    <textarea id="message" class="form-control" disabled>You are member now</textarea>
+            <form action="{{ route('approve_transaction', $transaction->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Transaction Details:</strong><br>
+                        User: <strong>{{ $transaction->user->name }}</strong><br>
+                        Requested Member: <strong>{{ $transaction->member->name }}</strong><br>
+                        Current Access: <strong>{{ $transaction->user->access }}</strong>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="approve_message_{{ $transaction->id }}">Success Message (Optional)</label>
+                        <textarea class="form-control" id="approve_message_{{ $transaction->id }}" name="message" rows="4" placeholder="Write a custom success message or leave empty for default template...">Congratulations! Your membership upgrade request to {{ $transaction->member->name }} has been approved. Your account has been upgraded from {{ $transaction->user->access }} to {{ $transaction->member->name }}. Thank you for trusting us!</textarea>
+                        <small class="text-muted">Leave empty to use default success message.</small>
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Warning:</strong> Approving this transaction will automatically upgrade the user's membership level.
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Approve</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check"></i> Yes, Approve
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
