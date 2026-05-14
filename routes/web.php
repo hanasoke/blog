@@ -159,6 +159,13 @@ Route::prefix('admin')
                 Route::get('/success_transaction', 'TransactionController@success_transaction')
                         ->name('success_transaction');
 
+                // Approve and Reject routes with messages 
+                Route::put('/approve_transaction/{id}', 'TransactionController@approve_transaction')
+                        ->name('approve_transaction');
+
+                Route::put('/reject_transaction/{id}', 'TransactionController@reject_transaction')
+                        ->name('reject_transaction');
+
                 Route::get('/members', 'MemberController@index')
                         ->name('members');
                 
