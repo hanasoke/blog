@@ -193,41 +193,51 @@
     </div>
 </div>
 
-<!-- Cancel Modal -->
+<!-- Reject Modal -->
 <div class="modal fade" id="rejectModal{{ $transaction->id }}" tabindex="-1" aria-labelledby="rejectModalLabel{{ $transaction->id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-danger text-white"">
                 <h5 class="modal-title" id="rejectModalLabel{{ $transaction->id }}">
-                    <b class="text-danger">Canceled Transaction</b>
+                    Reject Transaction
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
                 </button>
             </div>
-            <div class="modal-body">
-                <p>
-                    <b>Tell to the user why this transaction is canceled</b>
-                </p>
-                <div class="mb-3">
-                    <label for="message" class="col-form-label">
-                        <b>User</b>
-                    </label>
-                    <p>{{ $transaction->user->name }}</p>
-                </div> 
-                <div class="mb-3">
-                    <label for="message" class="col-form-label">
-                        <b>Message</b>
-                    </label>
-                    <textarea id="message" class="form-control"></textarea>
-                    <div class="invalid-feedback">
-                        #
+            <form action="{{ route('reject_transaction', $transaction->id) }}" method="POST">
+                @csrf 
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Transaction Details</strong><br>
+                        User: <strong>{{ $transaction->user->name }}</strong><br>
+                        Requested Member: <strong>{{ $transaction->member->name }}</strong>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reject_message_{{ $transaction->id }}">Rejection Message <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="reject_message_{{ $transaction->id }}" name="message" rows="4" required placeholder="Please provide a reason why this transaction is rejected...">Dear {{ $transaction->user->name }}, We regret to inform you that your membership upgrade request to {{ $transaction->member->name }} has been rejected because 
+                        </textarea>
+                        <small class="text-danger">You must provide a reason for rejection.</small>
+                    </div>
+                    
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Warning:</strong> This action cannot be undone.
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-times"></i> Yes, Reject
+                    </button>
+                </div>
+            
+            </form>
         </div>
     </div>
 </div>
