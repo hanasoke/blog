@@ -213,7 +213,7 @@
                     <label for="message" class="col-form-label">
                         <b>User</b>
                     </label>
-                    <p>N / A</p>
+                    <p>{{ $transaction->user->name }}</p>
                 </div> 
                 <div class="mb-3">
                     <label for="message" class="col-form-label">
@@ -245,14 +245,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>
-                    <b>Tell to the user why this transaction is canceled</b>
-                </p>
                 <div class="mb-3">
                     <label for="message" class="col-form-label">
                         <b>User</b>
                     </label>
-                    <p>N / A</p>
+                    <p>{{ $transaction->user->name }}</p>
                 </div> 
                 <div class="mb-3">
                     <label for="message" class="col-form-label">
