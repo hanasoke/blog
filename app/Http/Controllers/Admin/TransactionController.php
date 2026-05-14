@@ -82,6 +82,46 @@ class TransactionController extends Controller
         return view('pages.admin.transaction.cancel', compact('transactions'));
     }
 
+    public function reject_transaction(Request $request, $id)
+    {
+        $request->validate([
+            'message' => 'required|string|min:5|max:500'
+        ], [
+            'message.min' => 'Rejection message must be at least 5 characters.'
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $transaction = Transaction::with(['user', 'member'])->findOrFail($id);
+
+            // Check if transaction is pending 
+            if($transaction->status !== Transaction::STATUS_PENDING) {
+                return redirect()->back()->with('error', 'Only pending transactions can be rejected.');
+            }
+
+            // Update transaction status
+            $transaction->status = Transaction::STATUS_REJECTED;
+            $transaction->save();
+
+            // Save rejection message 
+            AdminMessage::create([
+                'user_id' => $transaction->user_id,
+                'transaction_id' => $transaction->id,
+                'message' => $request->message 
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('pending_transaction')
+                ->with('success', "Transaction #{$transaction->id} has been rejected. User has been notified.");
+
+        } catch(\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to reject transaction: ' . $e->getMessage());
+        }
+    }
+
     public function success_transaction() {
         $transactions = Transaction::with(['user', 'member', 'payment'])
             ->where('status', Transaction::STATUS_APPROVED)
