@@ -19,51 +19,84 @@
         </div>
         <div class="card-body">
             <!-- Alert Success -->
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success!</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle"></i> <strong>{{ session('success') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif 
 
             <!-- Alert Error -->
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error!</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-circle"></i> <strong>{{ session('error') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif 
 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th>NO</th>
-                            <th>Judul Blog</th>
-                            <th>Genre</th>
-                            <th>Tanggal Terbit</th>
-                            <th>Source</th>
-                            <th>Description</th>
+                            <th width="50">No</th>
+                            <th>Name</th>
+                            <th>Wallet Name</th>
+                            <th>Account Number</th>
+                            <th>Requested Member</th>
+                            <th>Price</th>
+                            <th>Transaction Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">#</td>
-                            <td>#</td>
-                            <td>#</td>
-                            <td>#</td>
-                            <td>#</td>
-                            <td>
-                                #
-                            </td>
-                            <td class="text-center">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                    <a href="#" class="btn btn-success"><i class="fas fa-edit fa-sm text-white-100"></i></a>
-                                </div>
-                            </td>
-                        </tr>
+                        @forelse($transactions as $index => $transaction)
+                            <tr class="text-center">
+                                <td>
+                                    {{ $index + 1 }}
+                                </td>
+                                <td class="text-left">
+                                    <strong>{{ $transaction->user->name ?? 'N/A' }}</strong>
+                                    <br>
+                                    <small class="text-muted">@ {{ $transaction->user->username ?? 'N/A' }}</small>
+                                </td>
+                                <td>
+                                    {{ $transaction->payment->name ?? 'N/A' }}
+                                </td>
+                                <td>
+                                    {{ $transaction->account_number ?? 'N/A' }}
+                                </td>
+                                <td>
+                                    <span class="badge badge-info">
+                                        {{ $transaction->member->name ?? 'N/A' }}
+                                    </span>
+                                </td>
+                                <td>
+                                    Rp {{ number_format($transaction->member->price ?? 0,0, ',', '.' ) }}
+                                </td>
+                                <td>
+                                    {{ $transaction->created_at ? $transaction->created_at->format('d M Y H:i') : 'N/A' }}
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal{{ $transaction->id }}"><i class="fas fa-eye fa-sm text-white-100"></i></button>
+                                        <a href="#" class="btn btn-danger"><i class="fas fa-trash fa-sm text-white-100"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty 
+                            <tr>
+                                <td colspan="8" class="text-center">
+                                    <div class="py-5">
+                                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                                        <p class="text-muted">No success transactions found.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse 
                     </tbody>
                 </table>
             </div>
@@ -71,71 +104,78 @@
     </div>
 </div>
 
+@foreach($transactions as $transaction)
 <!-- Detail Modal -->
-<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewModal{{ $transaction->id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ $transaction->id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="viewModalLabel"><b>#</b></h5>
+                <h5 class="modal-title" id="viewModalLabel{{ $transaction->id }}">View Detail of : <b>{{ $transaction->user->username }}</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Blog Title</label>
+                    <label class="col-sm-4 col-form-label">Name</label>
                     <div class="col-sm-8">
-                        <p class="form-control-plaintext" id="title">#</p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Published</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-plaintext">#</p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="source" class="col-sm-4 col-form-label">Source</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-plaintext">#</p>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Tanggal Edit</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-plaintext">
-                            #
+                        <p class="form-control-plaintext" id="title">
+                            {{ $transaction->user->name }}
                         </p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
+                    <label class="col-sm-4 col-form-label">Email</label>
                     <div class="col-sm-8">
-                        <img src="#" class="img-thumbnail" alt="#" width="200" id="thumbnail" >
+                        <p class="form-control-plaintext">
+                            {{ $transaction->user->email }}
+                        </p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="image_2" class="col-sm-4 col-form-label">Image 2</label>
+                    <label for="source" class="col-sm-4 col-form-label">Wallet Name</label>
                     <div class="col-sm-8">
-                        <img src="#" class="img-thumbnail" alt="#" width="200" id="image_2">
+                        <p class="form-control-plaintext">
+                            {{ $transaction->payment->name }}
+                        </p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="image_3" class="col-sm-4 col-form-label">Image 3</label>
+                    <label class="col-sm-4 col-form-label">Transaction Date</label>
                     <div class="col-sm-8">
-                        <img src="#" class="img-thumbnail" alt="#" width="200" id="image_3">
+                        <p class="form-control-plaintext">
+                            {{ $transaction->created_at }}
+                        </p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-4 col-form-label font-weight-bold">Description</div>
+                    <label for="thumbnail" class="col-sm-4 col-form-label">Payment Proof</label>
                     <div class="col-sm-8">
-                        <p class="form-control-plaintext">#</p>
+                        <img src="{{ asset('storage/'.$transaction->payment_proof) }}" class="img-thumbnail" alt="{{ $transaction->user->username }}" width="200" id="thumbnail" >
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Author</label>
+                    <label class="col-sm-4 col-form-label">Account Number</label>
                     <div class="col-sm-8">
-                        <p class="form-control-plaintext">#</p>
+                        <p class="form-control-plaintext">
+                            {{ $transaction->account_number }}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Requested Member</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">
+                            {{ $transaction->member->name }}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-4 col-form-label font-weight-bold">Status</div>
+                    <div class="col-sm-8">
+                        <p class="form-control-plaintext">
+                            {{ $transaction->status }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -145,6 +185,7 @@
         </div>
     </div>
 </div>
+@endforeach
 
 <!-- /.container-fluid -->
 @endsection 

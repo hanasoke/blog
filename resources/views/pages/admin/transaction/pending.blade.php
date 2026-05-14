@@ -193,7 +193,7 @@
     </div>
 </div>
 
-<!-- Delete Modal -->
+<!-- Cancel Modal -->
 <div class="modal fade" id="rejectModal{{ $transaction->id }}" tabindex="-1" aria-labelledby="rejectModalLabel{{ $transaction->id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
