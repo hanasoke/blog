@@ -204,7 +204,11 @@
                 Are you sure want to delete <b>{{ $transaction->user->username }}</b> transaction ?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                <form action="{{ route('delete_transaction', $transaction->id) }}" method="POST" style="display: inline;">
+                    @csrf 
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
             </div>
         </div>
     </div>

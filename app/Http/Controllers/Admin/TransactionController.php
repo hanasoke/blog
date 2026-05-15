@@ -130,4 +130,16 @@ class TransactionController extends Controller
 
         return view('pages.admin.transaction.success', compact('transactions'));
     }
+
+    public function delete_transaction($id)
+    {
+        $transaction = Transaction::findOrFail($id);
+        $transactionUser = $transaction->user->username;
+
+        // Delete transaction from database 
+        $transaction->delete();
+
+        return redirect()->route('success_transaction')
+                        ->with('success', 'Transaction from "' . $transactionUser . '" has been successfully deleted!"');
+    }
 }
