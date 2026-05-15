@@ -97,12 +97,8 @@
                                         <button type="button" 
                                             class="btn btn-success btn-view" 
                                             data-toggle="modal" 
-                                            data-target="#viewModal{{ $user->id }}"
-                                        >
+                                            data-target="#viewModal{{ $user->id }}">
                                             <i class="fas fa-eye fa-sm"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal{{ $user->id }}">
-                                            <i class="fas fa-edit fa-sm"></i>
                                         </button>
                                     </div>
                                 </td>
@@ -181,56 +177,6 @@
                                         <div class="modal-footer">
                                             <button class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Edit Modal -->
-                            <div class="modal fade" id="editModal{{ $user->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $user->id }}" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="editModalLabel{{ $user->id }}">Edit User: <b>{{ $user->name }}</b></h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="{{ route('update_user_access', $user->id) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label for="access{{ $user->id }}">Access Level</label>
-                                                    <select class="form-control" id="access{{ $user->id }}" name="access">
-                                                        <option value="">Select Access Level</option>
-                                                        @foreach($members as $member)
-                                                            <option value="{{ $member->name }}" {{ $user->access == $member->name ? 'selected' : '' }} >
-                                                                {{ $member->name }} - Rp {{ number_format($member->price, 0, ',', '.') }}
-                                                            </option>
-                                                        @endforeach 
-                                                    </select>
-                                                    <small class="text-muted">
-                                                        <i class="fas fa-info-circle"></i> Access levels are managed in Members table.
-                                                    </small>
-                                                </div>
-
-                                                <!-- Display current user info -->
-                                                <div class="alert alert-info mt-3">
-                                                    <i class="fas fa-user"></i> 
-                                                    <strong>Current User Info</strong>
-                                                    <br>
-                                                    Name: {{ $user->name }}
-                                                    <br>
-                                                    Email: {{ $user->email }}
-                                                    <br>
-                                                    Current Access: <strong>{{ $user->access }}</strong>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-success">Update</button>
-                                            </div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>

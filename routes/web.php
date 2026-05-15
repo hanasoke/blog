@@ -92,9 +92,6 @@ Route::prefix('admin')
                 Route::get('/users_list', 'UserController@index')
                         ->name('users_list');
 
-                Route::put('/users_list/{id}/update-access', 'UserController@updateAccess')
-                        ->name('update_user_access');
-
                 // Add these routes for report generation
                 Route::get('/generate_users_report', 'UserController@generate_report')->name('generate_users_report');
                 

@@ -17,23 +17,6 @@ class UserController extends Controller
         return view('pages.admin.users_data.index', compact('users', 'members'));
     }
 
-    public function updateAccess(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-
-        // Validate that access level exists in members table
-        $request->validate([
-            'access' => 'required|exists:members,name',
-        ], [
-            'access.exists' => 'Selected access level is invalid.',
-        ]);
-
-        $user->access = $request->access;
-        $user->save();
-
-        return redirect()->route('users_list')->with('success', 'User access updated successfully to ' . $user->access . '!');
-    }
-
     /**
      * Generate PDF report for users list
      */
