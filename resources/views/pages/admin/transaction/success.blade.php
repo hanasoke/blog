@@ -93,7 +93,7 @@
                             </tr>
                         @empty 
                             <tr>
-                                <td colspan="8" class="text-center">
+                                <td colspan="9" class="text-center">
                                     <div class="py-5">
                                         <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
                                         <p class="text-muted">No success transactions found.</p>
@@ -195,19 +195,36 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-danger" id="deleteModalLabel{{ $transaction->id }}">Delete <b>{{ $transaction->user->username }}</b> Transaction</h5>
+                <h5 class="modal-title text-danger" id="deleteModalLabel{{ $transaction->id }}"><i class="fas fa-exclamation-triangle"></i> Delete Transaction</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Are you sure want to delete <b>{{ $transaction->user->username }}</b> transaction ?
+                <p>Are you sure you want to delete this transaction?</p>
+                <div class="alert alert-warning">
+                    <strong>Transaction Details</strong>
+                    <br>
+                    User: <strong>{{ $transaction->user->name }}</strong>
+                    <br>
+                    Package: <strong>{{ $transaction->member->name }}</strong>
+                    <br>
+                    Amount: <strong>Rp {{ number_format($transaction->member->price ?? 0, 0, ',', '.') }}</strong>
+                    <br>
+                    Date: <strong>Rp {{ $transaction->created_at->format('d M  Y H:i') }}</strong>
+                </div>
+                <p class="text-danger">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>Warning:</strong> This action cannot be undone. The payment proof file will also be deleted.
+                </p>
             </div>
             <div class="modal-footer">
                 <form action="{{ route('delete_transaction', $transaction->id) }}" method="POST" style="display: inline;">
                     @csrf 
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Yes, Delete
+                    </button>
                 </form>
             </div>
         </div>

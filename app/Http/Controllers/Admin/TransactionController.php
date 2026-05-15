@@ -133,13 +133,29 @@ class TransactionController extends Controller
 
     public function delete_transaction($id)
     {
-        $transaction = Transaction::findOrFail($id);
-        $transactionUser = $transaction->user->username;
+        DB::beginTransaction();
 
-        // Delete transaction from database 
-        $transaction->delete();
+        try {
+            $transaction = Transaction::with(['user', 'member', 'payment'])->findOrFail($id);
+            $transactionUser = $transaction->user->username;
+            $transactionId = $transaction->id;
 
-        return redirect()->route('success_transaction')
-                        ->with('success', 'Transaction from "' . $transactionUser . '" has been successfully deleted!"');
+            // Delete payment proof file from storage
+            AdminMessage::where('transaction_id', $transaction->id)->delete();
+
+            // Delete the transaction 
+            $transaction->delete();
+
+            DB::commit();
+            
+            return redirect()->route('success_transaction')
+                ->with('success', 'Transaction #' . $transactionId . ' from "' . $transactionUser . '" has been successfully deleted!');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('success_transaction')
+                ->with('success', 'Failed to delete transaction: ' . $e->getMessage());
+        }
+
     }
 }
