@@ -79,6 +79,13 @@ class TransactionController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
+        // Get admin messages for each transaction
+        foreach($transactions as $transaction) {
+            $transaction->admin_message = AdminMessage::where('transaction_id', $transaction->id)
+                ->orderBy('created_at', 'desc')
+                ->first();
+        }
+
         return view('pages.admin.transaction.cancel', compact('transactions'));
     }
 
@@ -87,6 +94,7 @@ class TransactionController extends Controller
         $request->validate([
             'message' => 'required|string|min:5|max:500'
         ], [
+            'message.required' => 'Please provide a reason for rejecting this transaction.',
             'message.min' => 'Rejection message must be at least 5 characters.'
         ]);
 

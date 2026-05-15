@@ -15,7 +15,7 @@
     <!-- DataTables Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h4 class="font-weight-bold text-primary m-0 float-left">Reject Transaction</h4>
+            <h4 class="font-weight-bold text-primary m-0 float-left">Reject Transaction List</h4>
         </div>
         <div class="card-body">
             <!-- Alert Success -->
@@ -177,6 +177,29 @@
                         </p>
                     </div>
                 </div>
+                
+                <!-- Admin Message Section -->
+                @if($transaction->admin_message)
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header bg-warning text-dark">
+                                <strong><i class="fas fa-envelope"></i> Admin Message (Rejection Reason)</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-warning">
+                                    <strong>Message sent to user:</strong>
+                                    <br>
+                                    <hr>
+                                    <p style="white-space: pre-line;">{{ $transaction->admin_message->message }}</p>
+                                    <hr>
+                                    <small class="text-muted">
+                                        Sent at: {{ $transaction->admin_message->created_at->format('d F Y H:i:s') }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
