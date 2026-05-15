@@ -109,7 +109,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="viewModalLabel{{ $transaction->id }}">View Detail of : <b>{{ $transaction->user->username }}</b></h5>
+                <h5 class="modal-title text-danger" id="viewModalLabel{{ $transaction->id }}">View Detail of : <b>{{ $transaction->user->username }}</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -172,7 +172,7 @@
                 <div class="form-group row">
                     <div class="col-sm-4 col-form-label font-weight-bold">Status</div>
                     <div class="col-sm-8">
-                        <p class="form-control-plaintext">
+                        <p class="form-control-plaintext text-danger">
                             {{ $transaction->status }}
                         </p>
                     </div>
