@@ -82,8 +82,12 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal{{ $transaction->id }}"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                        <a href="#" class="btn btn-danger"><i class="fas fa-trash fa-sm text-white-100"></i></a>
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewModal{{ $transaction->id }}">
+                                            <i class="fas fa-eye fa-sm text-white-100"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $transaction->id }}">
+                                            <i class="fas fa-trash fa-sm text-white-100"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -181,6 +185,26 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal{{ $transaction->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $transaction->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="deleteModalLabel{{ $transaction->id }}">Delete <b>{{ $transaction->user->username }}</b> Transaction</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure want to delete <b>{{ $transaction->user->username }}</b> transaction ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
