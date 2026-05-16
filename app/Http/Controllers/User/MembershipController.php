@@ -11,6 +11,7 @@ use App\Payment;
 use App\Transaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class MembershipController extends Controller 
 {
@@ -25,7 +26,14 @@ class MembershipController extends Controller
             ->latest()
             ->first();
 
-        return view('pages.user.upgrade.index', compact('user', 'members', 'payments', 'pendingTransaction'));
+        // Check if user has rejected transaction that needs revision
+        $rejectedTransaction = Transaction::where('user_id', $user->id)
+            ->where('status', Transaction::STATUS_REJECTED)
+            ->where('can_edit', true)
+            ->latest()
+            ->first();
+
+        return view('pages.user.upgrade.index', compact('user', 'members', 'payments', 'pendingTransaction', 'rejectedTransaction'));
     }
 
     public function edit_membership() {
@@ -38,9 +46,51 @@ class MembershipController extends Controller
             ->where('status', Transaction::STATUS_PENDING)
             ->latest()
             ->first();
+        
+        // Check if user has rejected transaction that needs revision
+        $rejectedTransaction = Transaction::where('user_id', $user->id)
+            ->where('status', Transaction::STATUS_REJECTED)
+            ->where('can_edit', true)
+            ->latest()
+            ->first();
 
-        return view('pages.user.upgrade.edit_membership', compact('user', 'members', 'payments', 'pendingTransaction'));
+        // Get admin message for rejected transaction 
+        $rejectMessage = null;
+        if($rejectedTransaction) {
+            $rejectMessage = AdminMessage::where('transaction_id', $rejectedTransaction->id)
+                ->orderBy('created_at', 'desc')
+                ->first();
+        }
+
+        return view('pages.user.upgrade.edit_membership', compact('user', 'members', 'payments', 'pendingTransaction', 'rejectedTransaction', 'rejectMessage'));
     }
+
+    /**
+     * Show edit form for rejected transaction
+    */
+    public function edit_rejected_transaction($id) 
+    {
+        $user = Auth::user();
+        $transaction = Transaction::with(['member', 'payment'])->findOrFail($id);
+
+        // Check if transaction belongs to user and is rejected and can be edited
+        if($transaction->user_id != $user->id || $transaction->status != Transaction::STATUS_REJECTED || !$transaction->can_edit) {
+            return redirect()->route('update_membership')
+                ->with('error', 'You cannot edit this transaction.');
+        }
+
+        $members = Member::orderBy('price')->get();
+        $payments = Payment::orderBy('name')->get();
+
+        // Get reject message
+        $rejectMessage = AdminMessage::where('transaction_id', $transaction->id)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        return view('pages.user.upgrade.edit_rejected_transaction', compact('transaction', 'members', 'payments', 'rejectMessage'));
+    }
+
+    
 
     /**
      * Submit upgrade membership request
