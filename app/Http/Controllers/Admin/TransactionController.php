@@ -110,6 +110,7 @@ class TransactionController extends Controller
 
             // Update transaction status
             $transaction->status = Transaction::STATUS_REJECTED;
+            $transaction->can_edit = true; // Allow user to edit this transaction
             $transaction->save();
 
             // Save rejection message 
