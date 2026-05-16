@@ -90,7 +90,73 @@ class MembershipController extends Controller
         return view('pages.user.upgrade.edit_rejected_transaction', compact('transaction', 'members', 'payments', 'rejectMessage'));
     }
 
-    
+    public function update_rejected_transaction(Request $request, $id) 
+    {
+        $user = Auth::user();
+        $transaction = Transaction::findOrFail($id);
+
+        // Check if transaction belongs to user and is rejected and can be edited
+        if($transaction->user_id != $user->id || $transaction->status != Transaction::STATUS_REJECTED || !$transaction->can_edit) {
+            return redirect()->route('update_membership')
+                ->with('error', 'You cannot edit this transaction.');
+        }
+
+        // Validation rules 
+        $rules = [
+            'member_id' => 'required|exists:members,id',
+            'payment_id' => 'required|exists:payments,id',
+            'account_number' => 'required|string|min:5|max:50',
+            'payment_proof' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ];
+
+        $messages = [
+            'member_id.required' => 'Please select a membership package.',
+            'member_id.exists' => 'Selected membership package is invalid.',
+            'payment_id.required' => 'Please select a payment method.',
+            'payment_id.exists' => 'Selected payment method is invalid.',
+            'account_number.required' => 'Account number is required.',
+            'account_number.min' => 'Account number must be at least 5 characters.',
+            'payment_proof.image' => 'Payment proof must be an image file.',
+            'payment_proof.mimes' => 'Payment proof must be JPG, JPEG, or PNG format.',
+            'payment_proof.max' => 'Payment proof size must not exceed 2MB.',
+        ];
+
+        $this->validate($request, $rules, $messages);
+
+        DB::beginTransaction();
+
+        try {
+            // Handle payment proof upload if new file is provided
+            if($request->hasFile('payment_proof')) {
+                // Delete old payment proof 
+                if($transaction->payment_proof && Storage::disk('public')->exists($transaction->payment_proof)) {
+                    Storage::disk('public')->delete($transaction->payment_proof);
+                }
+                $paymentProofPath = $request->file('payment_proof')->store('payment_proofs', 'public');
+                $transaction->payment_proof = $paymentProofPath;
+            }
+
+            // Update transaction
+            $transaction->member_id = $request->member_id;
+            $transaction->payment_id = $request->payment_id;
+            $transaction->account_number = $request->account_number;
+            $transaction->status = Transaction::STATUS_PENDING; // Change back to pending 
+            $transaction->can_edit = false; // Disable further editing 
+            $transaction->save();
+
+            DB::commit();
+
+            $selectedMember = Member::find($request->member_id);
+
+            return redirect()->route('update_membership')
+                ->with('success', 'Your revised upgrade request to ' . $selectedMember->name . ' has been resubmitted! Please wait for admin approval.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()
+                ->with('error', 'Failed to update transaction: ' . $e->getMessage());
+        }
+    }
 
     /**
      * Submit upgrade membership request
