@@ -42,6 +42,20 @@
         </div>
       @endif
 
+      @if($rejectedTransaction)
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <strong>Attention!</strong> You have a rejected transaction that needs to be fixed.
+          <hr>
+          <strong>Rejection Reason:</strong>
+          <p class="mt-2">{{ $rejectMessage->message ?? 'No message provided' }}</p>
+          <a href="{{ route('edit_rejected_transaction', $rejectedTransaction->id) }}" class="btn btn-warning btn-sm mt-2">
+              <i class="bi bi-pencil-square me-1"></i> Edit & Resubmit
+          </a>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+  @endif
+
       <div class="row">
         <div class="col-md-8 mx-auto">
           <div class="card shadow">
