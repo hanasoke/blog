@@ -15,11 +15,13 @@ class Transaction extends Model
         'payment_proof',
         'account_number',
         'status',
+        'can_edit'
     ];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'can_edit' => 'boolean',
     ];
 
     // Status constant 
