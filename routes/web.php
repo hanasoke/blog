@@ -215,4 +215,7 @@ Route::prefix('home')
 
                 Route::post('/submit_upgrade', 'MembershipController@submit_upgrade')
                         ->name('submit_upgrade');
+
+                Route::get('/edit_rejected_transaction/{id}', 'MembershipController@edit_rejected_transaction')->name('edit_rejected_transaction');
+                Route::put('/update_rejected_transaction/{id}', 'MembershipController@update_rejected_transaction')->name('update_rejected_transaction');
         });
