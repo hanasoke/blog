@@ -90,6 +90,7 @@ class MembershipController extends Controller
         return view('pages.user.upgrade.edit_rejected_transaction', compact('transaction', 'members', 'payments', 'rejectMessage'));
     }
 
+    // Update rejected transaction
     public function update_rejected_transaction(Request $request, $id) 
     {
         $user = Auth::user();
@@ -173,6 +174,17 @@ class MembershipController extends Controller
         if($existingPending) {
             return redirect()->route('update_membership')
                 ->with('error', 'You already have a pending upgrade request. Please wait for admin approval.');
+        }
+
+        // Check if user has rejected transaction that needs to be fixed first 
+        $existingRejected = Transaction::where('user_id', $user->id)
+            ->where('status', Transaction::STATUS_REJECTED)
+            ->where('can_edit', true)
+            ->first();
+
+        if($existingRejected) {
+            return redirect()->route('edit_rejected_transaction', $existingRejected->id) 
+                ->with('error', 'You have a rejected transaction that needs to be fixed. Please edit and resubmit your request.');
         }
 
         // Check if trying to upgrade to same level 
