@@ -9,6 +9,7 @@ use App\User;
 use App\Member;
 use App\Payment;
 use App\Transaction;
+use App\AdminMessage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
