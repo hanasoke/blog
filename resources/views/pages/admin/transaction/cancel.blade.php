@@ -83,9 +83,6 @@
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#viewModal{{ $transaction->id }}"><i class="fas fa-eye fa-sm text-white-100"></i></button>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $transaction->id }}">
-                                            <i class="fas fa-trash fa-sm text-white-100"></i>
-                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -206,47 +203,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteModal{{ $transaction->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $transaction->id }}" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-danger" id="deleteModalLabel{{ $transaction->id }}"><i class="fas fa-exclamation-triangle"></i> Delete Transaction</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this transaction?</p>
-                <div class="alert alert-warning">
-                    <strong>Transaction Details</strong>
-                    <br>
-                    User: <strong>{{ $transaction->user->name }}</strong>
-                    <br>
-                    Package: <strong>{{ $transaction->member->name }}</strong>
-                    <br>
-                    Amount: <strong>Rp {{ number_format($transaction->member->price ?? 0, 0, ',', '.') }}</strong>
-                    <br>
-                    Date: <strong>Rp {{ $transaction->created_at->format('d M  Y H:i') }}</strong>
-                </div>
-                <p class="text-danger">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <strong>Warning:</strong> This action cannot be undone. The payment proof file will also be deleted.
-                </p>
-            </div>
-            <div class="modal-footer">
-                <form action="{{ route('delete_transaction', $transaction->id) }}" method="POST" style="display: inline;">
-                    @csrf 
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Yes, Delete
-                    </button>
-                </form>
             </div>
         </div>
     </div>
