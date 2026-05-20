@@ -90,7 +90,7 @@
                             </div>
 
                             <!-- Payment Method -->
-                             <div class="mb-4">
+                            <div class="mb-4">
                                 <label class="form-label fw-bold">Payment Method <span class="text-danger">*</span></label>
                                 <select class="form-select @error('payment_id') is-invalid @enderror" name="payment_id" required>
                                     <option value="">Select Payment Method</option>
@@ -103,24 +103,116 @@
                                 @error('payment_id')
                                     <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
-                             </div>
+                            </div>
 
-                             <!-- Account Number -->
-                              <div class="mb-4">
-                                
-                              </div>
+                            <!-- Account Number -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Account Number <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('account_number') is-invalid @enderror" name="account_number" value="{{ old('account_number', $transaction->account_number) }}" placeholder="Enter Your Account Number" required>
+                                <small class="text-muted">Enter the account number you used for payment.</small>
+                                @error('accout_number')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror 
+                            </div>
 
+                            <!-- Payment Proof -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Payment Proof <span class="text-danger">*</span></label>
+
+                                @if($transaction->payment_proof)
+                                    <div class="mb-2">
+                                        <label class="fw-bold">Current Payment Proof:</label>
+                                        <div>
+                                            <img src="{{ asset('storage/'.$transaction->payment_proof) }}" class="img-thumbnail" style="max-width: 200px;" alt="Current Payment Proof">
+                                        </div>
+                                        <small class="text-muted">Upload new file only if you want to change the payment proof.</small>
+                                    </div>
+                                @endif 
+
+                                <input type="file" class="form-control @error('payment_proof') is-invalid @enderror" name="payment_proof" accept="image/*" id="paymentProof">
+
+                                <small class="text-muted">Upload screenshot/photo of your payment transaction (Max 2MB, JPG/PNG). Leave empty to keep current proof.</small>
+
+                                @error('payment_proof')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror 
+
+                                <!-- Image Preview -->
+                                 <div id="imagePreview" class="mt-3" style="display: none;">
+                                    <label class="fw-bold">New Preview:</label>
+                                    <img id="previewImg" src="$" alt="Payment Proof Preview" class="img-thumbnail mt-1" style="max-width: 200px;">
+                                 </div>
+                            </div>
+
+                            <!-- Summary -->
+                            <div class="alert alert-secondary">
+                                <h6 class="fw-bold mb-2"><i class="bi bi-receipt"></i> Order Summary</h6>
+                                <div class="d-flex justify-content-between">
+                                    <span>Membership Package:</span>
+                                    <span id="summaryPackage" class="fw-bold">{{ $transaction->member->name }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <span>Price:</span>
+                                    <span id="summaryPrice" class="fw-bold text-primary">
+                                        Rp {{ number_format($transaction->member->price, 0, ',', '.') }}
+                                    </span>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between">
+                                    <span>Total Payment:</span>
+                                    <span id="summaryTotal" class="fw-bold text-success">Rp {{ number_format($transaction->member->price, 0, ',', '.') }}</span>
+                                </div>
+                            </div>
+
+                            <div class="d-grip gap-2">
+                                <button type="submit" class="btn btn-warning btn-lg">
+                                    <i class="bi bi-send me-2"></i> Resubmit Request 
+                                </button>
+                                <a href="{{ route('update_membership') }}" class="btn btn-outline-secondary">
+                                    <i class="bi bi-arrow-left me-2"></i> Back to Membership Status
+                                </a>
+                            </div>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
 @endsection 
 
 @push('addon-script')
-
+<script>
+    $(document).ready(function() {
+        const members = @json($members);
+        
+        // Update summary when member is selected
+        $('input[name="member_id"]').on('change', function() {
+            const memberId = $(this).val();
+            const selectedMember = members.find(m => m.id == memberId);
+            
+            if(selectedMember) {
+                const price = new Intl.NumberFormat('id-ID').format(selectedMember.price);
+                $('#summaryPackage').text(selectedMember.name);
+                $('#summaryPrice').text('Rp ' + price);
+                $('#summaryTotal').text('Rp ' + price);
+            }
+        });
+        
+        // Image preview for new file
+        $('#paymentProof').on('change', function(e) {
+            const file = e.target.files[0];
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewImg').attr('src', e.target.result);
+                    $('#imagePreview').show();
+                }
+                reader.readAsDataURL(file);
+            } else {
+                $('#imagePreview').hide();
+            }
+        });
+    });
+</script>
 @endpush 
