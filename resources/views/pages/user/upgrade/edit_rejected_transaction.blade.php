@@ -165,12 +165,12 @@
                             </div>
 
                             <div class="d-grip gap-2">
-                                <button type="submit" class="btn btn-warning btn-lg">
-                                    <i class="bi bi-send me-2"></i> Resubmit Request 
-                                </button>
-                                <a href="{{ route('update_membership') }}" class="btn btn-outline-secondary">
+                                <a href="{{ route('update_membership') }}" class="btn btn-outline-secondary mt-2">
                                     <i class="bi bi-arrow-left me-2"></i> Back to Membership Status
                                 </a>
+                                <button type="submit" class="btn btn-warning mt-2">
+                                    <i class="bi bi-send me-2"></i> Resubmit Request 
+                                </button>
                             </div>
                         </form>
                     </div>
