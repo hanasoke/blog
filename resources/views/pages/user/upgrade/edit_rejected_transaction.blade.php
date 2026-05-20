@@ -89,6 +89,27 @@
                                 @enderror 
                             </div>
 
+                            <!-- Payment Method -->
+                             <div class="mb-4">
+                                <label class="form-label fw-bold">Payment Method <span class="text-danger">*</span></label>
+                                <select class="form-select @error('payment_id') is-invalid @enderror" name="payment_id" required>
+                                    <option value="">Select Payment Method</option>
+                                    @foreach($payments as $payment)
+                                        <option value="{{ $payment->id }}" {{ old('payment_id', $transaction->payment_id) == $payment->id ? 'selected' : '' }}>
+                                            {{ $payment->name }}
+                                        </option>
+                                    @endforeach 
+                                </select>
+                                @error('payment_id')
+                                    <div class="invalid-feedback">{{$message}}</div>
+                                @enderror
+                             </div>
+
+                             <!-- Account Number -->
+                              <div class="mb-4">
+                                
+                              </div>
+
                         </form>
                     </div>
                 </div>
