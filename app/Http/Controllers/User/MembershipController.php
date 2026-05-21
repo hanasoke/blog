@@ -107,7 +107,14 @@ class MembershipController extends Controller
         $rules = [
             'member_id' => 'required|exists:members,id',
             'payment_id' => 'required|exists:payments,id',
-            'account_number' => 'required|string|min:5|max:50',
+            'account_number' => [
+                'required',
+                'string',
+                'min:5',
+                'max:50',
+                'regex:/^[0-9]+$/', // Only numbers allowed
+                Rule::unique('transactions', 'account_number')->ignore($transaction->id) 
+            ],
             'payment_proof' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ];
 
@@ -118,6 +125,9 @@ class MembershipController extends Controller
             'payment_id.exists' => 'Selected payment method is invalid.',
             'account_number.required' => 'Account number is required.',
             'account_number.min' => 'Account number must be at least 5 characters.',
+            'account_number.max' => 'Account number cannot exceed 50 characters.',
+            'account_number.regex' => 'Account number must contain only numbers (0-9).',
+            'account_number.unique' => 'This account number is already registered. Please use a different account number.',
             'payment_proof.image' => 'Payment proof must be an image file.',
             'payment_proof.mimes' => 'Payment proof must be JPG, JPEG, or PNG format.',
             'payment_proof.max' => 'Payment proof size must not exceed 2MB.',
@@ -199,7 +209,14 @@ class MembershipController extends Controller
         $rules = [
             'member_id' => 'required|exists:members,id',
             'payment_id' => 'required|exists:payments,id',
-            'account_number' => 'required|string|min:5|max:50',
+            'account_number' => [
+                'required',
+                'string',
+                'min:5',
+                'max:50',
+                'regex:/^[0-9]+$/', // Only numbers allowed
+                'unique:transactions,account_number', // Must be unique
+            ],
             'payment_proof' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ];
 
@@ -210,6 +227,9 @@ class MembershipController extends Controller
             'payment_id.exists' => 'Selected payment method is invalid.',
             'account_number.required' => 'Account number is required.',
             'account_number.min' => 'Account number must be at least 5 characters.',
+            'account_number.max' => 'Account number cannot exceed 50 characters.',
+            'account_number.regex' => 'Account number must contain only numbers (0-9).',
+            'account_number.unique' => 'This account number is already registered. Please use a different account number.',
             'payment_proof.required' => 'Payment proof image is required.',
             'payment_proof.image' => 'Payment proof must be an image file.',
             'payment_proof.mimes' => 'Payment proof must be JPG, JPEG, or PNG format.',
@@ -232,6 +252,7 @@ class MembershipController extends Controller
             'payment_proof' => $paymentProofPath,
             'account_number' => $request->account_number,
             'status' => Transaction::STATUS_PENDING,
+            'can_edit' => false,
         ]);
 
         $selectedMember = Member::find($request->member_id);

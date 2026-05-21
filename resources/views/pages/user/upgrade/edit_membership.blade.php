@@ -150,8 +150,8 @@
                   <label class="form-label fw-bold">
                       Account Number <span class="text-danger">*</span>
                   </label>
-                  <input type="text" class="form-control @error('account_number') is-invalid @enderror" name="account_number" value="{{ old('account_number') }}" placeholder="Enter Your Account Number">
-                  <small class="text-muted">Enter the account number you used for payment.</small>
+                  <input type="text" class="form-control @error('account_number') is-invalid @enderror" name="account_number" value="{{ old('account_number') }}" placeholder="Enter Your Account Number (numbers only)" onkeypress="return event.charCode >= 48 && event.charCode <= 57" oninput="this.value = this.value.replace(/[^0-9]/g, '')" >
+                  <small class="text-muted">Enter the account number you used for payment. Only numbers allowed (0-9).</small>
                   @error('account_number')
                     <div class="invalid-feedback">{{ $message }}</div>
                   @enderror 
@@ -251,6 +251,27 @@
       } else {
         $('#imagePreview').hide();
       }
+    });
+
+    // Real-time validation for account number to only allow numbers
+    $('#account_number').on('keypress', function(e) {
+        var charCode = (e.which) ? e.which : e.keyCode;
+        // Allow only numbers (0-9)
+        if (charCode < 48 || charCode > 57) {
+          e.preventDefault();
+          return false;
+        }
+        return true;
+    });
+
+    // Also handle paste events to remove non-numeric characters
+    $('#account_number').on('paste', function(e) {
+        var pastedText = (e.originalEvent || e).clipboardData.getData('text/plain');
+        var numericText = pastedText.replace(/[^0-9]/g, '');
+        if (pastedText !== numericText) {
+          e.preventDefault();
+          $(this).val(numericText);
+        }
     });
   });
 </script>
