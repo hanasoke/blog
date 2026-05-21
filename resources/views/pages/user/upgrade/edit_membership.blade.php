@@ -150,7 +150,7 @@
                   <label class="form-label fw-bold">
                       Account Number <span class="text-danger">*</span>
                   </label>
-                  <input type="number" class="form-control @error('account_number') is-invalid @enderror" name="account_number" value="{{ old('account_number') }}" placeholder="Enter Your Account Number">
+                  <input type="text" class="form-control @error('account_number') is-invalid @enderror" name="account_number" value="{{ old('account_number') }}" placeholder="Enter Your Account Number">
                   <small class="text-muted">Enter the account number you used for payment.</small>
                   @error('account_number')
                     <div class="invalid-feedback">{{ $message }}</div>
