@@ -140,6 +140,29 @@ class TransactionController extends Controller
         return view('pages.admin.transaction.success', compact('transactions'));
     }
 
+    public function generate_report(Request $request) 
+    {
+        // Validate request
+        $request->validate([
+            'report_type' => 'required|in:all,date_range',
+            'start_date' => 'required_if:report_type,date_range|nullable|date',
+            'end_date' => 'required_if:report_type,date_range|nullable|date|after_or_equal:start_date',
+            'orientation' => 'required|in:portrait,landscape',
+        ]);
+
+        // Get approved transactions
+        $query = Transaction::with(['user', 'member', 'payment'])
+            ->where('status', Transaction::STATUS_APPROVED);
+
+        // Filter by date range if provided
+        if ($request->report_type == 'date_range' && $request->start_date && $request->end_date) {
+            $query->whereBetween('created_at', [
+                $request->start_date . ' 00:00:00', 
+                $request->end_date . ' 23:59:59'
+            ]);
+        }
+    }
+
     public function delete_transaction($id)
     {
         DB::beginTransaction();
