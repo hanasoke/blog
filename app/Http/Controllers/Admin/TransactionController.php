@@ -12,6 +12,7 @@ use App\Payment;
 use App\AdminMessage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class TransactionController extends Controller 
 {
@@ -248,6 +249,54 @@ class TransactionController extends Controller
     {
         $query = Transaction::with(['user', 'member', 'payment'])
             ->where('status', Transaction::STATUS_APPROVED);
+
+        if($request->start_date && $request->end_date) {
+            $query->whereBetween('created_at', [$request->start_date . ' 00:00:00', $request->end_date . ' 23:59:59']);
+        }
+
+        $transactions = $query->orderBy('created_at', 'desc')->get();
+        
+        $filename = 'success_transactions_export_' . date('Y-m-d_His') . '.csv';
+        
+        return response()->stream(function() use ($transactions) {
+            $output = fopen('php://output', 'w');
+            
+            // Add UTF-8 BOM for Excel compatibility
+            fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
+            
+            // Add CSV headers
+            fputcsv($output, [
+                'ID', 
+                'User Name', 
+                'Username', 
+                'Email', 
+                'Package', 
+                'Price', 
+                'Payment Method',
+                'Account Number',
+                'Approved Date'
+            ]);
+            
+            // Add data rows
+            foreach($transactions as $transaction) {
+                fputcsv($output, [
+                    $transaction->id,
+                    $transaction->user->name ?? 'N/A',
+                    $transaction->user->username ?? 'N/A',
+                    $transaction->user->email ?? 'N/A',
+                    $transaction->member->name ?? 'N/A',
+                    $transaction->member->price ?? 0,
+                    $transaction->payment->name ?? 'N/A',
+                    $transaction->account_number ?? 'N/A',
+                    $transaction->updated_at ? $transaction->updated_at->format('Y-m-d H:i:s') : 'N/A',
+                ]);
+            }
+            
+            fclose($output);
+        }, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
     }
 
     public function delete_transaction($id)
