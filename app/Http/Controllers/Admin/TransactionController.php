@@ -161,6 +161,87 @@ class TransactionController extends Controller
                 $request->end_date . ' 23:59:59'
             ]);
         }
+
+        $transactions = $query->orderBy('created_at', 'desc')->get();
+        
+        // Get total statistics
+        $totalTransactions = $transactions->count();
+        $totalRevenue = $transactions->sum(function($transaction) {
+            return $transaction->member->price ?? 0;
+        });
+
+        // Get unique users count
+        $uniqueUsers = $transactions->unique('user_id')->count();
+
+        // Group by member package
+        $packageStats = [];
+        foreach($transactions as $transaction) {
+            $packageName = $transaction->member->name ?? 'Unknown';
+            if(!isset($packageStats[$packageName])) {
+                $packageStats[$packageName] = [
+                    'count' => 0,
+                    'revenue' => 0
+                ];
+            }
+            $packageStats[$packageName]['count']++;
+            $packageStats[$packageName]['revenue'] += $transaction->member->price ?? 0;
+        }
+
+        // Get monthly statistics (last 6 months)
+        $monthlyStats = [];
+        for($i = 5; $i >= 0; $i--) {
+            $month = now()->subMonths($i);
+            $count = Transaction::where('status', Transaction::STATUS_APPROVED)
+                ->whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->count();
+            $revenue = Transaction::where('status', Transaction::STATUS_APPROVED)
+                ->whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->get()
+                ->sum(function($t) {
+                    return $t->member->price ?? 0;
+                });
+            $monthlyStats[$month->format('F Y')] = [
+                'count' => $count,
+                'revenue' => $revenue
+            ];
+        }
+        
+        // Get newest and oldest transaction
+        $newestTransaction = $transactions->first();
+        $oldestTransaction = $transactions->last();
+        
+        // Prepare data for PDF
+        $data = [
+            'transactions' => $transactions,
+            'totalTransactions' => $totalTransactions,
+            'totalRevenue' => $totalRevenue,
+            'uniqueUsers' => $uniqueUsers,
+            'packageStats' => $packageStats,
+            'monthlyStats' => $monthlyStats,
+            'newestTransaction' => $newestTransaction,
+            'oldestTransaction' => $oldestTransaction,
+            'generated_date' => now()->format('d F Y H:i:s'),
+            'generated_by' => auth()->user()->name ?? 'System Administrator',
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'report_type' => $request->report_type,
+            'orientation' => $request->orientation,
+        ];
+
+        // Load view and generate PDF
+        $pdf = PDF::loadView('pages.admin.transaction.transaction_report_pdf', $data);
+
+        // Set paper size and orientation
+        $paperSize = 'A4';
+        $orientation = $request->orientation == 'landscape' ? 'landscape' : 'portrait';
+        $pdf->setPaper($paperSize, $orientation);
+        
+        // Download PDF with custom filename
+        $filename = 'success_transaction_report_' . date('Y-m-d_His') . '.pdf';
+        
+        return $pdf->download($filename);
     }
 
     public function delete_transaction($id)
