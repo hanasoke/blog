@@ -244,6 +244,12 @@ class TransactionController extends Controller
         return $pdf->download($filename);
     }
 
+    public function export_csv(Request $request)
+    {
+        $query = Transaction::with(['user', 'member', 'payment'])
+            ->where('status', Transaction::STATUS_APPROVED);
+    }
+
     public function delete_transaction($id)
     {
         DB::beginTransaction();
