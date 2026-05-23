@@ -90,6 +90,187 @@ class TransactionController extends Controller
         return view('pages.admin.transaction.cancel', compact('transactions'));
     }
 
+     /**
+     * Generate PDF report for rejected transactions
+     */
+    public function generate_rejected_report(Request $request)
+    {
+        // Validate request
+        $request->validate([
+            'report_type' => 'required|in:all,date_range',
+            'start_date' => 'required_if:report_type,date_range|nullable|date',
+            'end_date' => 'required_if:report_type,date_range|nullable|date|after_or_equal:start_date',
+            'orientation' => 'required|in:portrait,landscape',
+        ]);
+
+        // Get rejected transactions with related data
+        $query = Transaction::with(['user', 'member', 'payment'])
+            ->where('status', Transaction::STATUS_REJECTED);
+        
+        // Filter by date range if provided
+        if ($request->report_type == 'date_range' && $request->start_date && $request->end_date) {
+            $query->whereBetween('updated_at', [
+                $request->start_date . ' 00:00:00', 
+                $request->end_date . ' 23:59:59'
+            ]);
+        }
+        
+        $transactions = $query->orderBy('updated_at', 'desc')->get();
+        
+        // Get admin messages for each transaction
+        foreach($transactions as $transaction) {
+            $transaction->admin_message = AdminMessage::where('transaction_id', $transaction->id)
+                ->orderBy('created_at', 'desc')
+                ->first();
+        }
+        
+        // Get total statistics
+        $totalTransactions = $transactions->count();
+        $totalRevenue = $transactions->sum(function($transaction) {
+            return $transaction->member->price ?? 0;
+        });
+        
+        // Get unique users count
+        $uniqueUsers = $transactions->unique('user_id')->count();
+        
+        // Group by member package
+        $packageStats = [];
+        foreach($transactions as $transaction) {
+            $packageName = $transaction->member->name ?? 'Unknown';
+            if(!isset($packageStats[$packageName])) {
+                $packageStats[$packageName] = [
+                    'count' => 0,
+                    'revenue' => 0
+                ];
+            }
+            $packageStats[$packageName]['count']++;
+            $packageStats[$packageName]['revenue'] += $transaction->member->price ?? 0;
+        }
+        
+        // Group by payment method
+        $paymentStats = [];
+        foreach($transactions as $transaction) {
+            $paymentName = $transaction->payment->name ?? 'Unknown';
+            if(!isset($paymentStats[$paymentName])) {
+                $paymentStats[$paymentName] = 0;
+            }
+            $paymentStats[$paymentName]++;
+        }
+        
+        // Get monthly rejection statistics (last 6 months)
+        $monthlyStats = [];
+        for($i = 5; $i >= 0; $i--) {
+            $month = now()->subMonths($i);
+            $count = Transaction::where('status', Transaction::STATUS_REJECTED)
+                ->whereYear('updated_at', $month->year)
+                ->whereMonth('updated_at', $month->month)
+                ->count();
+            $monthlyStats[$month->format('F Y')] = $count;
+        }
+        
+        // Get newest and oldest rejected transaction
+        $newestTransaction = $transactions->first();
+        $oldestTransaction = $transactions->last();
+        
+        // Prepare data for PDF
+        $data = [
+            'transactions' => $transactions,
+            'totalTransactions' => $totalTransactions,
+            'totalRevenue' => $totalRevenue,
+            'uniqueUsers' => $uniqueUsers,
+            'packageStats' => $packageStats,
+            'paymentStats' => $paymentStats,
+            'monthlyStats' => $monthlyStats,
+            'newestTransaction' => $newestTransaction,
+            'oldestTransaction' => $oldestTransaction,
+            'generated_date' => now()->format('d F Y H:i:s'),
+            'generated_by' => auth()->user()->name ?? 'System Administrator',
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'report_type' => $request->report_type,
+            'orientation' => $request->orientation,
+        ];
+        
+        // Load view and generate PDF
+        $pdf = PDF::loadView('pages.admin.transaction.rejected_transaction_report_pdf', $data);
+        
+        // Set paper size and orientation
+        $paperSize = 'A4';
+        $orientation = $request->orientation == 'landscape' ? 'landscape' : 'portrait';
+        $pdf->setPaper($paperSize, $orientation);
+        
+        // Download PDF with custom filename
+        $filename = 'rejected_transaction_report_' . date('Y-m-d_His') . '.pdf';
+        
+        return $pdf->download($filename);
+    }
+
+    /**
+     * Export rejected transactions to CSV
+     */
+    public function export_rejected_csv(Request $request)
+    {
+        $query = Transaction::with(['user', 'member', 'payment'])
+            ->where('status', Transaction::STATUS_REJECTED);
+        
+        if($request->start_date && $request->end_date) {
+            $query->whereBetween('updated_at', [$request->start_date . ' 00:00:00', $request->end_date . ' 23:59:59']);
+        }
+        
+        $transactions = $query->orderBy('updated_at', 'desc')->get();
+        
+        $filename = 'rejected_transactions_export_' . date('Y-m-d_His') . '.csv';
+        
+        return response()->stream(function() use ($transactions) {
+            $output = fopen('php://output', 'w');
+            
+            // Add UTF-8 BOM for Excel compatibility
+            fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
+            
+            // Add CSV headers
+            fputcsv($output, [
+                'ID', 
+                'User Name', 
+                'Username', 
+                'Email', 
+                'Requested Package', 
+                'Price', 
+                'Payment Method',
+                'Account Number',
+                'Request Date',
+                'Rejected Date',
+                'Rejection Reason'
+            ]);
+            
+            // Add data rows
+            foreach($transactions as $transaction) {
+                // Get rejection message
+                $adminMessage = AdminMessage::where('transaction_id', $transaction->id)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+                    
+                fputcsv($output, [
+                    $transaction->id,
+                    $transaction->user->name ?? 'N/A',
+                    $transaction->user->username ?? 'N/A',
+                    $transaction->user->email ?? 'N/A',
+                    $transaction->member->name ?? 'N/A',
+                    $transaction->member->price ?? 0,
+                    $transaction->payment->name ?? 'N/A',
+                    $transaction->account_number ?? 'N/A',
+                    $transaction->created_at ? $transaction->created_at->format('Y-m-d H:i:s') : 'N/A',
+                    $transaction->updated_at ? $transaction->updated_at->format('Y-m-d H:i:s') : 'N/A',
+                    $adminMessage->message ?? 'No message',
+                ]);
+            }
+            
+            fclose($output);
+        }, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
+    }
+
     public function reject_transaction(Request $request, $id)
     {
         $request->validate([
