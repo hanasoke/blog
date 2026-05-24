@@ -72,29 +72,22 @@
         
         .summary-card {
             flex: 1;
-            background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%);
-            border-radius: 10px;
-            padding: 15px;
+            background: #f8f9fc;
+            border: 1px solid #e3e6f0;
+            border-radius: 8px;
+            padding: 12px;
             text-align: center;
-            color: white;
-        }
-        
-        .summary-card:nth-child(2) {
-            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
-        }
-        
-        .summary-card:nth-child(3) {
-            background: linear-gradient(135deg, #e74a3b 0%, #be2617 100%);
         }
         
         .summary-card h3 {
             font-size: 28px;
+            color: #666;
             margin-bottom: 5px;
         }
         
         .summary-card p {
             font-size: 12px;
-            opacity: 0.9;
+            color: #4e73df;
         }
         
         /* Table Styles */
@@ -201,7 +194,7 @@
         
         /* Footer */
         .footer {
-            margin-top: 30px;
+            margin: 30px 0;
             text-align: center;
             font-size: 10px;
             color: #999;
@@ -404,7 +397,7 @@
         
         <!-- Pending Summary Info -->
         <div class="stats-section" style="margin-top: 20px;">
-            <h3>ℹPending Summary</h3>
+            <h3>Pending Summary</h3>
             <div class="stat-item">
                 <span class="stat-label">Oldest Pending Request:</span>
                 <span class="stat-value">{{ $oldestTransaction ? $oldestTransaction->user->name . ' - ' . $oldestTransaction->member->name . ' (' . date('d M Y', strtotime($oldestTransaction->created_at)) . ')' : 'N/A' }}</span>
@@ -423,7 +416,6 @@
         <div class="footer">
             <p>This report is system-generated at {{ $generated_date }}. For inquiries, please contact system administrator.</p>
             <p>&copy; {{ date('Y') }} Blog Management System. All rights reserved.</p>
-            <p>Page {PAGE_NUM} of {PAGE_COUNT}</p>
         </div>
     </div>
 </body>

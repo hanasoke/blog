@@ -194,7 +194,7 @@
         
         /* Footer */
         .footer {
-            margin-top: 30px;
+            margin: 30px 0;
             text-align: center;
             font-size: 10px;
             color: #999;
@@ -400,7 +400,6 @@
         <div class="footer">
             <p>This report is system-generated at {{ $generated_date }}. For inquiries, please contact system administrator.</p>
             <p>&copy; {{ date('Y') }} Blog Management System. All rights reserved.</p>
-            <p>Page {PAGE_NUM} of {PAGE_COUNT}</p>
         </div>
     </div>
 </body>
