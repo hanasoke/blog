@@ -72,29 +72,22 @@
         
         .summary-card {
             flex: 1;
-            background: linear-gradient(135deg, #1cc88a 0%, #13855e 100%);
-            border-radius: 10px;
-            padding: 15px;
+            background: #f8f9fc;
+            border: 1px solid #e3e6f0;
+            border-radius: 8px;
+            padding: 12px;
             text-align: center;
-            color: white;
-        }
-        
-        .summary-card:nth-child(2) {
-            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
-        }
-        
-        .summary-card:nth-child(3) {
-            background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%);
         }
         
         .summary-card h3 {
             font-size: 28px;
+            color: #666;
             margin-bottom: 5px;
         }
         
         .summary-card p {
             font-size: 12px;
-            opacity: 0.9;
+            color: #4e73df;
         }
         
         /* Table Styles */
