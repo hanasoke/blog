@@ -26,6 +26,115 @@ class TransactionController extends Controller
         return view('pages.admin.transaction.pending', compact('transactions'));
     }
 
+    /**
+     * Generate PDF report for pending transactions
+     */
+    public function generate_pending_report(Request $request)
+    {
+        // Validate request 
+        $request->validate([
+            'report_type' => 'required|in:all,date_range',
+            'start_date' => 'required_if:report_type,date_range|nullable|date',
+            'end_date' => 'required_if:report_type,date_range|nullable|date|after_or_equal:start_date',
+            'orientation' => 'required|in:portrait,landscape',
+        ]);
+
+        // Get pending transactions with related data
+        $query = Transaction::with(['user', 'member', 'payment'])
+            ->where('status', Transaction::STATUS_PENDING);
+        
+        // Filter by date range if provided
+        if ($request->report_type == 'date_range' && $request->start_date && $request->end_date) {
+            $query->whereBetween('created_at', [
+                $request->start_date . ' 00:00:00', 
+                $request->end_date . ' 23:59:59'
+            ]);
+        }
+        
+        $transactions = $query->orderBy('created_at', 'desc')->get();
+        
+        // Get total statistics
+        $totalTransactions = $transactions->count();
+        $totalRevenue = $transactions->sum(function($transaction) {
+            return $transaction->member->price ?? 0;
+        });
+        
+        // Get unique users count
+        $uniqueUsers = $transactions->unique('user_id')->count();
+        
+        // Group by member package
+        $packageStats = [];
+        foreach($transactions as $transaction) {
+            $packageName = $transaction->member->name ?? 'Unknown';
+            if(!isset($packageStats[$packageName])) {
+                $packageStats[$packageName] = [
+                    'count' => 0,
+                    'revenue' => 0
+                ];
+            }
+            $packageStats[$packageName]['count']++;
+            $packageStats[$packageName]['revenue'] += $transaction->member->price ?? 0;
+        }
+        
+        // Group by payment method
+        $paymentStats = [];
+        foreach($transactions as $transaction) {
+            $paymentName = $transaction->payment->name ?? 'Unknown';
+            if(!isset($paymentStats[$paymentName])) {
+                $paymentStats[$paymentName] = 0;
+            }
+            $paymentStats[$paymentName]++;
+        }
+        
+        // Get daily pending trends (last 7 days)
+        $dailyStats = [];
+        for($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i);
+            $count = Transaction::where('status', Transaction::STATUS_PENDING)
+                ->whereDate('created_at', $date->toDateString())
+                ->count();
+            $dailyStats[$date->format('d M')] = $count;
+        }
+        
+        // Get newest and oldest pending transaction
+        $newestTransaction = $transactions->first();
+        $oldestTransaction = $transactions->last();
+        
+        // Prepare data for PDF
+        $data = [
+            'transactions' => $transactions,
+            'totalTransactions' => $totalTransactions,
+            'totalRevenue' => $totalRevenue,
+            'uniqueUsers' => $uniqueUsers,
+            'packageStats' => $packageStats,
+            'paymentStats' => $paymentStats,
+            'dailyStats' => $dailyStats,
+            'newestTransaction' => $newestTransaction,
+            'oldestTransaction' => $oldestTransaction,
+            'generated_date' => now()->format('d F Y H:i:s'),
+            'generated_by' => auth()->user()->name ?? 'System Administrator',
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'report_type' => $request->report_type,
+            'orientation' => $request->orientation,
+        ];
+        
+        // Load view and generate PDF
+        $pdf = PDF::loadView('pages.admin.transaction.pending_transaction_report_pdf', $data);
+        
+        // Set paper size and orientation
+        $paperSize = 'A4';
+        $orientation = $request->orientation == 'landscape' ? 'landscape' : 'portrait';
+        $pdf->setPaper($paperSize, $orientation);
+        
+        // Download PDF with custom filename
+        $filename = 'pending_transaction_report_' . date('Y-m-d_His') . '.pdf';
+        
+        return $pdf->download($filename);
+    }
+
+    
+
     public function approve_transaction(Request $request, $id)
     {
         $request->validate([
