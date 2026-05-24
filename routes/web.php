@@ -159,9 +159,13 @@ Route::prefix('admin')
                 Route::delete('/delete_transaction/{id}', 'TransactionController@delete_transaction')
                         ->name('delete_transaction');
 
-                // Report routes
+                // Report routes for rejected transactions
                 Route::get('/generate_success_report', 'TransactionController@generate_report')->name('generate_success_report');
                 Route::get('/export_success_csv', 'TransactionController@export_csv')->name('export_success_csv');
+
+                // Report routes for rejected transactions 
+                Route::get('/generate_rejected_report', 'TransactionController@generate_rejected_report')->name('generate_rejected_report');
+                Route::get('/export_rejected_csv', 'TransactionController@export_rejected_csv')->name('export_rejected_csv');
 
                 // Approve and Reject routes with messages 
                 Route::put('/approve_transaction/{id}', 'TransactionController@approve_transaction')
