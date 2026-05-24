@@ -167,6 +167,10 @@ Route::prefix('admin')
                 Route::get('/generate_rejected_report', 'TransactionController@generate_rejected_report')->name('generate_rejected_report');
                 Route::get('/export_rejected_csv', 'TransactionController@export_rejected_csv')->name('export_rejected_csv');
 
+                // Report routes for pending transactions
+                Route::get('/generate_pending_report', 'TransactionController@generate_pending_report')->name('generate_pending_report');
+                Route::get('/export_pending_csv', 'TransactionController@export_pending_csv')->name('export_pending_csv');
+
                 // Approve and Reject routes with messages 
                 Route::put('/approve_transaction/{id}', 'TransactionController@approve_transaction')
                         ->name('approve_transaction');
