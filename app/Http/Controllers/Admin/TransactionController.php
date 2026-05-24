@@ -133,7 +133,62 @@ class TransactionController extends Controller
         return $pdf->download($filename);
     }
 
-    
+    /**
+     * Export pending transactions to CSV
+     */
+    public function export_pending_csv(Request $request)
+    {
+        $query = Transaction::with(['user', 'member', 'payment'])
+            ->where('status', Transaction::STATUS_PENDING);
+        
+        if($request->start_date && $request->end_date) {
+            $query->whereBetween('created_at', [$request->start_date . ' 00:00:00', $request->end_date . ' 23:59:59']);
+        }
+        
+        $transactions = $query->orderBy('created_at', 'desc')->get();
+        
+        $filename = 'pending_transactions_export_' . date('Y-m-d_His') . '.csv';
+        
+        return response()->stream(function() use ($transactions) {
+            $output = fopen('php://output', 'w');
+            
+            // Add UTF-8 BOM for Excel compatibility
+            fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
+            
+            // Add CSV headers
+            fputcsv($output, [
+                'ID', 
+                'User Name', 
+                'Username', 
+                'Email', 
+                'Requested Package', 
+                'Price', 
+                'Payment Method',
+                'Account Number',
+                'Request Date'
+            ]);
+            
+            // Add data rows
+            foreach($transactions as $transaction) {
+                fputcsv($output, [
+                    $transaction->id,
+                    $transaction->user->name ?? 'N/A',
+                    $transaction->user->username ?? 'N/A',
+                    $transaction->user->email ?? 'N/A',
+                    $transaction->member->name ?? 'N/A',
+                    $transaction->member->price ?? 0,
+                    $transaction->payment->name ?? 'N/A',
+                    $transaction->account_number ?? 'N/A',
+                    $transaction->created_at ? $transaction->created_at->format('Y-m-d H:i:s') : 'N/A',
+                ]);
+            }
+            
+            fclose($output);
+        }, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
+    }
 
     public function approve_transaction(Request $request, $id)
     {
