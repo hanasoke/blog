@@ -34,6 +34,19 @@ class MembershipController extends Controller
             ->latest()
             ->first();
 
+        // Get unread admin messages for the user
+        $unreadMessages = AdminMessage::where('user_id', $user->id)
+            ->where('status', Transaction::STATUS_REJECTED)
+            ->where('can_edit', true)
+            ->latest()
+            ->first();
+        
+        // Get unread admin messages for the user
+        $allMessages = AdminMessage::where('user_id', $user->id)
+            ->where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('pages.user.upgrade.index', compact('user', 'members', 'payments', 'pendingTransaction', 'rejectedTransaction'));
     }
 
