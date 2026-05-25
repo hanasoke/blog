@@ -33,62 +33,57 @@
             </div>
         </li>
 
-        <!-- Nav Item - Alerts -->
+        <!-- Nav Item - Alerts (Notification for Pending Transactions) -->
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
+                <span class="badge badge-danger badge-counter" id="notificationBadge">0</span>
             </a>
             <!-- Dropdown - Alerts -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown">
+                aria-labelledby="alertsDropdown" id="notificationDropdown" style="width: 350px;" >
                 <h6 class="dropdown-header">
-                    Alerts Center
+                    Notification Center
                 </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-primary">
-                            <i class="fas fa-file-alt text-white"></i>
+                <div id="notificationList">
+                    <div class="text-center py-3">
+                        <div class="spinner-border spinner-border-sm text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
                         </div>
+                        <p class="mt-2 text-muted small">Loading notifications...</p>
                     </div>
-                    <div>
-                        <div class="small text-gray-500">December 12, 2019</div>
-                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                    </div>
+                </div>
+                <a class="dropdown-item text-center small text-gray-500" href="#" id="markAllReadBtn">
+                    Mark all as read
                 </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
             </div>
         </li>
 
-        <!-- Nav Item - Messages -->
+        <!-- Nav Item - Messages (Pending Transactions Count) -->
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
+                <span class="badge badge-danger badge-counter" id="pendingTransactionBadge">0</span>
             </a>
-            <!-- Dropdown - Messages -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="messagesDropdown">
+                aria-labelledby="messagesDropdown" style="width: 350px;">
                 <h6 class="dropdown-header">
-                    Message Center
+                    Pending Transactions
                 </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                            alt="...">
-                        <div class="status-indicator bg-success"></div>
+                <div id="pendingTransactionList">
+                    <div class="text-center py-3">
+                        <div class="spinner-border spinner-border-sm text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <p class="mt-2 text-muted small">Loading pending transactions...</p>
                     </div>
-                    <div class="font-weight-bold">
-                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                            problem I've been having.</div>
-                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                    </div>
+                </div>
+                <a class="dropdown-item text-center small text-gray-500" href="{{ route('pending_transaction') }}">
+                    View all pending transactions
                 </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
             </div>
         </li>
 
@@ -153,3 +148,150 @@
 
 </nav>
 <!-- End of Topbar -->
+
+@push('addon-script')
+<script>
+    $(document).ready(function() {
+        // Function to load pending transactions
+        function loadPendingTransactions() {
+            $.ajax({
+                url: '{{ route("get_pending_transactions") }}',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    var pendingCount = response.count;
+                    var transactions = response.transactions;
+                    
+                    // Update badge
+                    $('#pendingTransactionBadge').text(pendingCount);
+                    
+                    // Update dropdown list
+                    var html = '';
+                    if (transactions.length > 0) {
+                        transactions.forEach(function(transaction) {
+                            var date = new Date(transaction.created_at);
+                            var formattedDate = date.toLocaleDateString('id-ID', {
+                                day: 'numeric',
+                                month: 'short',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            });
+                            
+                            html += `
+                                <a class="dropdown-item d-flex align-items-center" href="{{ url('admin/pending_transaction') }}">
+                                    <div class="dropdown-list-image mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fas fa-clock text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold">
+                                        <div class="text-truncate">${transaction.user.name} requested ${transaction.member.name} membership</div>
+                                        <div class="small text-gray-500">${formattedDate}</div>
+                                    </div>
+                                </a>
+                            `;
+                        });
+                    } else {
+                        html = '<div class="text-center py-3"><p class="text-muted small mb-0">No pending transactions</p></div>';
+                    }
+                    $('#pendingTransactionList').html(html);
+                }
+            });
+        }
+        
+        // Function to load unread notifications
+        function loadNotifications() {
+            $.ajax({
+                url: '{{ route("get_unread_messages") }}',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    var messages = response.messages;
+                    var count = messages.length;
+                    
+                    // Update badge
+                    $('#notificationBadge').text(count);
+                    
+                    // Update dropdown list
+                    var html = '';
+                    if (messages.length > 0) {
+                        messages.forEach(function(message) {
+                            var date = new Date(message.created_at);
+                            var formattedDate = date.toLocaleDateString('id-ID', {
+                                day: 'numeric',
+                                month: 'short',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            });
+                            
+                            var statusClass = message.transaction.status === 'APPROVED' ? 'success' : 'danger';
+                            var statusIcon = message.transaction.status === 'APPROVED' ? 'check-circle' : 'times-circle';
+                            var statusText = message.transaction.status === 'APPROVED' ? 'Approved' : 'Rejected';
+                            
+                            html += `
+                                <a class="dropdown-item d-flex align-items-center notification-item" href="#" data-id="${message.id}">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-${statusClass}">
+                                            <i class="fas fa-${statusIcon} text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">${formattedDate}</div>
+                                        <span class="font-weight-bold">Transaction ${statusText}</span>
+                                        <div class="small text-truncate">${message.message.substring(0, 80)}...</div>
+                                        <small class="text-muted">User: ${message.user.name}</small>
+                                    </div>
+                                </a>
+                            `;
+                        });
+                    } else {
+                        html = '<div class="text-center py-3"><p class="text-muted small mb-0">No new notifications</p></div>';
+                    }
+                    $('#notificationList').html(html);
+                    
+                    // Mark as read when clicked
+                    $('.notification-item').on('click', function(e) {
+                        e.preventDefault();
+                        var messageId = $(this).data('id');
+                        $.ajax({
+                            url: '{{ url("admin/mark_message_read") }}/' + messageId,
+                            type: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function() {
+                                loadNotifications();
+                            }
+                        });
+                    });
+                }
+            });
+        }
+        
+        // Mark all as read
+        $('#markAllReadBtn').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '{{ route("mark_all_messages_read") }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function() {
+                    loadNotifications();
+                }
+            });
+        });
+        
+        // Load data on page load
+        loadPendingTransactions();
+        loadNotifications();
+        
+        // Refresh every 30 seconds
+        setInterval(function() {
+            loadPendingTransactions();
+            loadNotifications();
+        }, 30000);
+    });
+</script>
+@endpush

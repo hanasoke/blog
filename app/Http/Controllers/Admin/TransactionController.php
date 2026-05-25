@@ -677,6 +677,24 @@ class TransactionController extends Controller
     }
 
     /**
+     * Get pending transactions for notification
+     */
+    public function getPendingTransactions()
+    {
+        $transactions = Transaction::with(['user', 'member', 'payment'])
+            ->where('status', Transaction::STATUS_PENDING)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $count = $transactions->count();
+
+        return response()->json([
+            'count' => $count,
+            'transactions' => $transactions
+        ]);
+    }
+
+    /**
      * Get unread messages count for admin notification
      */
     public function getUnreadMessagesCount()

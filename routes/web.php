@@ -199,6 +199,12 @@ Route::prefix('admin')
                 
                 Route::delete('/delete_member/{id}', 'MemberController@delete_member')
                         ->name('delete_member');
+
+                // Notification routes
+                Route::get('/get_pending_transactions', 'TransactionController@getPendingTransactions')->name('get_pending_transactions');
+                Route::get('/get_unread_messages', 'TransactionController@getUnreadMessages')->name('get_unread_messages');
+                Route::post('/mark_message_read/{id}', 'TransactionController@markMessageAsRead')->name('mark_message_read');
+                Route::post('/mark_all_messages_read', 'TransactionController@markAllMessagesAsRead')->name('mark_all_messages_read');
         });
 Route::prefix('home')
         ->namespace('User')
