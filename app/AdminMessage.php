@@ -11,7 +11,14 @@ class AdminMessage extends Model
     protected $fillable = [
         'user_id',
         'transaction_id',
-        'message'
+        'message',
+        'is_read'
+    ];
+
+    protected $casts = [
+        'is_read' => 'boolean',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     // Relationships
