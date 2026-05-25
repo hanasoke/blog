@@ -1,12 +1,18 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/admin') }}">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">Admin Blog</div>
-    </a>
+    @auth 
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/admin') }}">
+            <div class="sidebar-brand-icon float-start">
+                <img class="img-profile rounded-circle"
+                        src="{{ Auth::user()->photo 
+                            ? asset('storage/' . Auth::user()->photo)
+                            : asset('img/undraw_profile.svg')
+                        }}" width="50">
+            </div>
+            <div class="sidebar-brand-text ml-2">{{ Auth::user()->username }} Panel</div>
+        </a>
+    @endauth 
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
