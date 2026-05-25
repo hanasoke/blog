@@ -47,7 +47,27 @@ class MembershipController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('pages.user.upgrade.index', compact('user', 'members', 'payments', 'pendingTransaction', 'rejectedTransaction'));
+        return view('pages.user.upgrade.index', compact('user', 'members', 'payments', 'pendingTransaction', 'rejectedTransaction', 'unreadMessages', 'allMessages'));
+    }
+
+    // Mark message as read for user 
+    public function markMessageAsRead($id)
+    {
+        $message = AdminMessage::where('user_id', Auth::id())->findOrFail($id);
+        $message->is_read = true;
+        $message->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    // Mark all messages as read for user
+    public function markAllMessagesAsRead()
+    {
+        AdminMessage::where('user_id', Auth::id())
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
+        return response()->json(['success' => true]);
     }
 
     public function edit_membership() {
