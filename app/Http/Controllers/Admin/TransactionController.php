@@ -23,7 +23,10 @@ class TransactionController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('pages.admin.transaction.pending', compact('transactions'));
+        // Count pending transactions for notification badge 
+        $pendingCount = Transaction::where('status', Transaction::STATUS_PENDING)->count();
+
+        return view('pages.admin.transaction.pending', compact('transactions', 'pendingCount'));
     }
 
     /**
@@ -223,7 +226,8 @@ class TransactionController extends Controller
             AdminMessage::create([
                 'user_id' => $transaction->user_id,
                 'transaction_id' => $transaction->id,
-                'message' => $successMessage
+                'message' => $successMessage,
+                'is_read' => false 
             ]);
 
             DB::commit();
@@ -463,7 +467,8 @@ class TransactionController extends Controller
             AdminMessage::create([
                 'user_id' => $transaction->user_id,
                 'transaction_id' => $transaction->id,
-                'message' => $request->message 
+                'message' => $request->message,
+                'is_read' => false 
             ]);
 
             DB::commit();
@@ -669,6 +674,49 @@ class TransactionController extends Controller
             return redirect()->route('success_transaction')
                 ->with('success', 'Failed to delete transaction: ' . $e->getMessage());
         }
+    }
 
+    /**
+     * Get unread messages count for admin notification
+     */
+    public function getUnreadMessagesCount()
+    {
+        $count = AdminMessage::where('is_read', false)->count();
+        return response()->json(['count' => $count]);
+    }
+
+    /**
+     * Get all unread messages for admin
+     */
+    public function getUnreadMessages()
+    {
+        $messages = AdminMessage::with(['user', 'transaction'])
+            ->where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        return response()->json(['messages' => $messages]);
+    }
+
+    /**
+     * Mark message as read
+     */
+    public function markMessageAsRead($id)
+    {
+        $message = AdminMessage::findOrFail($id);
+        $message->is_read = true;
+        $message->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    /**
+     * Mark all messages as read
+     */
+    public function markAllMessagesAsRead()
+    {
+        AdminMessage::where('is_read', false)->update(['is_read' => true]);
+
+        return response()->json(['success' => true]);
     }
 }
