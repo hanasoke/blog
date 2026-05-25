@@ -236,4 +236,9 @@ Route::prefix('home')
 
                 Route::get('/edit_rejected_transaction/{id}', 'MembershipController@edit_rejected_transaction')->name('edit_rejected_transaction');
                 Route::put('/update_rejected_transaction/{id}', 'MembershipController@update_rejected_transaction')->name('update_rejected_transaction');
+
+                // User notification routes 
+                Route::post('/user/mark_message_read/{id}', 'MembershipController@markMessageAsRead')->name('user.mark_message_read');
+
+                Route::post('/user/mark_all_messages_read', 'MembershipController@markAllMessagesAsRead')->name('user.mark_all_messages_read');
         });
