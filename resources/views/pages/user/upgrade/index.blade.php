@@ -1,6 +1,60 @@
 @extends('layouts.user.template')
 
 @section('content')
+  <!-- Notification Section for User -->
+  @if($unreadMessages->count() > 0)
+    <div class="alert alert-info alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-envelope me-2"></i>
+        <strong>You have {{ $unreadMessages->count() }} new message(s) from admin!</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  @endif
+
+  <!-- Admin Messages Section -->
+  @if($allMessages->count() > 0)
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="bi bi-chat-dots me-2"></i> Messages from Admin</h5>
+        </div>
+        <div class="card-body">
+            @foreach($allMessages as $message)
+                <div class="alert alert-{{ $message->transaction->status == 'APPROVED' ? 'success' : 'danger' }} mb-3 {{ !$message->is_read ? 'border-start border-4 border-primary' : '' }}">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <strong>
+                                @if($message->transaction->status == 'APPROVED')
+                                    <i class="bi bi-check-circle-fill text-success me-1"></i> Transaction Approved
+                                @else
+                                    <i class="bi bi-x-circle-fill text-danger me-1"></i> Transaction Rejected
+                                @endif
+                            </strong>
+                            <span class="badge bg-{{ $message->transaction->status == 'APPROVED' ? 'success' : 'danger' }} ms-2">
+                                {{ $message->transaction->member->name ?? 'N/A' }}
+                            </span>
+                            @if(!$message->is_read)
+                                <span class="badge bg-primary ms-2">New</span>
+                            @endif
+                        </div>
+                        <small class="text-muted">{{ $message->created_at->format('d M Y H:i') }}</small>
+                    </div>
+                    <hr>
+                    <p>{{ $message->message }}</p>
+                    @if(!$message->is_read)
+                        <button class="btn btn-sm btn-outline-primary mark-read-btn" data-id="{{ $message->id }}">
+                            <i class="bi bi-check2-circle me-1"></i> Mark as Read
+                        </button>
+                    @endif
+                </div>
+            @endforeach
+            @if($unreadMessages->count() > 0)
+                <button class="btn btn-sm btn-secondary mt-2" id="markAllReadBtn">
+                    <i class="bi bi-check2-all me-1"></i> Mark All as Read
+                </button>
+            @endif
+        </div>
+    </div>
+  @endif
+
   <!-- HERO -->
   <section class="hero">
     <div class="container">
@@ -103,3 +157,43 @@
     </div>
   </section>
 @endsection
+
+@push('addon-script')
+  <script>
+    $(document).ready(function() {
+        // Mark single message as read
+        $('.mark-read-btn').on('click', function() {
+            var messageId = $(this).data('id');
+            var btn = $(this);
+            
+            $.ajax({
+                url: '{{ route("user.mark_message_read", "") }}/' + messageId,
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function() {
+                    btn.closest('.alert').removeClass('border-start border-4 border-primary');
+                    btn.closest('.alert').find('.badge.bg-primary').remove();
+                    btn.remove();
+                    location.reload();
+                }
+            });
+        });
+        
+        // Mark all messages as read
+        $('#markAllReadBtn').on('click', function() {
+            $.ajax({
+                url: '{{ route("user.mark_all_messages_read") }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function() {
+                    location.reload();
+                }
+            });
+        });
+    });
+  </script>
+@endpush
