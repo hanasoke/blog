@@ -36,10 +36,11 @@ class MembershipController extends Controller
 
         // Get unread admin messages for the user
         $unreadMessages = AdminMessage::where('user_id', $user->id)
-            ->where('status', Transaction::STATUS_REJECTED)
+            ->where('is_read', false)
+            ->orderBy('created_at', 'desc')->where('status', Transaction::STATUS_REJECTED)
             ->where('can_edit', true)
             ->latest()
-            ->first();
+            ->get();
         
         // Get unread admin messages for the user
         $allMessages = AdminMessage::where('user_id', $user->id)
