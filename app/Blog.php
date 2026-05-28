@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\AccessHelper;
 
 class Blog extends Model 
 {
@@ -35,6 +36,18 @@ class Blog extends Model
     public function access()
     {
         return $this->hasOne('App\AccessBlog', 'blog_id');
+    }
+
+    // Check if user can access this blog 
+    public function userCanAccess($user)
+    {
+        return AccessHelper::canAccessBlog($user, $this);
+    }
+
+    // Get required access level 
+    public function getRequiredAccessLevel()
+    {
+        return AccessHelper::getRequiredLevel($this);
     }
 
 }

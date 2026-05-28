@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Blog;
-use App\AccessBlog;
+use App\Helpers\AccessHelper;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -23,13 +23,11 @@ class DashboardController extends Controller
         $user = Auth::user();
         $blog = Blog::with(['genre', 'source', 'user', 'access.member'])->findOrFail($id);
 
-        // Check if user has access to this blog
-        $hasAccess = $this->checkBlogAccess($user, $blog);
-
-        if(!$hasAccess) {
-            // Redirect back with error message 
+        // Using helper method 
+        if(!AccessHelper::canAccessBlog($user, $blog)) {
+            $requiredLevel = AccessHelper::getRequiredLevel($blog);
             return redirect()->route('home')
-                ->with('error', 'You do not have permission to access this blog. Please upgrade your membership to view this content.');
+                ->with('error', "This blog requires {$requiredLevel} membership. Your current level is {$user->access}. Please upgrade to access this content.");
         }
 
         return view('pages.user.detail', compact('blog'));
