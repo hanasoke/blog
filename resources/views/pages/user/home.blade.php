@@ -54,12 +54,18 @@
 
             <div class="col-md-6 col-lg-4">
               <div class="card blog-card h-100 border-0 shadow-sm">
-                <a href="{{ route('detail', $blog->id) }}" class="text-decoration-none">
+                @if($canAccess)
+                  <a href="{{ route('detail', $blog->id) }}" class="text-decoration-none">
+                @else
+                  <div class="text-decoration-none" style="cursor: pointer;" onclick="showUpgradeAlert('{{ $blog->title }}', '{{ $requiredLevel }}')">
+                @endif 
+
                   @if($blog->thumbnail)
                     <img src="{{ asset('storage/' . $blog->thumbnail) }}" class="card-img-top" alt="{{ $blog->title }}">
                   @else 
                     <img src="{{ asset('user_assets/thumbnail/error_website.png') }}" alt="Error Website">
                   @endif 
+
                   <div class="card-body">
                     <!-- Author & Date -->
                     <small class="text-muted">{{ $blog->user->name ?? 'Unknown Author' }} · {{ $blog->created_at ? $blog->created_at->format('d M Y') : 'Date not set' }}</small>
@@ -73,6 +79,21 @@
                     <p class="text-muted">
                       {{ Str::limit(strip_tags($blog->description), 100) }}
                     </p>
+
+                    <!-- Access Level Badge -->
+                    @if($blog->access && $blog->access->member)
+                      <div class="mb-2">
+                        <span class="badge rounded-pill bg-warning text-dark">
+                          <i class="bi bi-shield-lock-fill me-1"></i> {{ $blog->access->member->name }} Only 
+                        </span>
+                      </div>
+                    @else 
+                      <div class="mb-2">
+                        <span class="badge rounded-pill bg-success">
+                          <i class="bi bi-unlock-fill me-1"></i> Free Access
+                        </span>
+                      </div>
+                    @endif 
 
                     <!-- Tags/Genres -->
                     <div class="d-flex gap-2 flex-wrap">
@@ -89,7 +110,12 @@
                       @endif 
                     </div>
                   </div>
-                </a>
+
+                @if($canAccess)
+                  </a>
+                @else 
+                  </div>
+                @endif  
               </div>
             </div>
           @endforeach
@@ -98,4 +124,5 @@
       @endif 
     </div>
   </section>
+
 @endsection

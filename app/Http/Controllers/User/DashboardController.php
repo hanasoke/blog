@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Blog;
+use App\AccessBlog;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -18,12 +20,13 @@ class DashboardController extends Controller
     }
 
     public function detail($id) {
+        $user = Auth::user();
         $blog = Blog::with(['genre', 'source', 'user', 'access.member'])->findOrFail($id);
 
         // Check if user has access to this blog
         $hasAccess = $this->checkBlogAccess($user, $blog);
 
-        if(!hasAccess) {
+        if(!$hasAccess) {
             // Redirect back with error message 
             return redirect()->route('home')
                 ->with('error', 'You do not have permission to access this blog. Please upgrade your membership to view this content.');
