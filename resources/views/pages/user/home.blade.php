@@ -125,4 +125,54 @@
     </div>
   </section>
 
+   <!-- Upgrade Modal -->
+  <div class="modal fade" id="upgradeModal" tabindex="-1" aria-labelledby="upgradeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-warning">
+          <h5 class="modal-title" id="upgradeModalLabel">
+            <i class="bi bi-shield-lock-fill me-2"></i> Access Restricted
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center mb-3">
+            <i class="bi bi-lock-fill display-1 text-warning"></i>
+          </div>
+          <h5 class="text-center mb-3" id="modalBlogTitle">Blog Title</h5>
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            This blog requires <strong id="requiredLevel">PREMIUM</strong> membership to access.
+          </div>
+          <p class="text-muted text-center">
+            Your current membership level is <strong id="userLevel">{{ Auth::user()->access }}</strong>.
+          </p>
+          <p class="text-center">
+            Upgrade your membership to unlock this and other premium content!
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <a href="{{ route('edit_membership') }}" class="btn btn-warning">
+            <i class="bi bi-arrow-up-circle me-2"></i> Upgrade Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 @endsection
+
+@push('addon-script')
+  <script>
+    function showUpgradeAlert(blogTitle, requiredLevel) {
+      // Update modal content
+      document.getElementById('modalBlogTitle').innerHTML = '<i class="bi bi-file-text-fill me-2"></i> ' + blogTitle;
+      document.getElementById('requiredLevel').innerText = requiredLevel || 'PREMIUM';
+
+      // Show modal 
+      var myModal = new bootstrap.Modal(document.getElementById('upgradeModal'));
+      myModal.show();
+    }
+  </script>
+@endpush 
