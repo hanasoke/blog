@@ -45,6 +45,11 @@ class DashboardController extends Controller
             return true;
         }
 
+        // If blog has no access restriction (FREE for everyone)
+        if(!$blog->access){
+            return true;
+        }
+
         // Get the required member level for this blog 
         $requiredMember = $blog->access->member;
 
@@ -53,5 +58,17 @@ class DashboardController extends Controller
         }
 
         // Define access level hierarchy
+        $accessLevels = [
+            'FREE' => 0,
+            'BASIC' => 1, 
+            'PREMIUM' => 2,
+            'VIP' => 3
+        ];
+
+        $userLevel = $accessLevels[$user->access] ?? 0;
+        $requiredLevel = $accessLevels[$requiredMember->name] ?? 0;
+
+        // User can access if their level is greater than or equal to required level 
+        return $userLevel >= $requiredLevel;
     }
 }
