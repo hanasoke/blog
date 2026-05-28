@@ -6,108 +6,154 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10 col-xl-8">
-                <!-- Blog Header -->
-                <div class="mb-4">
-                    <div class="blog-meta d-flex align-items-center mb-2">
-                        <i class="bi bi-calendar3"></i> &nbsp; 
-                        <span>{{ $blog->created_at ? $blog->created_at->format('F d, Y') : 'Date not set' }}</span>
-                        <span class="mx-3">•</span>
-                        <i class="bi bi-clock"></i> &nbsp;
-                        <span>{{ round(strlen(strip_tags($blog->description)) / 200) }} min read</span>
-                        <span class="mx-3">•</span>
-                        <i class="bi bi-eye"></i> &nbsp;
-                        <span>{{ $blog->views ?? 0 }} views</span>
-                    </div>
-                    <h1 class="display-4 fw-bold mb-4">{{ $blog->title }}</h1>
-                    <div class="d-flex align-items-center flex-wrap gap-3">
-                        @if($blog->user && $blog->user->photo)
-                            <img src="{{ asset('storage/' . $blog->user->photo) }}" class="rounded-circle" width="50" height="50" alt="Author">
-                        @else 
-                            <img src="{{ url('user_assets/icons/user.png') }}" class="rounded-circle" width="50" height="50" alt="Author">
-                        @endif 
-                        <div>
-                            <h6 class="fw-bold mb-0">{{ $blog->user->name ?? 'Unknown Author' }}</h6>
-                            <small class="text-muted">
-                                @if($blog->user) 
-                                    {{ $blog->user->roles ?? 'User' }}
-                                @else 
-                                    Author
-                                @endif 
-                            </small>
-                        </div>
-                        <div class="ms-auto">
-                            <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareArticle()">
-                                <i class="bi bi-share"></i> Share
-                            </a>
-                            <button class="btn btn-outline-secondary btn-sm" onclick="bookmarkArticle()">
-                                <i class="bi bi-bookmark"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <!-- Security Check - Double verification -->
+                @php 
+                    $user = Auth::user();
+                    $hasAccess = false;
 
-                <!-- Thumbnail Image -->
-                @if($blog->thumbnail)
+                    if ($user->access == 'VIP') {
+                        $hasAccess = true;
+                    } elseif (!$blog->access) {
+                        $hasAccess = true;
+                    } elseif ($blog->access && $blog->access->member) {
+                        $accessLevels = ['FREE' => 0, 'BASIC' => 1, 'PREMIUM' => 2, 'VIP' => 3];
+                        $userLevel = $accessLevels[$user->access] ?? 0;
+                        $requiredLevelNum = $accessLevels[$blog->access->member->name] ?? 0;
+                        $hasAccess = $userLevel >= $requiredLevelNum;
+                    }
+                @endphp 
+
+                @if(!$hasAccess)
+                    <div class="text-center py-5">
+                        <div class="mb-4">
+                            <i class="bi bi-shield-lock-fill display-1 text-warning"></i>
+                        </div>
+                        <h3 class="mb-3">Access Denied</h3>
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            You don't have permission to view this content.
+                        </div>
+                        <p class="text-muted mb-4">
+                            This blog requires <strong>{{ $blog->access->member->name ?? 'PREMIUM' }}</strong> membership.
+                            Your current level is <strong>{{ $user->access }}</strong>.
+                        </p>
+                        <a href="{{ route('edit_membership') }}" class="btn btn-warning btn-lg">
+                            <i class="bi bi-arrow-up-circle me-2"></i> Upgrade Membership
+                        </a>
+                        <a href="{{ route('home') }}" class="btn btn-outline-secondary btn-lg ms-2">
+                            <i class="bi bi-arrow-left me-2"></i> Back to Home
+                        </a>
+                    </div>
+                @else
+
+                    <!-- Blog Header -->
                     <div class="mb-4">
-                        <img src="{{ asset('storage/' . $blog->thumbnail) }}" class="img-fluid rounded-3 w-100" alt="{{ $blog->title }}">
-                    </div>
-                @endif 
-
-                <!-- Article Content -->
-                <div class="article-content">
-                    {{ $blog->description }}
-                </div>
-
-                <!-- Additional Images -->
-                @if($blog->image_2 || $blog->image_3)
-                <div class="row g-4 my-4">
-                    @if($blog->image_2) 
-                        <div class="col-md-6">
-                            <img src="{{ asset('storage/' . $blog->image_2) }}" class="img-fluid rounded-3 w-100" alt="Additional image 1">
+                        <div class="blog-meta d-flex align-items-center mb-2">
+                            <i class="bi bi-calendar3"></i> &nbsp; 
+                            <span>{{ $blog->created_at ? $blog->created_at->format('F d, Y') : 'Date not set' }}</span>
+                            <span class="mx-3">•</span>
+                            <i class="bi bi-clock"></i> &nbsp;
+                            <span>{{ round(strlen(strip_tags($blog->description)) / 200) }} min read</span>
+                            <span class="mx-3">•</span>
+                            <i class="bi bi-eye"></i> &nbsp;
+                            <span>{{ $blog->views ?? 0 }} views</span>
                         </div>
-                    @endif 
-                    @if($blog->image_3) 
-                        <div class="col-md-6">
-                            <img src="{{ asset('storage/' . $blog->image_3) }}" class="img-fluid rounded-3 w-100" alt="Additional image 2">
-                        </div>
-                    @endif 
-                </div>
-                @endif 
-
-                <!-- Social Share & Tags -->
-                <div class="social-share mt-5">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <h6 class="fw-bold mb-2">Genre & Source:</h6>
-                            <div class="d-flex gap-2 flex-wrap">
-                                @if($blog->genre)
-                                    <span class="badge bg-primary">
-                                        <i class="bi bi-tag"></i> {{ $blog->genre->name }}
-                                    </span>
-                                @endif 
-                                @if($blog->source)
-                                    <span class="badge bg-primary">
-                                        <i class="bi bi-bookmark"></i> {{ $blog->source->name }}
-                                    </span>
-                                @endif 
+                        <h1 class="display-4 fw-bold mb-4">{{ $blog->title }}</h1>
+                        <div class="d-flex align-items-center flex-wrap gap-3">
+                            @if($blog->user && $blog->user->photo)
+                                <img src="{{ asset('storage/' . $blog->user->photo) }}" class="rounded-circle" width="50" height="50" alt="Author">
+                            @else 
+                                <img src="{{ url('user_assets/icons/user.png') }}" class="rounded-circle" width="50" height="50" alt="Author">
+                            @endif 
+                            <div>
+                                <h6 class="fw-bold mb-0">{{ $blog->user->name ?? 'Unknown Author' }}</h6>
+                                <small class="text-muted">
+                                    @if($blog->user) 
+                                        {{ $blog->user->roles ?? 'User' }}
+                                    @else 
+                                        Author
+                                    @endif 
+                                </small>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <h6 class="fw-bold mb-2">Share this article:</h6>
-                            <div class="d-flex gap-2">
-                                <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2" onclick="shareToFacebook()">
-                                    <i class="bi bi-facebook me-1"></i>Facebook
+                            <div class="ms-auto">
+                                <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="shareArticle()">
+                                    <i class="bi bi-share"></i> Share
                                 </a>
-                                <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2" onclick="shareToTwitter()">
-                                    <i class="bi bi-twitter me-1"></i>Twitter
-                                </a>
-                                <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2" onclick="shareToLinkedIn()">
-                                    <i class="bi bi-linkedin me-1"></i>LinkedIn
-                                </a>
+                                <button class="btn btn-outline-secondary btn-sm" onclick="bookmarkArticle()">
+                                    <i class="bi bi-bookmark"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                    <!-- Thumbnail Image -->
+                    @if($blog->thumbnail)
+                        <div class="mb-4">
+                            <img src="{{ asset('storage/' . $blog->thumbnail) }}" class="img-fluid rounded-3 w-100" alt="{{ $blog->title }}">
+                        </div>
+                    @endif 
+
+                    <!-- Article Content -->
+                    <div class="article-content">
+                        {{ $blog->description }}
+                    </div>
+
+                    <!-- Additional Images -->
+                    @if($blog->image_2 || $blog->image_3)
+                    <div class="row g-4 my-4">
+                        @if($blog->image_2) 
+                            <div class="col-md-6">
+                                <img src="{{ asset('storage/' . $blog->image_2) }}" class="img-fluid rounded-3 w-100" alt="Additional image 1">
+                            </div>
+                        @endif 
+                        @if($blog->image_3) 
+                            <div class="col-md-6">
+                                <img src="{{ asset('storage/' . $blog->image_3) }}" class="img-fluid rounded-3 w-100" alt="Additional image 2">
+                            </div>
+                        @endif 
+                    </div>
+                    @endif 
+
+                    <!-- Social Share & Tags -->
+                    <div class="social-share mt-5">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <h6 class="fw-bold mb-2">Genre & Source:</h6>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    @if($blog->genre)
+                                        <span class="badge bg-primary">
+                                            <i class="bi bi-tag"></i> {{ $blog->genre->name }}
+                                        </span>
+                                    @endif 
+                                    @if($blog->source)
+                                        <span class="badge bg-primary">
+                                            <i class="bi bi-bookmark"></i> {{ $blog->source->name }}
+                                        </span>
+                                    @endif 
+                                    @if($blog->access && $blog->access->member)
+                                        <span class="badge bg-warning text-dark">
+                                            <i class="bi bi-shield-lock-fill me-1"></i> {{ $blog->access->member->name }} Content
+                                        </span>
+                                    @endif 
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="fw-bold mb-2">Share this article:</h6>
+                                <div class="d-flex gap-2">
+                                    <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2" onclick="shareToFacebook()">
+                                        <i class="bi bi-facebook me-1"></i>Facebook
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2" onclick="shareToTwitter()">
+                                        <i class="bi bi-twitter me-1"></i>Twitter
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary btn-sm px-3 py-2" onclick="shareToLinkedIn()">
+                                        <i class="bi bi-linkedin me-1"></i>LinkedIn
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif 
             </div>
         </div>
     </div>
