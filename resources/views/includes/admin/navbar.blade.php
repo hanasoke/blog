@@ -15,7 +15,6 @@
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
             </a>
-            <!-- Dropdown - Messages -->
             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                 aria-labelledby="searchDropdown">
                 <form class="form-inline mr-auto w-100 navbar-search">
@@ -33,17 +32,15 @@
             </div>
         </li>
 
-        <!-- Nav Item - Alerts (Notification for Pending Transactions) -->
+        <!-- Nav Item - Alerts (Notification for Admin Messages) -->
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
                 <span class="badge badge-danger badge-counter" id="notificationBadge">0</span>
             </a>
-            <!-- Dropdown - Alerts -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown" id="notificationDropdown" style="width: 350px;" >
+                aria-labelledby="alertsDropdown" id="notificationDropdown" style="width: 350px;">
                 <h6 class="dropdown-header">
                     Notification Center
                 </h6>
@@ -90,7 +87,6 @@
         <div class="topbar-divider d-none d-sm-block"></div>
 
         @auth 
-            <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -103,7 +99,6 @@
                             : asset('img/undraw_profile.svg')
                         }}">
                 </a>
-                <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                     aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="{{ route('admin_profile') }}">
@@ -121,7 +116,8 @@
                     </button>
                 </div>
             </li>
-            <!-- Logout Modal-->
+            
+            <!-- Logout Modal -->
             <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -145,7 +141,6 @@
             </div>
         @endauth 
     </ul>
-
 </nav>
 <!-- End of Topbar -->
 
@@ -162,10 +157,8 @@
                     var pendingCount = response.count;
                     var transactions = response.transactions;
                     
-                    // Update badge
                     $('#pendingTransactionBadge').text(pendingCount);
                     
-                    // Update dropdown list
                     var html = '';
                     if (transactions.length > 0) {
                         transactions.forEach(function(transaction) {
@@ -195,11 +188,14 @@
                         html = '<div class="text-center py-3"><p class="text-muted small mb-0">No pending transactions</p></div>';
                     }
                     $('#pendingTransactionList').html(html);
+                },
+                error: function(xhr) {
+                    console.log('Error loading pending transactions:', xhr);
                 }
             });
         }
         
-        // Function to load unread notifications
+        // Function to load unread notifications with redirect functionality
         function loadNotifications() {
             $.ajax({
                 url: '{{ route("get_unread_messages") }}',
@@ -209,10 +205,8 @@
                     var messages = response.messages;
                     var count = messages.length;
                     
-                    // Update badge
                     $('#notificationBadge').text(count);
                     
-                    // Update dropdown list
                     var html = '';
                     if (messages.length > 0) {
                         messages.forEach(function(message) {
@@ -228,8 +222,12 @@
                             var statusIcon = message.transaction.status === 'APPROVED' ? 'check-circle' : 'times-circle';
                             var statusText = message.transaction.status === 'APPROVED' ? 'Approved' : 'Rejected';
                             
+                            // Store redirect URL in data attribute
                             html += `
-                                <a class="dropdown-item d-flex align-items-center notification-item" href="#" data-id="${message.id}">
+                                <a class="dropdown-item d-flex align-items-center notification-item" 
+                                   href="#" 
+                                   data-id="${message.id}"
+                                   data-redirect-url="${message.redirect_url}">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-${statusClass}">
                                             <i class="fas fa-${statusIcon} text-white"></i>
@@ -249,36 +247,65 @@
                     }
                     $('#notificationList').html(html);
                     
-                    // Mark as read when clicked
+                    // Handle notification click - mark as read and redirect
                     $('.notification-item').on('click', function(e) {
                         e.preventDefault();
                         var messageId = $(this).data('id');
+                        var redirectUrl = $(this).data('redirect-url');
+                        var $this = $(this);
+                        
+                        // Disable click to prevent double submission
+                        $this.css('pointer-events', 'none');
+                        $this.find('.icon-circle').html('<i class="fas fa-spinner fa-spin"></i>');
+                        
                         $.ajax({
                             url: '{{ url("admin/mark_message_read") }}/' + messageId,
                             type: 'POST',
                             data: {
                                 _token: '{{ csrf_token() }}'
                             },
-                            success: function() {
-                                loadNotifications();
+                            success: function(response) {
+                                if (response.success) {
+                                    // Redirect to the appropriate page
+                                    window.location.href = redirectUrl;
+                                } else {
+                                    // Fallback redirect
+                                    window.location.href = redirectUrl;
+                                }
+                            },
+                            error: function() {
+                                // Even if AJAX fails, try to redirect
+                                window.location.href = redirectUrl;
                             }
                         });
                     });
+                },
+                error: function(xhr) {
+                    console.log('Error loading notifications:', xhr);
                 }
             });
         }
         
-        // Mark all as read
+        // Mark all as read (without redirect)
         $('#markAllReadBtn').on('click', function(e) {
             e.preventDefault();
+            var $this = $(this);
+            $this.html('<i class="fas fa-spinner fa-spin"></i> Processing...');
+            
             $.ajax({
                 url: '{{ route("mark_all_messages_read") }}',
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}'
                 },
-                success: function() {
-                    loadNotifications();
+                success: function(response) {
+                    if (response.success) {
+                        loadNotifications();
+                        $this.html('Mark all as read');
+                    }
+                },
+                complete: function() {
+                    $this.html('Mark all as read');
                 }
             });
         });

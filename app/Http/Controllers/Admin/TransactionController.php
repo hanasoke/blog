@@ -718,7 +718,7 @@ class TransactionController extends Controller
         foreach($messages as $message) {
             $messagesData[] = [
                 'id' => $message->id, 
-                'message' => $message,
+                'message' => $message->message,
                 'created_at' => $message->created_at,
                 'is_read' => $message->is_read,
                 'user' => [
@@ -748,7 +748,7 @@ class TransactionController extends Controller
      */
     public function markMessageAsRead($id)
     {
-        $message = AdminMessage::findOrFail($id);
+        $message = AdminMessage::with('transaction')->findOrFail($id);
         $message->is_read = true;
         $message->save();
 
