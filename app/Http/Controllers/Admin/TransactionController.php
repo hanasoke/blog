@@ -752,7 +752,16 @@ class TransactionController extends Controller
         $message->is_read = true;
         $message->save();
 
-        return response()->json(['success' => true]);
+        // Determine redirect URL based on transaction status
+        $redirectUrl = $message->transaction->status === 'APPROVED'
+            ? route('success_transaction')
+            : route('cancel_transaction');
+
+
+        return response()->json([
+            'success' => true,
+            'redirect_url' => $redirectUrl
+        ]);
     }
 
     /**
