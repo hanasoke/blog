@@ -712,8 +712,35 @@ class TransactionController extends Controller
             ->where('is_read', false)
             ->orderBy('created_at', 'desc')
             ->get();
+
+        // Add redirect URL based on transaction status 
+        $messagesData = [];
+        foreach($messages as $message) {
+            $messagesData[] = [
+                'id' => $message->id, 
+                'message' => $message,
+                'created_at' => $message->created_at,
+                'is_read' => $message->is_read,
+                'user' => [
+                    'name' => $message->user->name,
+                    'email' => $message->user->email,
+                ],
+                'transaction' => [
+                    'id' => $message->transaction->id,
+                    'status' => $message->transaction->status,
+                    'member_name' => $message->transaction->member->name ?? 'N/A',
+                ], 
+                // Add redirect URL based on status 
+                'redirect_url' => $message->transaction->status === 'APPROVED'
+                    ? route('success_transaction')
+                    : route('cancel_transaction')
+            ];
+        }
         
-        return response()->json(['messages' => $messages]);
+        return response()->json([
+            'messages' => $messagesData,
+            'count' => count($messagesData)
+        ]);
     }
 
     /**
