@@ -38,6 +38,45 @@ class DashboardController extends Controller
         $totalGenres = Genre::count();
         $totalSources = Source::count();
         
+        // Blog with most views (if you have views column, adjust accordingly)
+        $mostViewedBlog = Blog::with('user')
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        // Latest blogs
+        $latestBlogs = Blog::with(['user', 'genre', 'source'])
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        // Transaction statistics
+        $totalTransactions = Transaction::count();
+        $pendingTransactions = Transaction::where('status', Transaction::STATUS_PENDING)->count();
+        $approvedTransactions = Transaction::where('status', Transaction::STATUS_APPROVED)->count();
+        $rejectedTransactions = Transaction::where('status', Transaction::STATUS_REJECTED)->count();
+
+        // Transaction revenue
+        $totalRevenue = Transaction::where('status', Transaction::STATUS_APPROVED)
+            ->get()
+            ->sum(function($transaction) {
+                return $transaction->member->price ?? 0;
+            });
+
+        $pendingRevenue = Transaction::where('status', Transaction::STATUS_PENDING)
+            ->get()
+            ->sum(function($transaction) {
+                return $transaction->member->price ?? 0;
+            });
+
+         $rejectedRevenue = Transaction::where('status', Transaction::STATUS_REJECTED)
+            ->get()
+            ->sum(function($transaction) {
+                return $transaction->member->price ?? 0;
+            });
+
+        // Member/Package statistics
+        
+
 
         return view('pages.admin.base');
     }
