@@ -75,7 +75,97 @@ class DashboardController extends Controller
             });
 
         // Member/Package statistics
+        $totalMembers = Member::count();
+        $memberStats = Member::withCount('accessBlog')->get();
+
+        // Payment method statistics
+        $totalPayments = Payment::count();
+        $paymentStats = Payment::withCount('transaction')->get();
+
+        // Access blog statistics
+        $totalAccessBlogs = AccessBlog::count();
+
+        // Monthly user registration (last 6 months)
+        $monthlyUserStats = [];
+        for($i = 5; $i >= 0; $i--) {
+            $month = now()->subMonths($i);
+            $count = User::whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->count();
+            $monthlyUserStats[$month->format('F Y')] = $count;
+        }
         
+        // Monthly transaction statistics (last 6 months)
+        $monthlyTransactionStats = [];
+        for($i = 5; $i >= 0; $i--) {
+            $month = now()->subMonths($i);
+            $count = Transaction::whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->count();
+            $revenue = Transaction::where('status', Transaction::STATUS_APPROVED)
+                ->whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->get()
+                ->sum(function($t) {
+                    return $t->member->price ?? 0;
+                });
+            $monthlyTransactionStats[$month->format('F Y')] = [
+                'count' => $count,
+                'revenue' => $revenue
+            ];
+        }
+        
+        // Genre statistics (most used)
+        $genreStats = Genre::withCount('blogs')
+            ->orderBy('blogs_count', 'desc')
+            ->limit(5)
+            ->get();
+        
+        // Source statistics (most used)
+        $sourceStats = Source::withCount('blogs')
+            ->orderBy('blogs_count', 'desc')
+            ->limit(5)
+            ->get();
+        
+        // Prepare data for view
+        $data = [
+            // User stats
+            'totalUsers' => $totalUsers,
+            'totalAdmin' => $totalAdmin,
+            'totalRegularUsers' => $totalRegularUsers,
+            'verifiedUsers' => $verifiedUsers,
+            'unverifiedUsers' => $unverifiedUsers,
+            'userAccessStats' => $userAccessStats,
+            'monthlyUserStats' => $monthlyUserStats,
+            
+            // Blog stats
+            'totalBlogs' => $totalBlogs,
+            'totalGenres' => $totalGenres,
+            'totalSources' => $totalSources,
+            'mostViewedBlog' => $mostViewedBlog,
+            'latestBlogs' => $latestBlogs,
+            'genreStats' => $genreStats,
+            'sourceStats' => $sourceStats,
+            
+            // Transaction stats
+            'totalTransactions' => $totalTransactions,
+            'pendingTransactions' => $pendingTransactions,
+            'approvedTransactions' => $approvedTransactions,
+            'rejectedTransactions' => $rejectedTransactions,
+            'totalRevenue' => $totalRevenue,
+            'pendingRevenue' => $pendingRevenue,
+            'rejectedRevenue' => $rejectedRevenue,
+            'monthlyTransactionStats' => $monthlyTransactionStats,
+            
+            // Member & Payment stats
+            'totalMembers' => $totalMembers,
+            'memberStats' => $memberStats,
+            'totalPayments' => $totalPayments,
+            'paymentStats' => $paymentStats,
+            
+            // Access Blog stats
+            'totalAccessBlogs' => $totalAccessBlogs,
+        ];
 
 
         return view('pages.admin.base');
