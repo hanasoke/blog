@@ -82,33 +82,23 @@
         
         .summary-card {
             flex: 1;
-            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+            background: #fff;
+            border: 1px solid #e3e6f0;
             border-radius: 8px;
             padding: 12px;
             text-align: center;
-            color: white;
-        }
-        
-        .summary-card:nth-child(2) {
-            background: linear-gradient(135deg, #1cc88a 0%, #13855e 100%);
-        }
-        
-        .summary-card:nth-child(3) {
-            background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%);
-        }
-        
-        .summary-card:nth-child(4) {
-            background: linear-gradient(135deg, #e74a3b 0%, #be2617 100%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         
         .summary-card h3 {
             font-size: 22px;
+            color: #4e73df;
             margin-bottom: 5px;
         }
         
         .summary-card p {
-            font-size: 10px;
-            opacity: 0.9;
+            color: #666;
+            font-size: 12px;
         }
         
         /* Table Styles */
@@ -294,7 +284,7 @@
         </div>
         
         <!-- User Statistics Section -->
-        <div class="section-title">📊 User Statistics</div>
+        <div class="section-title">User Statistics</div>
         <div class="two-columns">
             <div class="column">
                 <table class="data-table">
@@ -331,7 +321,7 @@
         </div>
         
         <!-- Blog Statistics Section -->
-        <div class="section-title">📚 Blog Statistics</div>
+        <div class="section-title">Blog Statistics</div>
         <div class="two-columns">
             <div class="column">
                 <table class="data-table">
@@ -361,7 +351,7 @@
         </div>
         
         <!-- Transaction Statistics Section -->
-        <div class="section-title">💰 Transaction Statistics</div>
+        <div class="section-title">Transaction Statistics</div>
         <div class="two-columns">
             <div class="column">
                 <table class="data-table">
@@ -392,7 +382,7 @@
         </div>
         
         <!-- Monthly Statistics Section -->
-        <div class="section-title">📈 Monthly Statistics (Last 6 Months)</div>
+        <div class="section-title">Monthly Statistics (Last 6 Months)</div>
         <div class="two-columns">
             <div class="column">
                 <table class="data-table">
@@ -422,7 +412,7 @@
         
         <!-- Latest Blogs Section -->
         @if($latestBlogs->count() > 0)
-        <div class="section-title">📝 Latest Blogs</div>
+        <div class="section-title">Latest Blogs</div>
         <table class="data-table">
             <thead>
                 <tr><th>Title</th><th>Author</th><th>Genre</th><th>Source</th><th>Date</th></tr>
