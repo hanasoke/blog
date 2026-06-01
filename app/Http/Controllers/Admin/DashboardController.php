@@ -80,7 +80,7 @@ class DashboardController extends Controller
 
         // Payment method statistics
         $totalPayments = Payment::count();
-        $paymentStats = Payment::withCount('transaction')->get();
+        $paymentStats = Payment::withCount('transactions')->get();
 
         // Access blog statistics
         $totalAccessBlogs = AccessBlog::count();
@@ -168,6 +168,6 @@ class DashboardController extends Controller
         ];
 
 
-        return view('pages.admin.base');
+        return view('pages.admin.base', $data);
     }
 }

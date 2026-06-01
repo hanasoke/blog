@@ -11,19 +11,20 @@
                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
     </div>
 
-    <!-- Content Row -->
+    <!-- Content Row - User Statistics Cards -->
     <div class="row">
 
-        <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                User Total
+                                Total Users
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ number_format($totalUsers, 0, ',', '.') }}
+                            </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -33,58 +34,17 @@
             </div>
         </div>
 
-        <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Genre Total      
+                                Total Blogs      
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">4</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-list fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                Wallet Total
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ number_format($totalBlogs, 0, ',', '.') }}
                             </div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">7</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-envelope fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pending Requests Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Blog Total
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-book fa-2x text-gray-300"></i>
@@ -93,109 +53,329 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Content Row -->
-    <div class="row">
-
-        <!-- Area Chart -->
-        <div class="col-xl-8 col-lg-7">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Perkembangan Transaksi</h6>
-                </div>
-                <!-- Card Body -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Total Revenue
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{ number_format($totalRevenue, 0, ',', '.') }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Pie Chart -->
-        <div class="col-xl-4 col-lg-5">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Wallet Usage</h6>
-                </div>
-                <!-- Card Body -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                    <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Ovo
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Dana
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> BCA
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-danger"></i> Jenius
-                        </span>
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Pending Transactions</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format($pendingTransactions, 0, ',', '.') }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clock fa-2x text-gray-300"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Content Row -->
+    <!-- Content Row - User Access Distribution -->
     <div class="row">
-
-        <!-- Content Column -->
-        <div class="col mb-4">
-
-            <!-- Project Card Example -->
+        <div class="col-xl-6 col-lg-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">User Access Distribution</h6>
                 </div>
                 <div class="card-body">
-                    <h4 class="small font-weight-bold">Server Migration <span
-                            class="float-right">20%</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <h4 class="small font-weight-bold">Sales Tracking <span
-                            class="float-right">40%</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <h4 class="small font-weight-bold">Customer Database <span
-                            class="float-right">60%</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <h4 class="small font-weight-bold">Payout Details <span
-                            class="float-right">80%</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <h4 class="small font-weight-bold">Account Setup <span
-                            class="float-right">Complete!</span></h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Access Level</th>
+                                    <th>Total Users</th>
+                                    <th>Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($userAccessStats as $level => $count)
+                                <tr>
+                                    <td>{{ $level }}</td>
+                                    <td>{{ number_format($count, 0, ',', '.') }}</td>
+                                    <td>
+                                        @php
+                                            $percentage = $totalUsers > 0 ? round(($count / $totalUsers) * 100, 1) : 0;
+                                        @endphp
+                                        <div class="progress">
+                                            <div class="progress-bar bg-primary" style="width: {{ $percentage }}%">
+                                                {{ $percentage }}%
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-
         </div>
 
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Transaction Status</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th>Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                    <td>{{ number_format($pendingTransactions, 0, ',', '.') }}</td>
+                                    <td>Rp {{ number_format($pendingRevenue, 0, ',', '.') }}</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                    <td>{{ number_format($approvedTransactions, 0, ',', '.') }}</td>
+                                    <td>Rp {{ number_format($totalRevenue, 0, ',', '.') }}</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-danger">Rejected</span></td>
+                                    <td>{{ number_format($rejectedTransactions, 0, ',', '.') }}</td>
+                                    <td>Rp {{ number_format($rejectedRevenue, 0, ',', '.') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row - Charts -->
+    <div class="row">
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Monthly User Registration</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="userChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Monthly Transactions</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="transactionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Genres & Sources -->
+    <div class="row">
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Genres</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Genre</th>
+                                    <th>Total Blogs</th>
+                                    <th>Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($genreStats as $genre)
+                                <tr>
+                                    <td>{{ $genre->name }}</td>
+                                    <td>{{ number_format($genre->blogs_count, 0, ',', '.') }}</td>
+                                    <td>
+                                        @php
+                                            $percentage = $totalBlogs > 0 ? round(($genre->blogs_count / $totalBlogs) * 100, 1) : 0;
+                                        @endphp
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" style="width: {{ $percentage }}%">
+                                                {{ $percentage }}%
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Top 5 Sources</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Source</th>
+                                    <th>Total Blogs</th>
+                                    <th>Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($sourceStats as $source)
+                                <tr>
+                                    <td>{{ $source->name }}</td>
+                                    <td>{{ number_format($source->blogs_count, 0, ',', '.') }}</td>
+                                    <td>
+                                        @php
+                                            $percentage = $totalBlogs > 0 ? round(($source->blogs_count / $totalBlogs) * 100, 1) : 0;
+                                        @endphp
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info" style="width: {{ $percentage }}%">
+                                                {{ $percentage }}%
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest Blogs -->
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Latest Blogs</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Genre</th>
+                                    <th>Source</th>
+                                    <th>Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($latestBlogs as $blog)
+                                <tr>
+                                    <td>{{ Str::limit($blog->title, 50) }}</td>
+                                    <td>{{ $blog->user->name ?? 'N/A' }}</td>
+                                    <td>{{ $blog->genre->name ?? 'N/A' }}</td>
+                                    <td>{{ $blog->source->name ?? 'N/A' }}</td>
+                                    <td>{{ $blog->created_at ? $blog->created_at->format('d M Y H:i') : 'N/A' }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
 <!-- /.container-fluid -->
 @endsection 
+
+@push('addon-script')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // User Registration Chart
+    var userCtx = document.getElementById('userChart').getContext('2d');
+    var userChart = new Chart(userCtx, {
+        type: 'line',
+        data: {
+            labels: {!! json_encode(array_keys($monthlyUserStats)) !!},
+            datasets: [{
+                label: 'New Users',
+                data: {!! json_encode(array_values($monthlyUserStats)) !!},
+                backgroundColor: 'rgba(78, 115, 223, 0.2)',
+                borderColor: 'rgba(78, 115, 223, 1)',
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+
+    // Transaction Chart
+    var transactionCtx = document.getElementById('transactionChart').getContext('2d');
+    var transactionChart = new Chart(transactionCtx, {
+        type: 'bar',
+        data: {
+            labels: {!! json_encode(array_keys($monthlyTransactionStats)) !!},
+            datasets: [{
+                label: 'Transactions',
+                data: {!! json_encode(array_column($monthlyTransactionStats, 'count')) !!},
+                backgroundColor: 'rgba(28, 200, 138, 0.2)',
+                borderColor: 'rgba(28, 200, 138, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+</script>
+@endpush
