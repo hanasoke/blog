@@ -205,6 +205,8 @@ Route::prefix('admin')
                 Route::get('/get_unread_messages', 'TransactionController@getUnreadMessages')->name('get_unread_messages');
                 Route::post('/mark_message_read/{id}', 'TransactionController@markMessageAsRead')->name('mark_message_read');
                 Route::post('/mark_all_messages_read', 'TransactionController@markAllMessagesAsRead')->name('mark_all_messages_read');
+
+                Route::get('/generate-dashboard-report', 'DashboardController@generateReport')->name('generate_dashboard_report');
         });
 Route::prefix('home')
         ->namespace('User')

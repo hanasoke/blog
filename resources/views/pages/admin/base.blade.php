@@ -7,8 +7,9 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#reportModal">
+            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+        </button>
     </div>
 
     <!-- Content Row - User Statistics Cards -->
@@ -312,7 +313,56 @@
             </div>
         </div>
     </div>
+</div>
 
+<!-- Report Generation Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="reportModalLabel">
+                    <i class="fas fa-download"></i> Generate Dashboard Report
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('generate_dashboard_report') }}" method="GET" target="_blank">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Report Type <span class="text-danger">*</span></label>
+                        <select class="form-control" name="report_type" required>
+                            <option value="dashboard">Complete Dashboard Report</option>
+                            <option value="users">Users Report Only</option>
+                            <option value="blogs">Blogs Report Only</option>
+                            <option value="transactions">Transactions Report Only</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Page Orientation <span class="text-danger">*</span></label>
+                        <select class="form-control" name="orientation" required>
+                            <option value="portrait">Portrait</option>
+                            <option value="landscape" selected>Landscape (Recommended)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Info:</strong> The report will include all dashboard statistics including users, blogs, transactions, and revenue data.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-download"></i> Generate PDF
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <!-- /.container-fluid -->
 @endsection 
